@@ -1,0 +1,261 @@
+#ribbon{
+	border: none;
+	width:100%;
+	background-color: var(--bkgrndColor);
+}
+
+#aboutTab {
+	background-color: var(--lightOrangeColor);
+	color: var(--bkgrndColor);
+	height: 22px;
+	background-size: 20px 20px;
+	background-image: url('../img/Logo.svg');
+	background-repeat: no-repeat;
+	background-position: 3px center;
+	padding: 3px 6px 3px 26px;
+}
+
+#aboutTab:hover {
+	background-color: var(--orangeColor);
+}
+
+/* Style the tab */
+.ribbonTabHeader {
+	overflow: hidden;
+	display: flex;
+}
+
+/* Style the buttons that are used to open the tab content */
+.ribbonTab {
+	color: var(--grayColor);
+	background-color: var(--bkgrndColor);
+	float: left;
+	height: 22px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	padding: 3px 24px;
+	margin: 0px 1px;
+	transition: 0.3s;
+}
+
+/* Active/current tablink class */
+.ribbonTab.active {
+	background-color: var(--grayColor);
+	color: var(--bkgrndColor);
+}
+
+/* Change background color of buttons on hover */
+.ribbonTab:hover {
+	background-color: var(--lightGrayColor);
+	color: var(--bkgrndColor);
+}
+
+/* Style the tab content */
+.ribbonTabContent {
+	background-color: var(--grayColor);
+	padding: 3px;
+	color: var(--bkgrndColor);
+}
+
+.ribbonTabGroupFooter{
+	text-align: center;
+}
+
+.ribbonTabSplitter{
+	border-right: 1px solid var(--bkgrndColor);
+}
+
+/*Buttons*/
+.ribbonButton, .ribbonDropdownBtn {
+	width: 100%;
+	text-align: left;
+}
+.ribbonButton, .ribbonDropdownBtn, .ribbonDrpdnCont button  {
+	color: var(--bkgrndColor);
+	background-color: var(--grayColor);
+	border: 1px solid var(--grayColor);
+	background-repeat: no-repeat;
+	background-position: 2px center;
+	background-size: 20px;
+	outline: none;
+	cursor: pointer;
+	padding: 4px 5px 4px 28px;
+	transition: 0.2s;
+	white-space: nowrap;
+}
+
+.ribbonButton[size="large"],.ribbonDropdownBtn[size="large"] {
+	background-position: center 2px;
+	background-size: 32px;
+	min-width: 60px;
+	padding: 34px 5px 4px 5px;
+	margin: auto;
+	text-align: center;
+}
+
+.ribbonButton:hover, .ribbonDropdownBtn:hover, .ribbonDrpdnCont button:hover{
+	/*border-radius: 2px;*/
+	background-color: var(--lightGrayColor);
+	border: 1px solid var(--bkgrndColor);
+}
+.ribbonButton:active, .ribbonDropdownBtn:active, .ribbonDrpdnCont button:active {
+	transition: 0s;
+	background-color: var(--blueColor);
+	border: 1px solid var(--bkgrndColor);
+}
+
+.ribbonDropdown {
+	position: relative;
+	display: block;
+	margin: auto;
+}
+.ribbonDropdown .ribbonDrpdnCont[show='false']{
+	display: none; /*hide original SELECT element:*/
+}
+
+
+/*DropDowns*/
+.ribbonDropdownBtn:after {
+	content: "";
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: var(--bkgrndColor) transparent;
+}
+.ribbonDropdownBtn.arrow:after {
+    border-width: 0 6px 6px 6px;
+}
+.ribbonDrpdnCont {
+	position: absolute;
+	background-color: var(--grayColor);
+	top: 100%;
+	box-sizing: content-box;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	border: 1px solid #777;
+	padding: 3px;
+	display: table;
+}
+.ribbonTabGroupFooter{
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+/* File */
+.ribbonButton[icon='openFile'] {
+  background-image: url('../img/ribbon/openFile.svg');
+}
+.ribbonButton[icon='import'] {
+  background-image: url('../img/ribbon/import.svg');
+}
+
+/* View */
+.ribbonButton[icon='toggleTree'] {
+	background-image: url('../img/ribbon/toggleTree.svg');
+}
+.ribbonButton[icon='fitView'] {
+	background-image: url('../img/ribbon/fitView.svg');
+}
+
+.ribbonButton[icon='toggleNodes'] {
+	background-image: url('../img/ribbon/toggleNodes.svg');
+}
+
+.ribbonButton[icon='toggleEdges'] {
+	background-image: url('../img/ribbon/toggleEdges.svg');
+}
+
+.ribbonButton[icon='settings'] {
+	background-image: url('../img/ribbon/settings.svg');
+}
+
+.ribbonButton[icon='help'] {
+	background-image: url('../img/ribbon/help.svg');
+}
+
+.ribbonButton[icon='shrinkElements'] {
+	background-image: url('../img/ribbon/shrinkElements.svg');
+}
+
+.ribbonButton[icon='showHide'] {
+	background-image: url('../img/ribbon/showHide.svg');
+}
+
+.ribbonButton[icon='labelIds'] {
+	background-image: url('../img/ribbon/labelIds.svg');
+}
+
+.ribbonButton[icon='properties'] {
+	background-image: url('../img/ribbon/properties.svg');
+}
+
+.ribbonButton[icon='measure'] {
+	background-image: url('../img/ribbon/measure.svg');
+}
+
+.ribbonButton[icon='compass'] {
+	background-image: url('../img/ribbon/compass.svg');
+}
+
+/*Results*/
+
+.ribbonButton[icon='deform'] {
+	background-image: url('../img/ribbon/deform.svg');
+}
+.ribbonButton[icon='fringe'] {
+	background-image: url('../img/ribbon/fringe.svg');
+}
+.ribbonButton[icon='crossSection'] {
+	background-image: url('../img/ribbon/crossSection.svg');
+}
+
+/* Drop Downs */
+.ribbonDrpdnCont [icon='topView'], .ribbonDropdownBtn[icon='topView'] {
+	background-image: url('../img/ribbon/topView.svg');
+}
+
+.ribbonDrpdnCont [icon='bottomView'], .ribbonDropdownBtn[icon='bottomView'] {
+	background-image: url('../img/ribbon/bottomView.svg');
+}
+
+.ribbonDrpdnCont [icon='frontView'] , .ribbonDropdownBtn[icon='frontView']{
+	background-image: url('../img/ribbon/frontView.svg');
+}
+
+.ribbonDrpdnCont [icon='backView'], .ribbonDropdownBtn[icon='backView']  {
+	background-image: url('../img/ribbon/backView.svg');
+}
+
+.ribbonDrpdnCont [icon='leftView'], .ribbonDropdownBtn[icon='leftView'] {
+	background-image: url('../img/ribbon/leftView.svg');
+}
+
+.ribbonDrpdnCont [icon='rightView'], .ribbonDropdownBtn[icon='rightView'] {
+	background-image: url('../img/ribbon/rightView.svg');
+}
+
+.ribbonDrpdnCont [icon='isoView'], .ribbonDropdownBtn[icon='isoView'] {
+	background-image: url('../img/ribbon/isoView.svg');
+}
+
+.ribbonDrpdnCont [icon='perspectiveView'], .ribbonDropdownBtn[icon='perspectiveView'] {
+	background-image: url('../img/ribbon/perspectiveView.svg');
+}
+
+.ribbonDrpdnCont [icon='shadedRander'], .ribbonDropdownBtn[icon='shadedRander'] {
+	background-image: url('../img/ribbon/shadedRander.svg');
+}
+
+.ribbonDrpdnCont [icon='transparentRander'], .ribbonDropdownBtn[icon='transparentRander'] {
+	background-image: url('../img/ribbon/transparentRander.svg');
+}
+
+.ribbonDrpdnCont [icon='wireframeRander'], .ribbonDropdownBtn[icon='wireframeRander'] {
+	background-image: url('../img/ribbon/wireframeRander.svg');
+}

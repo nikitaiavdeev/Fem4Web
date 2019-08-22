@@ -1,0 +1,170 @@
+#treeView{
+	display: block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 25px 10px 10px 10px;
+	
+	background-color: var(--treeBkgrndColor);
+	
+	border: 1px solid var(--treeBkgrndColor);
+	box-shadow: 0 0 2px var(--blueColor);
+	-moz-box-shadow: 0 0 2px var(--blueColor);
+	-webkit-box-shadow: 0 0 2px var(--blueColor);
+	overflow: hidden;
+		
+	color: var(--grayColor);
+	
+	-moz-user-select:none;
+	-webkit-user-select:none;
+}
+
+#treeView.resizable{
+	max-height: 69px;
+	min-height: 69px;
+	min-width: 200px;
+	resize: both;
+}
+
+#treeView.hidden{
+	height: auto !important;
+	width: auto !important;
+	border: 1px solid transparent;
+	background-color: transparent;
+	box-shadow: 0 0 0px var(--blueColor);
+	-moz-box-shadow: 0 0 0px var(--blueColor);
+	-webkit-box-shadow: 0 0 0px var(--blueColors);
+	
+	transition: width 0.5s;
+	transition: height 0.5s;
+}
+
+#treeView.hidden:hover{
+	border: 1px solid var(--treeBkgrndColor);
+	box-shadow: 0 0 2px var(--blueColor);
+	-moz-box-shadow: 0 0 2px var(--blueColor);
+	-webkit-box-shadow: 0 0 2px var(--blueColor);
+}
+
+#treeView:hover{
+	background-color: var(--modalBkgrndColor);
+}
+
+
+/*Main Table*/
+.treeTable{
+	overflow: hidden;
+}
+
+.treeTableHead{
+	display: flex;
+	text-align: center;
+}
+
+.treeTableCell{
+	white-space: nowrap;
+	padding: 3px;
+	border: 1px solid var(--darkGrayColor);
+}
+
+.treeTableCell.col1{
+	flex: 1 1 100%;
+}
+
+.treeTableCell.col2, .treeTableCell.checkBox{
+	flex: 1 1 20px;
+	margin-left: -1px;
+}
+
+.treeTableRow{
+	display: flex;
+	margin-top: -1px;
+}
+
+.treeTableRow:hover{
+	background-color: var(--lightBlueColor);
+}
+
+.treeTableRow.selected{
+	background-color: var(--darkBlueColor);
+}
+
+.treeTableCell.checkBox{
+	cursor: pointer;
+}
+.treeTableCell.checkBox.checked:after{
+	display: block;
+	content: "";
+	width: 12px;
+	height: 12px;
+	position: relative;
+	left: 4px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 12px;
+	background-image: url('../img/gui/checked.svg');
+}
+
+/*Main Table*/
+
+#treeH2{
+	width: 20px;
+	background-image: url('../img/gui/eye.svg');
+	background-position: center;
+	background-size: 15px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+
+#treeFilter{
+	background-color: transparent;
+	background-image: url('../img/gui/search.svg');
+	background-position: 3px 3px;
+	background-size: 15px;
+	background-repeat: no-repeat;
+
+	width: 100%;
+	box-sizing:border-box;
+	padding: 3px 3px 3px 25px;
+	border: 1px solid var(--darkGrayColor);
+	margin-bottom: 5px;
+
+	color: var(--grayColor);
+}
+
+#treeFilter::placeholder {
+	color: var(--darkGrayColor);
+	opacity: 1; /* Firefox */
+}
+
+#treeFilter:focus {
+	outline: none;
+	background-color: var(--grayColor);
+	color: var(--modalBkgrndColor);
+	
+	box-shadow: 0 0 2px var(--blueColor);
+	-moz-box-shadow: 0 0 2px var(--blueColor);
+	-webkit-box-shadow: 0 0 2px var(--blueColor);
+}
+
+#treeContent{
+	height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-flow: column;
+}
+
+#showTree{
+	width: 30px;
+	height: 30px;
+	background-color: transparent;
+	border: 0px solid transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px;
+	outline: none;
+	cursor: pointer;
+	padding: 4px;
+	transition: 0.2s;
+	background-image: url('../img/gui/toggleTree.svg');
+}

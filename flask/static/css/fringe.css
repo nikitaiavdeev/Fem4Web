@@ -1,0 +1,31 @@
+#fringeWrap{
+	position: absolute;
+	display: flex;
+	background-color: transparent;
+	bottom: 0px;
+	right: 0px;
+	height: 500px;
+	
+	color: var(--grayColor);
+	transition: width 0.5s;
+	transition: height 0.5s;
+}
+
+#fringeTable{
+	padding: 14px 0px;
+	width: 20px;
+	height:100%;
+}
+
+#fringeValTable{
+    text-align: right;
+	height:100%;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.fringeColor{
+	/*height:20px;*/
+}

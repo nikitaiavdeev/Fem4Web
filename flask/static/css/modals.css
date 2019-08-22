@@ -1,0 +1,244 @@
+/* Modals */
+/* -------------------------------------------------------------------- */
+#popModals {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modalContent {
+	position: relative;
+	background-color: var(--modalBkgrndColor);
+	margin: auto;
+	padding: 10px;
+	border: 1px solid #555;
+	width: 550px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.75), 0 6px 20px 0 rgba(0, 0, 0, 0.75);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.75s;
+	line-height: 16px;
+	text-align: left;
+}
+
+/* <Modal About> */
+#modalAbout {
+	width: 500px;
+	height: 300px;
+}
+
+#modalAboutText {
+	padding: 2px 16px;
+	color: var(--grayColor);
+	position: absolute;
+	left: 200px;
+	top: 70px;
+}
+
+#modalAboutTitle {
+	font-size: 18px;
+	font-weight: bold;
+	padding: 7px 0px;
+	color: var(--orangeColor);
+}
+
+#modalAboutSubTitle{
+	padding: 2px 0px;
+	color: var(--lightGrayColor);
+}
+
+#modalAboutVersion{
+	background-image: url('/static/img/build_status.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 120px;
+	height: 20px;
+	padding: 3px 0px;
+}
+
+#modalAboutLogo{
+	width: 128px;
+	height: 128px;
+	background-repeat: no-repeat;
+	background-size: 128px;
+	background-image: url('/static/img/logo.svg');
+	position: absolute;
+	top: 80px;
+	left: 40px;
+}
+
+#modelAboutFoooter {
+	padding: 5px;
+	color: var(--lightGrayColor);
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+}
+#modelAboutFoooter  a{
+	color: var(--orangeColor);
+}
+/* </Modal About> */
+
+/* <Modal Open File> */
+#modalOpenFile.modalContent {
+	width: 500px;
+}
+
+#modalOpenTitle {
+	display: inline-block;
+	padding: 5px 0 0 0;
+	color: var(--lightGrayColor);
+	font-size: 18px;
+	text-align: left;
+}
+
+/* </Modal Open File> */
+
+.modalTableRowLabel{
+	text-align: right;
+	padding: 0px 5px;
+}
+
+.modalTableRowNumber {
+	background: var(--orangeColor);
+	color: var(--lightGrayColor);
+	height: 20px;
+	width: 20px;
+	display: inline-block;
+	line-height: 20px;
+	text-align: center;
+	border-radius: 10px 10px 10px 0px;
+}
+
+/*Splitter*/
+.modalSplitter {
+    display: block;
+    overflow: hidden;
+	margin: 5px 0px;
+    border-style: inset;
+    border-width: 1px;
+}
+
+/*Button*/
+.modalBtnContainer{
+	width: 100%;
+	display: flex;
+	padding: 5px 1px 0px 0px;
+}
+
+.modalButton{
+	flex: 1;
+	padding: 3px;
+	background-color: var(--darkBlueColor);
+	border: 1px solid var(--darkGrayColor);
+	cursor: pointer;
+	color: var(--grayColor);
+	margin: -1px -1px 0px 0px;
+}
+.modalButton:hover{
+	background-color: var(--lightOrangeColor);
+	color: var(--modalBkgrndColor);
+}
+
+/*Drop Down List*/
+
+.modalDropdown{
+	background-color: transparent;
+
+	width: 100%;
+	position: relative;
+	box-sizing:border-box;
+	padding: 3px;
+	border: 1px solid var(--darkGrayColor);
+	margin: 3px 0px 3px 0px;
+
+	color: var(--grayColor);
+	cursor: pointer;
+}
+
+.modalDropdown:hover{
+	box-shadow: 0 0 2px var(--lightOrangeColor);
+	-moz-box-shadow: 0 0 2px var(--lightOrangeColor);
+	-webkit-box-shadow: 0 0 2px var(--lightOrangeColor);
+}
+
+.modalDropdown.arrow-active {
+	outline: none;
+	background-color: var(--grayColor);
+	color: var(--modalBkgrndColor);
+	
+	box-shadow: 0 0 2px var(--blueColor);
+	-moz-box-shadow: 0 0 2px var(--blueColor);
+	-webkit-box-shadow: 0 0 2px var(--blueColor);
+}
+
+/*Arrow*/
+.modalDropdown:after {
+	content: "";
+	position: absolute;
+	right: 10px;
+    top: 7px;
+	border-width: 6px 6px 0 6px;
+	border-style: solid;
+	border-color: var(--grayColor) transparent;
+}
+.modalDropdown.arrow-active:after{
+	border-color: var(--modalBkgrndColor) transparent;
+}
+
+.modalDropdown.arrow-active:after {
+	border-width: 0 6px 6px 6px;
+}
+
+/*Dropdown Options list*/
+.modalDrpdnCont {
+	/* Size & position */
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+    margin-top: 7px;
+	display: block;
+
+	/* Styles */
+	background-color: var(--grayColor);
+	color: var(--modalBkgrndColor);
+	transition: all 0.5s ease-in;
+	z-index: 99;
+}
+
+.modalDrpdnCont:before {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	bottom: 100%;
+	right: 10px;
+	border-width: 0 6px 6px 6px;
+	border-style: solid;
+	border-color: var(--grayColor) transparent;
+}
+
+.modalDrpdnCont.show-hide{
+	display: none; /*hide original SELECT element:*/
+}
+
+.modalDrpdnCont li {
+	display: block;
+	padding: 5px;
+	border-bottom: 1px solid var(--modalBkgrndColor);
+}
+
+.modalDrpdnCont li:hover {
+	background: var(--lightOrangeColor);
+}

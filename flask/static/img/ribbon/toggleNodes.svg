@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94" height="94" viewBox="-8 -8 110 110">
+<defs>
+<marker viewBox="0 0 32 32" refX="16" refY="16" id="DotL" markerWidth="16" markerHeight="16">
+<circle cx="16" cy="16" r="4" style="fill:#fd7000;stroke:#222732;stroke-width:1" />
+</marker>
+</defs>
+<g style="stroke-width:4;stroke-linejoin:round;stroke:#222732;marker-start:url(#DotL);marker-end:url(#DotL);marker-mid:url(#DotL)">
+<polygon points="47,3 85,25 85,69 47,91 9,69 9,25" fill="#6581d899"/>
+<polyline points="47,47 47,91"/>
+<polyline points="85,25 47,47 9,25" fill="none"/>
+</g>
+</svg>

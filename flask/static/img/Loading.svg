@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="-150 -150 700 646.41">
+<style>
+svg{
+	-webkit-filter: drop-shadow(0 0 14px #b3cfdd);
+	filter: drop-shadow(0 0 14px #b3cfdd);
+}
+.arrow {
+	-webkit-animation: blink 1s infinite;
+		animation: blink 1s infinite;
+}
+
+.arrow:nth-child(2), .arrow:nth-child(9) {
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+}
+.arrow:nth-child(3) {
+  -webkit-animation-delay: -0.9444444444s;
+          animation-delay: -0.9444444444s;
+}
+.arrow:nth-child(4) {
+  -webkit-animation-delay: -0.8888888889s;
+          animation-delay: -0.8888888889s;
+}
+.arrow:nth-child(5), .arrow:nth-child(10) {
+  -webkit-animation-delay: -0.8333333333s;
+          animation-delay: -0.8333333333s;
+}
+.arrow:nth-child(6) {
+  -webkit-animation-delay: -0.7777777778s;
+          animation-delay: -0.7777777778s;
+}
+.arrow:nth-child(7) {
+  -webkit-animation-delay: -0.0555555556s;
+          animation-delay: -0.0555555556s;
+}
+.arrow:nth-child(8) {
+  -webkit-animation-delay: -0.1111111111s;
+          animation-delay: -0.1111111111s;
+}
+.arrow:nth-child(11), .arrow:nth-child(13) {
+  -webkit-animation-delay: -0.6666666667s;
+          animation-delay: -0.6666666667s;
+}
+.arrow:nth-child(12) {
+  -webkit-animation-delay: -0.7222222222s;
+          animation-delay: -0.7222222222s;
+}
+.arrow:nth-child(14), .arrow:nth-child(16) {
+  -webkit-animation-delay: -0.1666666667s;
+          animation-delay: -0.1666666667s;
+}
+.arrow:nth-child(15) {
+  -webkit-animation-delay: -0.2222222222s;
+          animation-delay: -0.2222222222s;
+}
+.arrow:nth-child(17), .arrow:nth-child(22) {
+  -webkit-animation-delay: -0.3333333333s;
+          animation-delay: -0.3333333333s;
+}
+.arrow:nth-child(18), .arrow:nth-child(25) {
+  -webkit-animation-delay: -0.5s;
+          animation-delay: -0.5s;
+}
+.arrow:nth-child(19) {
+  -webkit-animation-delay: -0.6111111111s;
+          animation-delay: -0.6111111111s;
+}
+.arrow:nth-child(20) {
+  -webkit-animation-delay: -0.5555555556s;
+          animation-delay: -0.5555555556s;
+}
+.arrow:nth-child(21) {
+  -webkit-animation-delay: -0.2777777778s;
+          animation-delay: -0.2777777778s;
+}
+.arrow:nth-child(23) {
+  -webkit-animation-delay: -0.3888888889s;
+          animation-delay: -0.3888888889s;
+}
+.arrow:nth-child(24) {
+  -webkit-animation-delay: -0.4444444444s;
+          animation-delay: -0.4444444444s;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0.1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+</style>
+<path class ="arrow" d="M100 0 l-50 86.6025 h100 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M100 0 h100 l-50 86.6025 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M200 0 l-50 86.6025 h100 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M200 0 h100 l-50 86.6025 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M300 0 l-50 86.6025 h100 Z" fill="#1d3272"/>
+
+<path class ="arrow" d="M50 86.6025 l-50 86.6025 h100 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M50 86.6025 h100 l-50 86.6025 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M150 86.6025 l-50 86.6025 h100 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M150 86.6025 h100 l-50 86.6025 Z" fill="#c61d1d"/>
+<path class ="arrow" d="M250 86.6025 l-50 86.6025 h100 Z" fill="#1d3272"/>
+<path class ="arrow" d="M250 86.6025 h100 l-50 86.6025 Z" fill="#1d3272"/>
+<path class ="arrow" d="M350 86.6025 l-50 86.6025 h100 Z" fill="#1d3272"/>
+
+<path class ="arrow" d="M0 173.205 h100 l-50 86.6025 Z" fill="#fd7000"/>
+<path class ="arrow" d="M100 173.205 l-50 86.6025 h100 Z" fill="#fd7000"/>
+<path class ="arrow" d="M100 173.205 h100 l-50 86.6025 Z" fill="#fd7000"/>
+<path class ="arrow" d="M200 173.205 l-50 86.6025 h100 Z" fill="#fd7000"/>
+<path class ="arrow" d="M200 173.205 h100 l-50 86.6025 Z" fill="#1d3272"/>
+<path class ="arrow" d="M300 173.205 l-50 86.6025 h100 Z" fill="#1d3272"/>
+<path class ="arrow" d="M300 173.205 h100 l-50 86.6025 Z" fill="#1d3272"/>
+
+<path class ="arrow" d="M50 259.8075 h100 l-50 86.6025 Z" fill="#fd7000"/>
+<path class ="arrow" d="M150 259.8075 l-50 86.6025 h100 Z" fill="#fd7000"/>
+<path class ="arrow" d="M150 259.8075 h100 l-50 86.6025 Z" fill="#fd7000"/>
+<path class ="arrow" d="M250 259.8075 l-50 86.6025 h100 Z" fill="#fd7000"/>
+<path class ="arrow" d="M250 259.8075 h100 l-50 86.6025 Z" fill="#1d3272"/>
+</svg>

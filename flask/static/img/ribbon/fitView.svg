@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="94" height="94" viewBox="-13 -13 120 120">
+<defs>
+<marker viewBox="-1 -1 10 10" refX="4" refY="8" id="Arr" markerWidth="4" markerHeight="4" orient="auto">
+<g style="fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;stroke:#222732">
+<polyline points="0,3 4,0 8,3" />
+<polyline points="4,8 4,0"/>
+</g>
+</marker>
+</defs>
+<g style="stroke-width:4;stroke-linejoin:round;stroke:#222732">
+<polyline points="85,25 85,69 47,91 9,69 9,25 47,3 85,25 85,69" style="fill:#6581d899;marker-mid:url(#Arr)"/>
+<polyline points="47,47 47,91"/>
+<polyline points="85,25 47,47 9,25" fill="none"/>
+</g>
+</svg>

@@ -1,0 +1,289 @@
+/* CSS file placeholder. */
+:root{
+	--bkgrndColor: #222732; /*= OpneGL BkgrndColor*/
+	--modalBkgrndColor: #2e2e2e; /*modals color*/
+	--treeBkgrndColor: #10101070; /*tree unhovered color*/
+	--grayColor: #ddd; /*Gray = Ribbon color*/
+	--lightGrayColor: #eee; /*Light Gray = Ribbon hover color*/
+	--darkGrayColor: #666;
+	--orangeColor: #fd7000;
+	--lightOrangeColor: #ff9c4d;
+	--redColor: #c61d1d;
+	--greenColor: #4C9A2A;
+	--blueColor: #b3cfdd;
+	--lightBlueColor: #96a5dc70;
+	--darkBlueColor: #3D4D8270;
+}
+
+/* latin */
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Roboto'), url(/static/fonts/roboto.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+*,
+html {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto';
+	font-size: 13px;
+}
+
+button{
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+body {
+	background: var(--bkgrndColor);
+	color: var(--grayColor);
+	overflow: hidden;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	flex: 1;
+	overflow: hidden;
+	position: relative;
+}
+
+#canvasWrap{
+	height: 100%;
+	width: 100%;
+}
+
+#FPS{
+	position: absolute;
+	bottom: 0px;
+}
+
+
+/* Progress Bar */
+/* -------------------------------------------------------------------- */
+#initialLogo{
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	display: flex;
+	background: var(--bkgrndColor);
+	
+	cursor: wait;	
+	z-index: 100;
+	transition: 0.3s;
+}
+
+canvas{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.hideBtn{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 12px;
+	height: 12px;
+	border: 0px solid;
+	border-radius: 12px;
+	
+	background-color:transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url('../img/gui/hide.svg');
+	cursor: pointer;
+}
+
+
+.hideBtn:hover, .hideBtn:focus{
+	outline: none;
+	box-shadow: 0 0 5px var(--orangeColor),inset 0 0 3px var(--orangeColor);
+	-moz-box-shadow: 0 0 5px var(--orangeColor),inset 0 0 3px var(--orangeColor);
+	-webkit-box-shadow: 0 0 5px var(--orangeColor),inset 0 0 3px var(--orangeColor);
+}
+
+.closeBtn{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 15px;
+	height: 15px;
+	border: 0px solid;
+	border-radius: 15px;
+	
+	background-color:transparent;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-image: url('../img/gui/close.svg');
+	cursor: pointer;
+}
+
+.closeBtn:hover, .closeBtn:focus{
+	outline: none;
+	box-shadow: 0 0 5px var(--orangeColor),inset 0 0 3px var(--orangeColor);
+	-moz-box-shadow: 0 0 5px var(--orangeColor),inset 0 0 3px var(--orangeColor);
+	-webkit-box-shadow: 0 0 5px var(--orangeColor),inset 0 0 3px var(--orangeColor);
+}
+
+.resizable:after{
+	content: '';
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	height: 15px;
+	width: 15px;
+	cursor: nwse-resize;
+}
+
+.dragWidthLeft{
+	background: var(--darkGrayColor);
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    left: -4px;
+    height: 30px;
+    width: 5px;
+    cursor: col-resize;
+}
+
+#logo{
+	flex: 1 1 100%;
+	width: 25%;
+	height: 25%;
+	-webkit-filter: drop-shadow(0 0 50px #b3cfdd);
+	filter: drop-shadow(0 0 50px #b3cfdd);
+}
+#logo .arrow {
+	-webkit-animation: blink 1s infinite;
+		animation: blink 1s infinite;
+}
+
+#logo .arrow:nth-child(1), #logo .arrow:nth-child(8) {
+  -webkit-animation-delay: -1s;
+          animation-delay: -1s;
+}
+#logo .arrow:nth-child(2) {
+  -webkit-animation-delay: -0.9444444444s;
+          animation-delay: -0.9444444444s;
+}
+#logo .arrow:nth-child(3) {
+  -webkit-animation-delay: -0.8888888889s;
+          animation-delay: -0.8888888889s;
+}
+#logo .arrow:nth-child(4), #logo .arrow:nth-child(9) {
+  -webkit-animation-delay: -0.8333333333s;
+          animation-delay: -0.8333333333s;
+}
+#logo .arrow:nth-child(5) {
+  -webkit-animation-delay: -0.7777777778s;
+          animation-delay: -0.7777777778s;
+}
+#logo .arrow:nth-child(6) {
+  -webkit-animation-delay: -0.0555555556s;
+          animation-delay: -0.0555555556s;
+}
+#logo .arrow:nth-child(7) {
+  -webkit-animation-delay: -0.1111111111s;
+          animation-delay: -0.1111111111s;
+}
+#logo .arrow:nth-child(10), #logo .arrow:nth-child(12) {
+  -webkit-animation-delay: -0.6666666667s;
+          animation-delay: -0.6666666667s;
+}
+#logo .arrow:nth-child(11) {
+  -webkit-animation-delay: -0.7222222222s;
+          animation-delay: -0.7222222222s;
+}
+#logo.arrow:nth-child(13), #logo .arrow:nth-child(15) {
+  -webkit-animation-delay: -0.1666666667s;
+          animation-delay: -0.1666666667s;
+}
+#logo .arrow:nth-child(14) {
+  -webkit-animation-delay: -0.2222222222s;
+          animation-delay: -0.2222222222s;
+}
+#logo .arrow:nth-child(16), #logo .arrow:nth-child(21) {
+  -webkit-animation-delay: -0.3333333333s;
+          animation-delay: -0.3333333333s;
+}
+#logo .arrow:nth-child(17), #logo .arrow:nth-child(24) {
+  -webkit-animation-delay: -0.5s;
+          animation-delay: -0.5s;
+}
+#logo .arrow:nth-child(18) {
+  -webkit-animation-delay: -0.6111111111s;
+          animation-delay: -0.6111111111s;
+}
+#logo .arrow:nth-child(19) {
+  -webkit-animation-delay: -0.5555555556s;
+          animation-delay: -0.5555555556s;
+}
+#logo .arrow:nth-child(20) {
+  -webkit-animation-delay: -0.2777777778s;
+          animation-delay: -0.2777777778s;
+}
+#logo .arrow:nth-child(22) {
+  -webkit-animation-delay: -0.3888888889s;
+          animation-delay: -0.3888888889s;
+}
+#logo .arrow:nth-child(23) {
+  -webkit-animation-delay: -0.4444444444s;
+          animation-delay: -0.4444444444s;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/*divTable*/
+.divTable{
+	display: table;
+	width: 100%;
+}
+
+.divTableRow{
+	display: table-row;
+	padding: 0px 3px;
+}
+
+.divTableCell{
+	display: table-cell;
+	white-space: nowrap;
+}
+
+.divTableRow .divTableCell:last-child{
+    width:100%;
+}
+/*divTable*/
