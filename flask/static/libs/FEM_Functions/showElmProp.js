@@ -1,10 +1,7 @@
-showElmProp = function (){
-	this.init();
-	sideBar.currentObject = this;
-}
+class $showElmProp{
+	constructor(){
+		sideBar.currentObject = this;
 
-showElmProp.prototype = {
-	init:function(){
 		this.selectElements = sideBar.addSelect(
 				/*object*/		this.selectElements,
 				/*caption*/ 	'Select Elements:', 
@@ -26,36 +23,36 @@ showElmProp.prototype = {
 				/*parent*/ row, 
 				/*callback*/this.clearAll
 			);
-	},
+	}
 	//CallBacks
-	apply:function(e){
+	apply(e){
 		let self = showElmProp,
-			elmList = new fmList,
+			elmList = new fmList(),
 			tmpProp, tmpMat, text;
 		
 		elmList.readList(self.selectElements.value);
 		
-		for(elm of elmList.elmArr){
+		for(const elm of elmList.elmArr){
 			tmpProp = fmPropDict[elm.pid];
 			tmpMat = fmMatDict[tmpProp.mid];
 			
 			if( elm.type == 'CROD' )
-				text = 'A=' + tmpProp.a
+				text = 'A=' + tmpProp.a;
 			else if( elm.type == 'CQUAD' || elm.type == 'CTRIA' || elm.type == 'CSHEAR' )
-				text = 't=' + tmpProp.t
+				text = 't=' + tmpProp.t;
 			text += '; E=' + tmpMat.e + '; nu=' + tmpMat.nu;
 			
-			glText.elmPropCoords.push(...elm.getCentroid());
+			glText.elmPropCoords.push(...elm.centroid.xyz);
 			glText.elmPropText.push(text);
 		}
 		
 		glText.updateLocations();
-	},
-	clearAll:function(e){
+	}
+	clearAll(e){
 		glText.elmPropCoords = [];
 		glText.elmPropText = [];
 		glText.updateLocations();
 	}
 }
 
-var showElmProp = new showElmProp();
+const showElmProp = new $showElmProp();

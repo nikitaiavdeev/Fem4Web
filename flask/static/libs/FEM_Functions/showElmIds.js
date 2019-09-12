@@ -1,10 +1,7 @@
-showElmIds = function (){
-	this.init();
-	sideBar.currentObject = this;
-}
-
-showElmIds.prototype = {
-	init:function(){
+class $showElmIds{
+	constructor(){
+		sideBar.currentObject = this;
+		
 		this.selectNodes = sideBar.addSelect(
 				/*object*/		this.selectNodes,
 				/*caption*/ 	'Select Nodes:', 
@@ -42,29 +39,29 @@ showElmIds.prototype = {
 				/*parent*/ 		row, 
 				/*callback*/	this.clearAll
 			);
-	},
+	}
 	//CallBacks
-	apply:function(e){
-		let	self = showElmIds;
-			nodeList = new fmList,
-			elmList = new fmList;
+	apply(e){
+		let	self = showElmIds,
+			nodeList = new fmList(),
+			elmList = new fmList();
 		
 		nodeList.readList(self.selectNodes.value);
 		elmList.readList(self.selectElements.value);
 		
-		for(node of nodeList.nodeArr){
-			glText.nodeCoords.push(...node.getCoords());
+		for(const node of nodeList.nodeArr){
+			glText.nodeCoords.push(...node.coords.xyz);
 			glText.nodeText.push(node.id);
 		}
 		
-		for(elm of elmList.elmArr){
-			glText.elmCoords.push(...elm.getCentroid());
+		for(const elm of elmList.elmArr){
+			glText.elmCoords.push(...elm.centroid.xyz);
 			glText.elmText.push(elm.id);
 		}
 		
 		glText.updateLocations();
-	},
-	clearAll:function(e){
+	}
+	clearAll(e){
 		glText.nodeCoords = [];
 		glText.nodeText = [];
 		
@@ -74,4 +71,4 @@ showElmIds.prototype = {
 	}
 }
 
-var showElmIds = new showElmIds();
+const showElmIds = new $showElmIds();

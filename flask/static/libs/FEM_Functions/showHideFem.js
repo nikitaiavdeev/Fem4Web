@@ -1,10 +1,7 @@
-showHideFem = function (){
-	this.init();
-	sideBar.currentObject = this;
-}
+class $showHideFem{
+	constructor(){
+		sideBar.currentObject = this;
 
-showHideFem.prototype = {
-	init:function(){
 		this.selectFem = sideBar.addSelect(
 				/*object*/		this.selectFem,
 				/*caption*/ 	'Select FEM:', 
@@ -40,43 +37,43 @@ showHideFem.prototype = {
 				/*parent*/ 		row, 
 				/*callback*/	this.hideAll
 			);
-	},
-	showHide:function(nodeArr, elmArr, isShow = true){
-		for(node of nodeArr){
+	}
+	showHide(nodeArr, elmArr, isShow = true){
+		for(const node of nodeArr){
 			node.show = isShow;
 			node.setStage();
 		}
 		
-		for(elm of elmArr){
+		for(const elm of elmArr){
 			elm.show = isShow;
 			elm.setStage();
 		}
 		model.updateStages();
 		model.updateSelectStages();
-	},
+	}
 	//CallBacks
-	show:function(e){
+	show(e){
 		let self = showHideFem,
-			femList = new fmList;
+			femList = new fmList();
 		femList.readList(self.selectFem.value);
 		
 		self.showHide(femList.nodeArr, femList.elmArr);
-	},
-	showAll:function(e){
+	}
+	showAll(e){
 		let self = showHideFem;
 		self.showHide(fmNodes, fmElems);
-	},
-	hide:function(e){
+	}
+	hide(e){
 		let self = showHideFem,
-			femList = new fmList;
+			femList = new fmList();
 		femList.readList(self.selectFem.value);
 		
 		self.showHide(femList.nodeArr, femList.elmArr, false);
-	},
-	hideAll:function(e){
+	}
+	hideAll(e){
 		let self = showHideFem;
 		self.showHide(fmNodes, fmElems, false);
 	}
-};
+}
 
-var showHideFem = new showHideFem();
+const showHideFem = new $showHideFem();

@@ -48,7 +48,6 @@ js = Bundle(
 			'./libs/FEM/fmList.js',
 			'./libs/FEM/fmFEM.js',
 			'./libs/FEM/fmGroups.js',
-			'./libs/FEM/fmMath.js',
 			'./libs/FEM/fmVectors.js',
 
 			# Import
@@ -66,6 +65,8 @@ css = Bundle(
             './css/fringe.css',
              filters='cssmin', output='min/h5view.min.css')
 
+#f = tables.open_file(H5FILE, 'r')
+#f.close
 ELMTYPES = ['cbar', 'cbeam', 'crod', 'ctria3', 'cquad4', 'cshear']
 
 app = Flask(__name__)
@@ -126,7 +127,7 @@ def crossSection():
             i = np.where(f['model']['geom2']['eid'][eType][()] == elm)[0]
             if len(i) > 0:
                 i = i[0]
-                for key, value in gpfb.items():
+                for key in gpfb.items():
                     j = np.where(np.sort(f['model']['geom2']['gid'][eType][i, :]) == key)[0]
                     if len(j) > 0:
                         j = j[0]
@@ -198,5 +199,4 @@ if __name__ == "__main__":
     #http_server.serve_forever()
     compress.init_app(app)
     assets.init_app(app)
-    app.run(host="0.0.0.0", port=5000, debug = False, use_reloader=False)
-    
+    app.run(host="0.0.0.0", port=5000, debug = False, use_reloader=False)#, ssl_context=('cert.pem', 'key.pem'))

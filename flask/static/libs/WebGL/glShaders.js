@@ -72,20 +72,20 @@ const fsModelSource = `#version 300 es
 		vec4 inColor, inStrokeColor;
 		float d = min(min(vBarycentric.x, vBarycentric.y), vBarycentric.z);
 		
-		if( !uShowPoints && vStage > 0.899 && vStage < 0.901  ){ //hidden nodes
+		if( !uShowPoints && vStage == 0.9  ){ //hidden nodes
 			discard;
 		}
 		
-		if ( uShrink > 0.0 && d < uShrink || vStage < 0.401 ){ //hidden elements
+		if ( uShrink > 0.0 && d < uShrink || vStage < 0.4 ){ //hidden elements
 			discard;
 		}
 		
-		if (vStage > 0.799 && vStage < 0.801 ){ // Selection shell
+		if (vStage == 0.8 ){ // Selection shell
 			inColor.rgb = vec3(0.97, 0.83, 0.6);
 			inStrokeColor = vec4(1.0, 0.65, 0.2, 1.0);
-		} else if (vStage > 0.699 && vStage < 0.701 ){ // Selection bar
+		} else if (vStage == 0.7 ){ // Selection bar
 			inColor.rgb = vec3(0.95, 0.55, 0.15);
-		} else if (vStage > 0.599 && vStage < 0.601){ // Selection node
+		} else if (vStage == 0.6){ // Selection node
 			inColor.rgb = vec3(1.0, 0.5, 0.1);
 		} else {
 			if ( uIsUniformColor == true ){

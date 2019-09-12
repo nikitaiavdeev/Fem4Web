@@ -1,32 +1,32 @@
-#treeView{
+#treeView {
 	display: block;
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	padding: 25px 10px 10px 10px;
-	
+
 	background-color: var(--treeBkgrndColor);
-	
+
 	border: 1px solid var(--treeBkgrndColor);
 	box-shadow: 0 0 2px var(--blueColor);
 	-moz-box-shadow: 0 0 2px var(--blueColor);
 	-webkit-box-shadow: 0 0 2px var(--blueColor);
 	overflow: hidden;
-		
+
 	color: var(--grayColor);
-	
-	-moz-user-select:none;
-	-webkit-user-select:none;
+
+	-moz-user-select: none;
+	-webkit-user-select: none;
 }
 
-#treeView.resizable{
+#treeView.resizable {
 	max-height: 69px;
 	min-height: 69px;
 	min-width: 200px;
 	resize: both;
 }
 
-#treeView.hidden{
+#treeView.hidden {
 	height: auto !important;
 	width: auto !important;
 	border: 1px solid transparent;
@@ -34,65 +34,67 @@
 	box-shadow: 0 0 0px var(--blueColor);
 	-moz-box-shadow: 0 0 0px var(--blueColor);
 	-webkit-box-shadow: 0 0 0px var(--blueColors);
-	
+
 	transition: width 0.5s;
 	transition: height 0.5s;
 }
 
-#treeView.hidden:hover{
+#treeView.hidden:hover {
 	border: 1px solid var(--treeBkgrndColor);
 	box-shadow: 0 0 2px var(--blueColor);
 	-moz-box-shadow: 0 0 2px var(--blueColor);
 	-webkit-box-shadow: 0 0 2px var(--blueColor);
 }
 
-#treeView:hover{
+#treeView:hover {
 	background-color: var(--modalBkgrndColor);
 }
 
 
 /*Main Table*/
-.treeTable{
+.treeTable {
 	overflow: hidden;
 }
 
-.treeTableHead{
+.treeTableHead {
 	display: flex;
 	text-align: center;
 }
 
-.treeTableCell{
+.treeTableCell {
 	white-space: nowrap;
 	padding: 3px;
 	border: 1px solid var(--darkGrayColor);
 }
 
-.treeTableCell.col1{
+.treeTableCell.col1 {
 	flex: 1 1 100%;
 }
 
-.treeTableCell.col2, .treeTableCell.checkBox{
+.treeTableCell.col2,
+.treeTableCell.checkBox {
 	flex: 1 1 20px;
 	margin-left: -1px;
 }
 
-.treeTableRow{
+.treeTableRow {
 	display: flex;
 	margin-top: -1px;
 }
 
-.treeTableRow:hover{
+.treeTableRow:hover {
 	background-color: var(--lightBlueColor);
 }
 
-.treeTableRow.selected{
+.treeTableRow.selected {
 	background-color: var(--darkBlueColor);
 }
 
-.treeTableCell.checkBox{
+.treeTableCell.checkBox {
 	cursor: pointer;
 }
-.treeTableCell.checkBox.checked:after{
+
+.treeTableCell.checkBox.checked:after {
 	display: block;
 	content: "";
 	width: 12px;
@@ -107,7 +109,7 @@
 
 /*Main Table*/
 
-#treeH2{
+#treeH2 {
 	width: 20px;
 	background-image: url('../img/gui/eye.svg');
 	background-position: center;
@@ -116,7 +118,7 @@
 	cursor: pointer;
 }
 
-#treeFilter{
+#treeFilter {
 	background-color: transparent;
 	background-image: url('../img/gui/search.svg');
 	background-position: 3px 3px;
@@ -124,7 +126,7 @@
 	background-repeat: no-repeat;
 
 	width: 100%;
-	box-sizing:border-box;
+	box-sizing: border-box;
 	padding: 3px 3px 3px 25px;
 	border: 1px solid var(--darkGrayColor);
 	margin-bottom: 5px;
@@ -134,27 +136,28 @@
 
 #treeFilter::placeholder {
 	color: var(--darkGrayColor);
-	opacity: 1; /* Firefox */
+	opacity: 1;
+	/* Firefox */
 }
 
 #treeFilter:focus {
 	outline: none;
 	background-color: var(--grayColor);
 	color: var(--modalBkgrndColor);
-	
+
 	box-shadow: 0 0 2px var(--blueColor);
 	-moz-box-shadow: 0 0 2px var(--blueColor);
 	-webkit-box-shadow: 0 0 2px var(--blueColor);
 }
 
-#treeContent{
+#treeContent {
 	height: 100%;
 	overflow: hidden;
 	display: flex;
 	flex-flow: column;
 }
 
-#showTree{
+#showTree {
 	width: 30px;
 	height: 30px;
 	background-color: transparent;

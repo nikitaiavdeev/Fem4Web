@@ -1,35 +1,35 @@
 // The WebGL Canvas
-var canvas;
-var textCanvas;
+var canvas = null;
+var textCanvas = null;
 
 // The WebGL Context
-var gl;
-var ctx;
-var csel;
+var gl = null;
+var ctx = null;
+var csel = null;
 
 //Create Camera
-var camera;
+var camera = null;
 //Create rendering
-var render;
+var render = null;
 //Model
-var model;
+var model = null;
 //cidAxis
-var cidAxis;
+var cidAxis = null;
 //Model json data
-var bdfData;
+var bdfData = null;
 //Mouse hover
-var hover;
-var selection;
+var hover = null;
+var selection = null;
 //Measurements
-var measure;
+var measure = null;
 //Wait loader
-var loader;
+var loader = null;
 //animationID
-var animationID;
-
+var animationID = null;
 
 // Cache all imagese
-var imgUrls =[
+window.onload = function () {
+	let imgUrls = [
 			'/static/img/build_status.svg',
 			'/static/img/Logo.svg',
 			'/static/img/ribbon/backView.svg',
@@ -47,7 +47,7 @@ var imgUrls =[
 			'/static/img/ribbon/leftView.svg',
 			'/static/img/ribbon/measure.svg',
 			'/static/img/ribbon/openFile.svg',
-			'/static/img/ribbon/perspectiveView.svg',
+			'/static/img/ribbon/toggleBackground.svg',
 			'/static/img/ribbon/properties.svg',
 			'/static/img/ribbon/rightView.svg',
 			'/static/img/ribbon/settings.svg',
@@ -55,7 +55,7 @@ var imgUrls =[
 			'/static/img/ribbon/showHide.svg',
 			'/static/img/ribbon/shrinkElements.svg',
 			'/static/img/ribbon/toggleEdges.svg',
-			'/static/img/ribbon/toggleNodes.svg',			
+			'/static/img/ribbon/toggleNodes.svg',
 			'/static/img/ribbon/topView.svg',
 			'/static/img/ribbon/transparentRander.svg',
 			'/static/img/ribbon/wireframeRander.svg',
@@ -65,65 +65,69 @@ var imgUrls =[
 			'/static/img/gui/hide.svg',
 			'/static/img/gui/search.svg',
 			'/static/img/gui/toggleTree.svg'
-		];
-var imgCount = 0;
-
-window.onload = function() {
-	for(let url of imgUrls){
+		],
+		imgCount = 0,
+		len = imgUrls.length;
+	for (const url of imgUrls) {
 		let img = new Image();
 		img.src = url;
-		img.onload = svgLoaded;
-	}	
+		img.onload = () => {			
+			if (++imgCount == len) {
+				initH5View();
+			}
+		};
+	}
 };
 
-function svgLoaded(){
-	imgCount++;
-	if(imgCount == imgUrls.length){
-		initH5View();
-	}
-}
-
-function initH5View(){
-	//Setup Global variables
-	
-	camera = new glCamera();
-	render = new glRender();
-	model = new glMesh();
-	cidAxis = new $cidAxis;
-	
-	canvas	= document.getElementById('glCanvas3D');
+function initH5View() {
+	//Init Canvases
+	canvas = document.getElementById('glCanvas3D'); //WebGL2 canvas
 	textCanvas = document.getElementById('textCanvas');
 	selectCanvas = document.getElementById('selectCanvas');
-		
+
 	//init WebGL
 	try {
 		gl = canvas.getContext('webgl2');
 		ctx = textCanvas.getContext('2d');
 		csel = selectCanvas.getContext('2d');
-	} catch (e) {}
+	} catch (e) {
+		alert('Could not initialise WebGL, sorry :-(\n'+e);
+		return;
+	}
 	if (!gl) {
 		alert('Could not initialise WebGL, sorry :-(');
 		return;
 	}
-	
-	initListerners();
-	render.loadScene();
-	
-	hover = new glHover();
-	selection = new glSelection();
-	measure = new glMeasurements();
-	cidAxis.init();
-	
+
+	//Setup Global variables
+	camera = new $glCamera();
+	render = new $glRender();
+	cidAxis = new $cidAxis();
+	hover = new $glHover();
+	selection = new $glSelection();
+	measure = new $glMeasurements();
+
+	//Init moouse and keyboard listeners
+	initListeners();
+
+	//First draw
+	reportWindowSize();
+	render.drawScene();
+
 	loader = document.getElementById('initialLogo').style;
 	loader.backgroundColor = 'transparent';
 	loader.opacity = 1;
 	loaderFade();
-};
-
-function loaderFade(){
-	(loader.opacity-=.25)<0?loader.display="none":setTimeout(loaderFade, 0);
 }
-function loaderShow(){
+
+function loaderFade() {
+	if ((loader.opacity -= 0.25) < 0)
+		loader.display = "none";
+	else
+		setTimeout(loaderFade, 0);
+}
+
+function loaderShow() {
 	loader.opacity = 1;
 	loader.display = 'flex';
 }

@@ -1,18 +1,15 @@
-resultsDispl = function (){
-	this.glNodesCoords;
-	this.glBarsCoords;
-	this.glBarsCtrCoords;
-	this.glTriasCoords;
-	this.glQuadsCoords;
-	this.lcID;
-	this.resData = [];
-	
-	this.init();
-	sideBar.currentObject = this;
-}
-
-resultsDispl.prototype = {
-	init:function(){
+class $resultsDispl{
+	constructor(){
+		this.glNodesCoords = null;
+		this.glBarsCoords = null;
+		this.glBarsCtrCoords = null;
+		this.glTriasCoords = null;
+		this.glQuadsCoords = null;
+		this.lcID = null;
+		this.resData = [];
+		
+		sideBar.currentObject = this;
+		
 		this.selectLC = sideBar.addTextBox(
 				/*object*/		this.selectLC,
 				/*caption*/		'Enter LC ID:', 
@@ -56,8 +53,8 @@ resultsDispl.prototype = {
 				/*parent*/ 		row,
 				/*callback*/	this.clearAll
 			);
-	},
-	updateDispl:function(){
+	}
+	updateDispl(){
 		let off, v, coord, dis, loc;
 		let scale = parseFloat(this.SF.value);
 		
@@ -72,7 +69,7 @@ resultsDispl.prototype = {
 		for(let i = 0; i < glNodes.count; i++){
 			off = i*3;
 			dis = this.resData[i];
-			loc = [this.glNodesCoords[off], this.glNodesCoords[off+1], this.glNodesCoords[off+2]]
+			loc = [this.glNodesCoords[off], this.glNodesCoords[off+1], this.glNodesCoords[off+2]];
 			
 			if(fmNodes[i].acid){
 				coord = fmCIDDict[fmNodes[i].acid];
@@ -119,9 +116,9 @@ resultsDispl.prototype = {
 
 		model.updateCoords();
 		model.updateSelectCoords();
-	},
+	}
 	//CallBacks
-	apply:function(e){
+	apply(e){
 		let	self = resultsDispl,
 			xhr = new XMLHttpRequest();   // new HttpRequest instance 
 		
@@ -147,9 +144,9 @@ resultsDispl.prototype = {
 				self.resData = JSON.parse(xhr.responseText).displ;
 				self.updateDispl();
 			}
-		}
-	},
-	clearAll:function(e){
+		};
+	}
+	clearAll(e){
 		let	self = resultsDispl;
 		if(self.glNodesCoords){
 			glNodes.coords = [...self.glNodesCoords];
@@ -170,4 +167,4 @@ resultsDispl.prototype = {
 	}	
 }
 
-var resultsDispl = new resultsDispl();
+const resultsDispl = new $resultsDispl();

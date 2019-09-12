@@ -1,97 +1,95 @@
-sideBarControl = function () {
-	this.wrapper = document.getElementById('sideBar');
-	
-	this.closeBtn = document.createElement('button');
-	this.closeBtn.classList.add('closeBtn');
-	this.wrapper.appendChild(this.closeBtn);
-	
-	this.closeBtn.onclick = this.closeBtnClick;
-	
-	this.mouseInitX;
-	this.dragWidth = document.createElement('div');
-	this.dragWidth.classList.add('dragWidthLeft');
-	this.dragWidth.addEventListener('mousedown', this.dragWidthClick);
-	this.wrapper.appendChild(this.dragWidth);
-	
-	this.table = document.createElement('div');
-	this.table.classList.add('sideBarContent');
-	this.table.id = 'sideBarContent';
-	this.wrapper.appendChild(this.table);
-	
-	this.btnContainer = document.createElement('div');
-	this.btnContainer.id = 'sideBarBtnContent';
-	this.wrapper.appendChild(this.btnContainer);
-	
-	this.inputCount = 0;
-	this.currentFunction;
-	this.currentObject;
-	this.focusElement;
-	this.timeout;
-};
+class sideBarControl {
+	constructor() {
+		this.wrapper = document.getElementById('sideBar');
 
-sideBarControl.prototype = {
-	closeBtnClick:function(e){
+		this.closeBtn = document.createElement('button');
+		this.closeBtn.classList.add('closeBtn');
+		this.wrapper.appendChild(this.closeBtn);
+
+		this.closeBtn.onclick = this.closeBtnClick;
+
+		this.mouseInitX = null;
+		this.dragWidth = document.createElement('div');
+		this.dragWidth.classList.add('dragWidthLeft');
+		this.dragWidth.addEventListener('mousedown', this.dragWidthClick);
+		this.wrapper.appendChild(this.dragWidth);
+
+		this.table = document.createElement('div');
+		this.table.classList.add('sideBarContent');
+		this.table.id = 'sideBarContent';
+		this.wrapper.appendChild(this.table);
+
+		this.btnContainer = document.createElement('div');
+		this.btnContainer.id = 'sideBarBtnContent';
+		this.wrapper.appendChild(this.btnContainer);
+
+		this.inputCount = 0;
+		this.currentFunction = null;
+		this.currentObject = null;
+		this.focusElement = null;
+		this.timeout = null;
+	}
+	closeBtnClick(e) {
 		sideBar.wrapper.style.display = 'none';
-	},
-	dragWidthClick:function(e){
+	}
+	dragWidthClick(e) {
 		sideBar.mouseInitX = e.clientX;
 		window.addEventListener('mousemove', sideBar.dragWidthMove);
 		window.addEventListener('mouseup', sideBar.dragWidthUp);
-	},
-	dragWidthMove:function(e){
+	}
+	dragWidthMove(e) {
 		let width = sideBar.wrapper.clientWidth - 10 - e.clientX + sideBar.mouseInitX;
 		sideBar.wrapper.style.width = width + 'px';
 		sideBar.mouseInitX = e.clientX;
-	},
-	dragWidthUp:function(e){
+	}
+	dragWidthUp(e) {
 		window.removeEventListener('mousemove', sideBar.dragWidthMove);
-	},
-	addFunction:function(source, inpObject){
-		if ( this.currentFunction === source ){
+	}
+	addFunction(source, inpObject) {
+		if (this.currentFunction === source) {
 			sideBar.wrapper.style.display = '';
 			return;
 		} else {
 			this.cleanAll();
 		}
-		
-		if ( this.wrapper.style.display == 'none' ){ 
+
+		if (this.wrapper.style.display == 'none') {
 			this.wrapper.style.display = '';
 		}
-		
-		if ( typeof window[inpObject] !== 'object') {
+
+		if (typeof window[inpObject] !== 'object') {
 			let script = document.createElement('script');
 			script.src = source;
 			document.getElementsByTagName('head')[0].appendChild(script);
 		} else {
-			this.currentObject = window[inpObject];
-			this.currentObject.init();
+			this.currentObject = new window[inpObject]();
 		}
-	
+
 		this.currentFunction = source;
-	},
-	setFocus:function(inInput){
+	}
+	setFocus(inInput) {
 		this.focusElement = inInput;
 		this.focusElement.focus();
-	},
-	cleanAll:function(){
+	}
+	cleanAll() {
 		this.table.innerHTML = '';
 		this.btnContainer.innerHTML = '';
-	},
-	addSelect:function(inpObj, caption, inpVal, selectType, isFocus){
+	}
+	addSelect(inpObj, caption, inpVal, selectType, isFocus) {
 		let col = document.createElement('div'),
 			row = this.addRow(),
 			input;
-		
-		
+
+
 		col.classList.add('sideBarCol1');
-		col.innerHTML = caption;		
-		row.appendChild(col);		
-		
-		col = document.createElement('div');
-		col.classList.add('sideBarCol2');		
+		col.innerHTML = caption;
 		row.appendChild(col);
-		
-		if ( inpObj ) {
+
+		col = document.createElement('div');
+		col.classList.add('sideBarCol2');
+		row.appendChild(col);
+
+		if (inpObj) {
 			input = inpObj;
 		} else {
 			input = document.createElement('input');
@@ -101,49 +99,49 @@ sideBarControl.prototype = {
 			input.value = inpVal;
 			input.classList.add('sideBarSelect');
 		}
-		input.onfocus = function(){
-				selection.filter = selectType;
-				selection.textBox = this;
-				selection.selectList.readList(this.value);
-				
-				this.scrollLeft = this.scrollWidth;
-				this.setSelectionRange(this.value.length, this.value.length);
+		input.onfocus = function () {
+			selection.filter = selectType;
+			selection.textBox = this;
+			selection.selectList.readList(this.value);
+
+			this.scrollLeft = this.scrollWidth;
+			this.setSelectionRange(this.value.length, this.value.length);
+			selection.clearSelection(false);
+			selection.setSelection();
+		};
+		input.onblur = function (e) {
+			row.classList.remove('focus');
+			selection.filter = selectFilter.NONE;
+			selection.textBox = null;
+			selection.clearSelection();
+		};
+		input.addEventListener('input', function (e) {
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(function () {
+				selection.selectList.readList(input.value);
 				selection.clearSelection(false);
 				selection.setSelection();
-			};
-		input.onblur = function(e){
-				row.classList.remove('focus');
-				selection.filter = selectFilter.NONE;
-				selection.textBox = null;
-				selection.clearSelection();
-			};
-		input.addEventListener('input', function(e){
-				clearTimeout(this.timeout);
-				this.timeout = setTimeout( function(){
-						selection.selectList.readList(input.value);
-						selection.clearSelection(false);
-						selection.setSelection();
-					}, 1000);
-			}, false);
+			}, 1000);
+		}, false);
 		col.appendChild(input);
-		
+
 		if (isFocus) this.setFocus(input);
 		return input;
-	},
-	addTextBox:function(inpObj, caption, inpVal, inpType, isFocus){
-		let row = this.addRow(), 
+	}
+	addTextBox(inpObj, caption, inpVal, inpType, isFocus) {
+		let row = this.addRow(),
 			col = document.createElement('div'),
 			input;
-		
+
 		col.classList.add('sideBarCol1');
-		col.innerHTML = caption;		
+		col.innerHTML = caption;
 		row.appendChild(col);
-		
+
 		col = document.createElement('div');
-		col.classList.add('sideBarCol2');		
+		col.classList.add('sideBarCol2');
 		row.appendChild(col);
-		
-		if ( inpObj ){
+
+		if (inpObj) {
 			input = inpObj;
 		} else {
 			input = document.createElement('input');
@@ -152,48 +150,48 @@ sideBarControl.prototype = {
 			input.setAttribute('autocomplete', 'off');
 			input.value = inpVal;
 			input.inpType = inpType;
-			
+
 			input.classList.add('sideBarSelect');
 		}
-		input.onfocus = function(){
-				this.scrollLeft = this.scrollWidth;
-				this.setSelectionRange(this.value.length, this.value.length);
-			};
-		input.onblur = function(e){
-				row.classList.remove('focus');
-			};
-		
-		input.onkeypress = function(e){
-			if ( e.which == 0 ) // sys keys
+		input.onfocus = function () {
+			this.scrollLeft = this.scrollWidth;
+			this.setSelectionRange(this.value.length, this.value.length);
+		};
+		input.onblur = function (e) {
+			row.classList.remove('focus');
+		};
+
+		input.onkeypress = function (e) {
+			if (e.which == 0) // sys keys
 				return true;
-			
-			if ( this.inpType == 'string' )
+
+			if (this.inpType == 'string')
 				return true;
-			if ( e.which.between(48, 57) || e.which == 8 )
+			if (e.which.between(48, 57) || e.which == 8)
 				return true;
-			if ( this.inpType == 'float' && e.which == 46 && this.value.indexOf('.') == -1 )
+			if (this.inpType == 'float' && e.which == 46 && this.value.indexOf('.') == -1)
 				return true;
 			return false;
 		};
 		col.appendChild(input);
-		
+
 		if (isFocus) this.setFocus(input);
 		return input;
-	},
-	addMultiOption:function(inpObj, caption, isFocus, callback){
+	}
+	addMultiOption(inpObj, caption, isFocus, callback) {
 		let col = document.createElement('div'),
 			row = this.addRow(),
 			select;
-			
+
 		col.classList.add('sideBarCol1');
 		col.innerHTML = caption;
 		row.appendChild(col);
-		
+
 		col = document.createElement('div');
-		col.classList.add('sideBarCol2');		
+		col.classList.add('sideBarCol2');
 		row.appendChild(col);
-		
-		if ( inpObj ){
+
+		if (inpObj) {
 			select = inpObj;
 		} else {
 			select = document.createElement('select');
@@ -202,106 +200,106 @@ sideBarControl.prototype = {
 			select.onchange = callback;
 		}
 		col.appendChild(select);
-		
+
 		if (isFocus) this.setFocus(select);
 		return select;
-	},
-	addRow:function(){
+	}
+	addRow() {
 		let row = document.createElement('div');
-		
+
 		row.classList.add('sideBarRow');
 		this.table.appendChild(row);
-		
+
 		return row;
-	},
-	addBtnRow:function(){
+	}
+	addBtnRow() {
 		let row = document.createElement('div');
-		
+
 		row.classList.add('sideBarRow');
-		this.btnContainer.appendChild(row);		
-		
+		this.btnContainer.appendChild(row);
+
 		return row;
-	},
-	addCheckBox:function(inpObj, caption, isChecked, parent){
-		let	label = document.createElement('label'),
+	}
+	addCheckBox(inpObj, caption, isChecked, parent) {
+		let label = document.createElement('label'),
 			span = document.createElement('span'),
 			input;
-		
+
 		label.innerHTML = caption;
 		label.classList.add('sideBarCheckContainer');
-		
+
 		span.classList.add('sideBarCheck');
-		
-		if ( inpObj ){
+
+		if (inpObj) {
 			input = inpObj;
 		} else {
 			input = document.createElement('input');
 			input.id = 'input_' + this.inputCount++;
 			input.type = 'checkbox';
 
-			if(isChecked)
-				input.setAttribute('checked','');
+			if (isChecked)
+				input.setAttribute('checked', '');
 		}
-		
+
 		label.appendChild(input);
 		label.appendChild(span);
-		
-		if(parent){
+
+		if (parent) {
 			parent.appendChild(label);
 		} else {
 			let row = document.createElement('div');
-		
+
 			row.classList.add('sideBarRow');
 			row.appendChild(label);
-			this.table.appendChild(row);		
+			this.table.appendChild(row);
 		}
-		
+
 		return input;
-	},
-	addRadio:function(inpObj, caption, groupName, isChecked, parent){
+	}
+	addRadio(inpObj, caption, groupName, isChecked, parent) {
 		let label = document.createElement('label'),
 			span = document.createElement('span'),
 			input;
 
 		label.classList.add('sideBarRadioContainer');
-		
+
 		span.classList.add('sideBarRadio');
-		if ( inpObj ){
+		if (inpObj) {
 			input = inpObj;
 		} else {
 			input = document.createElement('input');
 			input.id = 'input_' + this.inputCount++;
 			input.type = 'radio';
 			input.name = groupName;
-			if(isChecked)
-				input.setAttribute('checked','');
+			if (isChecked)
+				input.setAttribute('checked', '');
 		}
-		
+
 		label.appendChild(input);
 		label.appendChild(span);
 		label.innerHTML = label.innerHTML + caption;
-		
-		if(parent){
+
+		if (parent) {
 			parent.appendChild(label);
 		} else {
 			let row = document.createElement('div');
-		
+
 			row.classList.add('sideBarRow');
 			row.appendChild(label);
-			this.table.appendChild(row);		
+			this.table.appendChild(row);
 		}
 
 		return input;
-	},
-	addMultiOptionAdd:function(text, parent){
+	}
+	addMultiOptionAdd(text, parent) {
 		let option = document.createElement('option');
 		option.innerHTML = text;
 		parent.appendChild(option);
-	},
-	addButton:function(inpObj, caption, parent, callback){
+	}
+	addButton(inpObj, caption, parent, callback) {
 		let button;
-		
-		if ( inpObj ){
+
+		if (inpObj) {
 			button = inpObj;
 		} else {
 			button = document.createElement('button');
@@ -310,13 +308,13 @@ sideBarControl.prototype = {
 			button.classList.add('sideBarButton');
 			button.addEventListener('click', callback);
 		}
-		button.onclick = function(e){
-				sideBar.focusElement.focus();
-			}
-		
+		button.onclick = function (e) {
+			sideBar.focusElement.focus();
+		};
+
 		parent.appendChild(button);
 		return button;
 	}
-};
+}
 
-var sideBar = new sideBarControl();
+const sideBar = new sideBarControl();

@@ -1,4 +1,4 @@
-#sideBar{
+#sideBar {
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -6,62 +6,62 @@
 	min-width: 300px;
 	max-width: 600px;
 	padding: 25px 5px 5px 5px;
-	
+
 	background-color: var(--treeBkgrndColor);
-	
+
 	border: 1px solid var(--treeBkgrndColor);
 	box-shadow: 0 0 2px var(--blueColor);
 	-moz-box-shadow: 0 0 2px var(--blueColor);
 	-webkit-box-shadow: 0 0 2px var(--blueColor);
-	
+
 	color: var(--grayColor);
 	transition: width 0.5s;
 	transition: height 0.5s;
 }
 
-#sideBar:hover{
+#sideBar:hover {
 	background-color: var(--modalBkgrndColor);
 }
 
-#sideBar [disabled]{
+#sideBar [disabled] {
 	cursor: not-allowed;
 }
 
-#sideBarContent{
+#sideBarContent {
 	display: flex;
 	flex-flow: wrap;
 }
 
-#sideBarBtnContent{
+#sideBarBtnContent {
 	padding: 5px 1px 0px 0px;
-	display:flex;
+	display: flex;
 	flex-flow: wrap;
 }
 
-.sideBarRow{
+.sideBarRow {
 	flex: 1 1 100%;
 	display: flex;
 	align-items: center;
 }
 
-#sideBar .sideBarRow:focus-within{
+#sideBar .sideBarRow:focus-within {
 	box-shadow: -3px 0px 0px var(--greenColor);
 	-moz-box-shadow: -3px 0px 0px var(--greenColor);
 	-webkit-box-shadow: -3px 0px 0px var(--greenColor);
 }
 
-.sideBarCol{
+.sideBarCol {
 	flex: 1;
 	text-align: left;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	user-select: none;	
+	user-select: none;
 }
 
-.sideBarCol1{
+.sideBarCol1 {
 	flex: 1;
-    flex-basis: 100px;
+	flex-basis: 100px;
 	padding: 0px 2px 0px 5px;
 	text-align: right;
 	-webkit-user-select: none;
@@ -71,13 +71,13 @@
 	white-space: nowrap;
 }
 
-.sideBarCol2{
+.sideBarCol2 {
 	flex: 100;
 	padding: 0px 2px 0px 5px;
 	text-align: left;
 }
 
-.sideBarC1{
+.sideBarC1 {
 	padding: 0px 5px 0px 5px;
 	text-align: right;
 	-webkit-user-select: none;
@@ -86,11 +86,11 @@
 	user-select: none;
 }
 
-.sideBarSelect{
+.sideBarSelect {
 	background-color: transparent;
 
 	width: 100%;
-	box-sizing:border-box;
+	box-sizing: border-box;
 	padding: 3px;
 	border: 1px solid var(--darkGrayColor);
 	margin: 3px 0px 3px 0px;
@@ -101,7 +101,8 @@
 select.sideBarSelect {
 	cursor: pointer;
 }
-.sideBarSelect:hover{
+
+.sideBarSelect:hover {
 	box-shadow: 0 0 2px var(--lightOrangeColor);
 	-moz-box-shadow: 0 0 2px var(--lightOrangeColor);
 	-webkit-box-shadow: 0 0 2px var(--lightOrangeColor);
@@ -111,13 +112,14 @@ select.sideBarSelect {
 	outline: none;
 	background-color: var(--grayColor);
 	color: var(--modalBkgrndColor);
-	
+
 	box-shadow: 0 0 2px var(--blueColor);
 	-moz-box-shadow: 0 0 2px var(--blueColor);
 	-webkit-box-shadow: 0 0 2px var(--blueColor);
 }
 
-.sideBarCheckContainer, .sideBarRadioContainer{
+.sideBarCheckContainer,
+.sideBarRadioContainer {
 	flex: 1;
 	display: flex;
 	align-items: center;
@@ -130,7 +132,8 @@ select.sideBarSelect {
 	user-select: none;
 }
 
-.sideBarCheckContainer input, .sideBarRadioContainer input{
+.sideBarCheckContainer input,
+.sideBarRadioContainer input {
 	position: absolute;
 	opacity: 0;
 	height: 0;
@@ -146,17 +149,17 @@ select.sideBarSelect {
 	margin-left: 5px;
 }
 
-.sideBarCheckContainer:hover input[disabled] ~ .sideBarCheck{
+.sideBarCheckContainer:hover input[disabled]~.sideBarCheck {
 	box-shadow: 0 0 0;
 }
 
-.sideBarCheckContainer:hover input ~ .sideBarCheck{
+.sideBarCheckContainer:hover input~.sideBarCheck {
 	box-shadow: 0 0 2px var(--lightOrangeColor);
 	-moz-box-shadow: 0 0 2px var(--lightOrangeColor);
 	-webkit-box-shadow: 0 0 2px var(--lightOrangeColor);
 }
 
-.sideBarCheckContainer input:checked ~ .sideBarCheck {
+.sideBarCheckContainer input:checked~.sideBarCheck {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 12px;
@@ -175,24 +178,26 @@ select.sideBarSelect {
 	border-radius: 50%;
 }
 
-.sideBarRadio:after{
+.sideBarRadio:after {
 	content: "";
 	position: absolute;
 	display: none;
 }
 
-.sideBarRadioContainer:hover input ~ .sideBarRadio {
+.sideBarRadioContainer:hover input~.sideBarRadio {
 	box-shadow: 0 0 3px var(--lightOrangeColor);
 	-moz-box-shadow: 0 0 3px var(--lightOrangeColor);
 	-webkit-box-shadow: 0 0 3px var(--lightOrangeColor);
 }
-.sideBarRadioContainer input:checked ~ .sideBarRadio{
+
+.sideBarRadioContainer input:checked~.sideBarRadio {
 	background-color: var(--lightBlueColor);
 }
 
-.sideBarRadioContainer input:checked ~ .sideBarRadio:after {
+.sideBarRadioContainer input:checked~.sideBarRadio:after {
 	display: block;
 }
+
 .sideBarRadioContainer .sideBarRadio:after {
 	top: 4px;
 	left: 4px;
@@ -202,7 +207,7 @@ select.sideBarSelect {
 	background: var(--grayColor);
 }
 
-.sideBarButton{
+.sideBarButton {
 	flex: 1;
 	padding: 3px;
 	background-color: var(--darkBlueColor);
@@ -211,7 +216,8 @@ select.sideBarSelect {
 	color: var(--grayColor);
 	margin: -1px -1px 0px 0px;
 }
-.sideBarButton:hover{
+
+.sideBarButton:hover {
 	background-color: var(--lightOrangeColor);
 	color: var(--modalBkgrndColor);
 }

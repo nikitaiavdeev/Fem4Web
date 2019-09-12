@@ -19,36 +19,38 @@ var mouseDown = false;
 var lastMouseX = null;
 var lastMouseY = null;
 
-function initListerners() {
+function initListeners() {
 	//Keyboard
 	document.addEventListener('keydown', function (e) {
-			if (e.keyCode == 16) {
-				KeyboardState.Shift = true;
-			} else if (e.keyCode == 17) {
-				KeyboardState.Ctrl = true;
-			}
-		});
+		if (e.keyCode == 16) {
+			KeyboardState.Shift = true;
+		} else if (e.keyCode == 17) {
+			KeyboardState.Ctrl = true;
+		}
+	});
 
 	document.addEventListener('keyup', function (e) {
-			if (e.keyCode == 16) {
-				KeyboardState.Shift = false;
-			} else if (e.keyCode == 17) {
-				KeyboardState.Ctrl = false;
-			}
-		});
-	
+		if (e.keyCode == 16) {
+			KeyboardState.Shift = false;
+		} else if (e.keyCode == 17) {
+			KeyboardState.Ctrl = false;
+		}
+	});
+
 	//Resize
 	window.addEventListener('resize', reportWindowSize);
-	
+
 	//Mouse
 	document.onmouseup = handleDocMouseUp;
 	document.onmousemove = handleDocMouseMove;
-	
+
 	selectCanvas.onmousedown = handleMouseDown;
 	selectCanvas.onmousemove = handleMouseMove;
 
 	// hook up cross browser mouse scrolls
-	window.addEventListener('wheel', MouseWheelHandler, {passive:false});
+	window.addEventListener('wheel', MouseWheelHandler, {
+		passive: false
+	});
 }
 
 // Handles Resizing
@@ -59,27 +61,27 @@ function reportWindowSize() {
 	textCanvas.height = textCanvas.clientHeight;
 	selectCanvas.width = textCanvas.clientWidth;
 	selectCanvas.height = textCanvas.clientHeight;
-	
+
 	camera.updateProjection();
 	camera.updateView();
 	render.noMovementUpdate();
-};
+}
 
 function handleMouseDown(event) {
 	mouseDown = true;
 	// Get's the Mouse State
-	
-	if(selection.textBox){
+
+	if (selection.textBox) {
 		event.preventDefault();
 		event.stopPropagation();
 	}
-			
+
 	switch (event.button) {
 		case 0: //left click
 			MouseState.prevX = event.clientX;
-			MouseState.prevY = event.clientY - ribbonHeight;
+			MouseState.prevY = event.clientY - ribbon.height;
 			MouseState.LeftButtonDown = true;
-			
+
 			break;
 		case 1: //middle click
 			MouseState.prevX = event.clientX;
@@ -99,7 +101,7 @@ function handleDocMouseUp(event) {
 	switch (event.button) {
 		case 0: //left click
 			MouseState.LeftButtonDown = false;
-			if ( MouseState.hold ) { 
+			if (MouseState.hold) {
 				selection.multiSelection();
 				MouseState.hold = false;
 			}
@@ -115,19 +117,19 @@ function handleDocMouseUp(event) {
 }
 
 function handleDocMouseMove(event) {
-	if(MouseState.hold){
+	if (MouseState.hold) {
 		MouseState.x = event.clientX;
-		MouseState.y = event.clientY - ribbonHeight;
-	}	
+		MouseState.y = event.clientY - ribbon.height;
+	}
 }
 
 function handleMouseMove(event) {
 	if (!mouseDown || !MouseState.MiddleButtonDown) {
 		MouseState.x = event.clientX;
-		MouseState.y = event.clientY - ribbonHeight;
-		if ( MouseState.LeftButtonDown && !MouseState.hold && 
-				Math.abs(MouseState.prevX - MouseState.x) > 3 && 
-				Math.abs(MouseState.prevY - MouseState.y) > 3 ){
+		MouseState.y = event.clientY - ribbon.height;
+		if (MouseState.LeftButtonDown && !MouseState.hold &&
+			Math.abs(MouseState.prevX - MouseState.x) > 3 &&
+			Math.abs(MouseState.prevY - MouseState.y) > 3) {
 			hover.clear();
 			MouseState.hold = true;
 		}
@@ -136,7 +138,7 @@ function handleMouseMove(event) {
 		}
 		return;
 	}
-	
+
 	MouseState.dX = event.clientX - MouseState.prevX;
 	MouseState.dY = event.clientY - MouseState.prevY;
 	MouseState.prevX = event.clientX;
@@ -145,7 +147,7 @@ function handleMouseMove(event) {
 	if (KeyboardState.Shift == true && KeyboardState.Ctrl == true) {
 		// Handle spin
 		glCameraMove.set(glCameraMove.SPIN);
-		camera.rotZ -= MouseState.dX * $glMath.PiOver180;
+		camera.rotZ -= MouseState.dX * $glMath.PI180;
 	} else if (KeyboardState.Shift == true) {
 		// Handle pan
 		glCameraMove.set(glCameraMove.PAN);
@@ -158,22 +160,22 @@ function handleMouseMove(event) {
 	} else {
 		// Handle rotation
 		glCameraMove.set(glCameraMove.ROTATE);
-		
-		camera.rotX -= MouseState.dY * $glMath.PiOver180;
-		camera.rotY -= MouseState.dX * $glMath.PiOver180;
+
+		camera.rotX -= MouseState.dY * $glMath.PI180;
+		camera.rotY -= MouseState.dX * $glMath.PI180;
 	}
 }
 
 function MouseWheelHandler(e) {
 	let delta = e.wheelDelta / 120;
-	if(!delta)
+	if (!delta)
 		delta = e.deltaY / 10; //Firefox
-	
-	if( KeyboardState.Ctrl ) // prevent broweser zoom
+
+	if (KeyboardState.Ctrl) // prevent broweser zoom
 		e.preventDefault();
-	
-	if( tree.module.classList.contains('hovered') == true){
-		tree.table.scrollTop += 10*delta;
+
+	if (tree.module.classList.contains('hovered') == true) {
+		tree.table.scrollTop += 10 * delta;
 	} else {
 		glCameraMove.isWheelZoom = true;
 		glCameraMove.set(glCameraMove.ZOOM);

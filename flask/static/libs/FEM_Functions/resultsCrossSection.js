@@ -1,10 +1,7 @@
-resultsCrossSection = function (){
-	this.init();
-	sideBar.currentObject = this;
-}
-
-resultsCrossSection.prototype = {
-	init:function(){
+class $resultsCrossSection{
+	constructor(){
+		sideBar.currentObject = this;
+		
 		let row;
 		
 		this.selectLC = sideBar.addTextBox(
@@ -136,12 +133,12 @@ resultsCrossSection.prototype = {
 				/*parent*/ row, 
 				/*callback*/this.clearAll
 			);
-	},
+	}
 	//CallBacks
-	apply:function(e){
+	apply(e){
 		let self = resultsCrossSection,
-			nl = new fmList,
-			el = new fmList,
+			nl = new fmList(),
+			el = new fmList(),
 			mom = self.GPM.checked ? 6 : 3;
 			xhr = new XMLHttpRequest();   // new HttpRequest instance 
 		
@@ -165,25 +162,25 @@ resultsCrossSection.prototype = {
 			
 			if(xhr.readyState === 4 && xhr.status === 200) {
 				let	nc,	fSum = [0, 0, 0], mSum = [0, 0, 0],
-					originNodeList = new fmList,
-					iVectorNodeList = new fmList,
-					jVectorNodeList = new fmList,
+					originNodeList = new fmList(),
+					iVectorNodeList = new fmList(),
+					jVectorNodeList = new fmList(),
 					rf = JSON.parse(xhr.responseText).GPFB;
 				
 				originNodeList.readList(self.selectOrigin.value);
 				iVectorNodeList.readList(self.selectIVector.value);
 				jVectorNodeList.readList(self.selectJVector.value);	
 				
-				let o = originNodeList.nodeArr[0].getCoords(),
-					iN = iVectorNodeList.nodeArr[0].getCoords(),
-					jN = jVectorNodeList.nodeArr[0].getCoords(),
-					cid = new fmCID;
+				let o = originNodeList.nodeArr[0].coords(),
+					iN = iVectorNodeList.nodeArr[0].coords(),
+					jN = jVectorNodeList.nodeArr[0].coords(),
+					cid = new fmCID();
 				
 				cid.createFrom3Points(o, iN, jN);
 				let arm = new Array(nl.nodeArr.length);
 				
 				for( let i = 0; i < arm.length; i++ ) {
-					nc = nl.nodeArr[i].getCoords();
+					nc = nl.nodeArr[i].coords();
 					arm[i] = [nc[0] - o[0], nc[1] - o[1], nc[2] - o[2]];
 				}
 				
@@ -235,12 +232,12 @@ resultsCrossSection.prototype = {
 				glText.updateLocations();
 			}
 		};	
-	},
-	clearAll:function(e){
+	}
+	clearAll(e){
 		fmVectors.arrows = [];
 		glText.vectorText = [];
 		glText.updateLocations();
 	}
 }
 
-var resultsCrossSection = new resultsCrossSection();
+const resultsCrossSection = new $resultsCrossSection();
