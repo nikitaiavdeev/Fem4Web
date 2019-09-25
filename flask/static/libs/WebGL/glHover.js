@@ -41,6 +41,9 @@ class $glHover {
 
 		// Delete bufferes
 		gl.bindVertexArray(null);
+
+		// Event listeners
+		selectCanvas.onmouseup = this.onHoverMouseUp;
 	}
 	getID(inpC) {
 		// Shift each component to its bit position in the integer
@@ -89,27 +92,31 @@ class $glHover {
 				} else {
 					this.item = fmElems[id];
 				}
-
-				if (type == 1) {
-					off = [id * 3];
-					this.coords.insertArr(glNodes.coords, 0, off);
-					this.barycentric = BARYCENTRIC.NODE;
-				} else if (type == 2) {
-					off = [this.item.con[0] * 3, this.item.con[1] * 3];
-					this.coords.insertArr(glNodes.coords, 0, off);
-					this.barycentric = BARYCENTRIC.BAR;
-				} else if (type == 3) {
-					off = [this.item.con[0] * 3, this.item.con[1] * 3, this.item.con[2] * 3];
-					this.coords.insertArr(glNodes.coords, 0, off);
-					this.barycentric = BARYCENTRIC.TRIA;
-				} else if (type == 4) {
-					off = [this.item.con[0] * 3, this.item.con[1] * 3, this.item.con[2] * 3, this.item.con[3] * 3];
-					this.coords.insertArr(glNodes.coords, 0,
-						[off[0], off[1], off[2], // 1st triangle
-							off[0], off[2], off[3]
-						] // 2nd triangle
-					);
-					this.barycentric = BARYCENTRIC.QUAD;
+				
+				switch (type) {
+					case 1:
+						off = [id * 3];
+						this.coords.insertArr(glNodes.coords, 0, off);
+						this.barycentric = BARYCENTRIC.NODE;
+						break;
+					case 2:
+						off = [this.item.con[0] * 3, this.item.con[1] * 3];
+						this.coords.insertArr(glNodes.coords, 0, off);
+						this.barycentric = BARYCENTRIC.BAR;
+						break;
+					case 3:
+						off = [this.item.con[0] * 3, this.item.con[1] * 3, this.item.con[2] * 3];
+						this.coords.insertArr(glNodes.coords, 0, off);
+						this.barycentric = BARYCENTRIC.TRIA;
+						break;
+					case 4:
+						off = [this.item.con[0] * 3, this.item.con[1] * 3, this.item.con[2] * 3, this.item.con[3] * 3];
+						this.coords.insertArr(glNodes.coords, 0,
+							[off[0], off[1], off[2], // 1st triangle
+								off[0], off[2], off[3]
+							] // 2nd triangle
+						);
+						this.barycentric = BARYCENTRIC.QUAD;
 				}
 
 				gl.bindBuffer(gl.ARRAY_BUFFER, this.bufferCoords);
@@ -180,14 +187,12 @@ class $glHover {
 		this.type = null;
 		this.item = null;
 	}
-}
-
-selectCanvas.onmouseup = hoverMouseUp;
-
-function hoverMouseUp(event) {
-	if (event.button == 0 && !MouseState.hold) { // leftClick
-		if (selection.textBox) {
-			hover.leftClick();
+	// Event Left Click
+	onHoverMouseUp(event) {
+		if (event.button == 0 && !MouseState.hold) { // leftClick
+			if (selection.textBox) {
+				hover.leftClick();
+			}
 		}
 	}
 }

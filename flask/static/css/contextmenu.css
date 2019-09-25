@@ -1,0 +1,94 @@
+#contextMenu {
+    position: absolute;
+
+    background-color: var(--treeBkgrndColor);
+
+    border: 1px solid var(--treeBkgrndColor);
+    box-shadow: 0 0 1px var(--darkBlueColor);
+    -moz-box-shadow: 0 0 1px var(--darkBlueColor);
+    -webkit-box-shadow: 0 0 1px var(--darkBlueColor);
+
+    color: var(--grayColor);
+    transition: width 0.5s;
+    transition: height 0.5s;
+}
+
+#contextMenu:hover {
+    background-color: var(--modalBkgrndColor);
+}
+
+/*Wrappers*/
+.contextMenuIdCont {
+    display: block;
+    padding: 5px;
+    position: relative;
+    border-bottom: 1px solid var(--treeBkgrndColor);
+}
+
+.contextMenuIdCont[hidden='true']{
+    display: none;
+}
+
+.contextMenuTable {
+    padding: 5px;
+    position: relative;
+}
+
+/*Buttons*/
+.contextMenuBtn {
+    display: block;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.contextMenuBtn[hidden='true'] {
+    display: none;
+}
+
+.contextMenuBtn.copyable {
+    cursor: copy;
+}
+
+/*ToolTip*/
+.contextMenuBtn[toolTip]::after {
+    visibility: hidden;
+    background-color: var(--grayColor);
+    color: var(--bkgrndColor);
+    text-align: center;
+    border-radius: 2px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 5px;
+    left: 100%;
+    margin-left: 10px;
+    opacity: 0;
+    transition: opacity 0.1s;
+    white-space: nowrap;
+}
+
+.contextMenuBtn[toolTip]:hover::after {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s 1.0s;
+}
+
+.contextMenuBtn[toolTip='copy2Clip']::after {
+    content: 'Copy to clipboard';
+}
+
+.contextMenuBtn[toolTip='copied']::after {
+    content: 'Copied';
+    opacity: 1;
+    transition: opacity 0.0s;
+}
+
+.contextMenuToolTip.fade {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.0s 0.0s !important;
+}
+
+.contextMenuBtn:hover {
+    background-color: var(--darkBlueColor);
+}

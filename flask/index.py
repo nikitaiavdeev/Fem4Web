@@ -7,8 +7,8 @@ import tables
 import h5py
 import numpy as np
 
-H5FILE = 'XXXX.h5'
-DBFILE = 'XXX.json'
+H5FILE = 'C:/Dev/Production/G650EL2R1_F2R4A_W2R5_E2R4.h5'
+DBFILE = 'C:/Dev/python/data.json'
 
 #Create single js file
 js = Bundle(
@@ -27,6 +27,9 @@ js = Bundle(
 
 			# Fringe
 			'./libs/gui/fringe.js',
+
+            # Context Menu
+            './libs/gui/contextmenu.js',
 
 			# Modals
 			'./libs/gui/modals.js',
@@ -63,6 +66,7 @@ css = Bundle(
             './css/sidebar.css',
             './css/modals.css',
             './css/fringe.css',
+            './css/contextmenu.css',
              filters='cssmin', output='min/h5view.min.css')
 
 #f = tables.open_file(H5FILE, 'r')

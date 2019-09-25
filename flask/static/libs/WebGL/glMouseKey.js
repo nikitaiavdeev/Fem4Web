@@ -88,9 +88,6 @@ function handleMouseDown(event) {
 			MouseState.prevY = event.clientY;
 			MouseState.MiddleButtonDown = true;
 			break;
-		case 2: //right click
-			MouseState.RightButtonDown = true;
-			break;
 	}
 }
 

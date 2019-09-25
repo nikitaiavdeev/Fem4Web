@@ -2,28 +2,52 @@
 <html>
 
 <head>
-	<meta charset="utf-8"/>
+	<meta charset="utf-8" />
 	<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 	<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
 	<link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon-32x32.png?">
 	<link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon-16x16.png?">
-	
+
 	{% assets "css_all" %}
-		<link rel="stylesheet" href="{{ ASSET_URL }}">
+	<link rel="stylesheet" href="{{ ASSET_URL }}">
 	{% endassets %}
-	
+
 	<title>H5View</title>
 </head>
 
 <body>
 	<div id="initialLogo">
-		<svg xmlns="http://www.w3.org/2000/svg" id="logo" viewBox="0 0 400 346.41"><path class ="arrow" d="M100 0 l-50 86.6025 h100 Z" fill="#c61d1d"/><path class ="arrow" d="M100 0 h100 l-50 86.6025 Z" fill="#c61d1d"/><path class ="arrow" d="M200 0 l-50 86.6025 h100 Z" fill="#c61d1d"/><path class ="arrow" d="M200 0 h100 l-50 86.6025 Z" fill="#c61d1d"/><path class ="arrow" d="M300 0 l-50 86.6025 h100 Z" fill="#1d3272"/><path class ="arrow" d="M50 86.6025 l-50 86.6025 h100 Z" fill="#c61d1d"/><path class ="arrow" d="M50 86.6025 h100 l-50 86.6025 Z" fill="#c61d1d"/><path class ="arrow" d="M150 86.6025 l-50 86.6025 h100 Z" fill="#c61d1d"/><path class ="arrow" d="M150 86.6025 h100 l-50 86.6025 Z" fill="#c61d1d"/><path class ="arrow" d="M250 86.6025 l-50 86.6025 h100 Z" fill="#1d3272"/><path class ="arrow" d="M250 86.6025 h100 l-50 86.6025 Z" fill="#1d3272"/><path class ="arrow" d="M350 86.6025 l-50 86.6025 h100 Z" fill="#1d3272"/><path class ="arrow" d="M0 173.205 h100 l-50 86.6025 Z" fill="#fd7000"/><path class ="arrow" d="M100 173.205 l-50 86.6025 h100 Z" fill="#fd7000"/><path class ="arrow" d="M100 173.205 h100 l-50 86.6025 Z" fill="#fd7000"/><path class ="arrow" d="M200 173.205 l-50 86.6025 h100 Z" fill="#fd7000"/><path class ="arrow" d="M200 173.205 h100 l-50 86.6025 Z" fill="#1d3272"/><path class ="arrow" d="M300 173.205 l-50 86.6025 h100 Z" fill="#1d3272"/><path class ="arrow" d="M300 173.205 h100 l-50 86.6025 Z" fill="#1d3272"/><path class ="arrow" d="M50 259.8075 h100 l-50 86.6025 Z" fill="#fd7000"/><path class ="arrow" d="M150 259.8075 l-50 86.6025 h100 Z" fill="#fd7000"/><path class ="arrow" d="M150 259.8075 h100 l-50 86.6025 Z" fill="#fd7000"/><path class ="arrow" d="M250 259.8075 l-50 86.6025 h100 Z" fill="#fd7000"/><path class ="arrow" d="M250 259.8075 h100 l-50 86.6025 Z" fill="#1d3272"/></svg>
+		<svg xmlns="http://www.w3.org/2000/svg" id="logo" viewBox="0 0 400 346.41">
+			<path class="arrow" d="M100 0 l-50 86.6025 h100 Z" fill="#c61d1d" />
+			<path class="arrow" d="M100 0 h100 l-50 86.6025 Z" fill="#c61d1d" />
+			<path class="arrow" d="M200 0 l-50 86.6025 h100 Z" fill="#c61d1d" />
+			<path class="arrow" d="M200 0 h100 l-50 86.6025 Z" fill="#c61d1d" />
+			<path class="arrow" d="M300 0 l-50 86.6025 h100 Z" fill="#1d3272" />
+			<path class="arrow" d="M50 86.6025 l-50 86.6025 h100 Z" fill="#c61d1d" />
+			<path class="arrow" d="M50 86.6025 h100 l-50 86.6025 Z" fill="#c61d1d" />
+			<path class="arrow" d="M150 86.6025 l-50 86.6025 h100 Z" fill="#c61d1d" />
+			<path class="arrow" d="M150 86.6025 h100 l-50 86.6025 Z" fill="#c61d1d" />
+			<path class="arrow" d="M250 86.6025 l-50 86.6025 h100 Z" fill="#1d3272" />
+			<path class="arrow" d="M250 86.6025 h100 l-50 86.6025 Z" fill="#1d3272" />
+			<path class="arrow" d="M350 86.6025 l-50 86.6025 h100 Z" fill="#1d3272" />
+			<path class="arrow" d="M0 173.205 h100 l-50 86.6025 Z" fill="#fd7000" />
+			<path class="arrow" d="M100 173.205 l-50 86.6025 h100 Z" fill="#fd7000" />
+			<path class="arrow" d="M100 173.205 h100 l-50 86.6025 Z" fill="#fd7000" />
+			<path class="arrow" d="M200 173.205 l-50 86.6025 h100 Z" fill="#fd7000" />
+			<path class="arrow" d="M200 173.205 h100 l-50 86.6025 Z" fill="#1d3272" />
+			<path class="arrow" d="M300 173.205 l-50 86.6025 h100 Z" fill="#1d3272" />
+			<path class="arrow" d="M300 173.205 h100 l-50 86.6025 Z" fill="#1d3272" />
+			<path class="arrow" d="M50 259.8075 h100 l-50 86.6025 Z" fill="#fd7000" />
+			<path class="arrow" d="M150 259.8075 l-50 86.6025 h100 Z" fill="#fd7000" />
+			<path class="arrow" d="M150 259.8075 h100 l-50 86.6025 Z" fill="#fd7000" />
+			<path class="arrow" d="M250 259.8075 l-50 86.6025 h100 Z" fill="#fd7000" />
+			<path class="arrow" d="M250 259.8075 h100 l-50 86.6025 Z" fill="#1d3272" /></svg>
 	</div>
 
 	<!-- Ribbon Control -->
 	<header id="ribbon"></header>
 	<!-- Ribbon Control -->
-	
+
 	<main>
 		<!-- Canvases -->
 		<div id="canvasWrap">
@@ -32,26 +56,30 @@
 			<canvas id="selectCanvas"></canvas>
 		</div>
 		<!-- Canvases -->
-		
+
 		<!-- Treeview Control -->
 		<nav id="treeView" class="resizable"></nav>
 		<!-- Treeview Control -->
-		
-		<!--Sidebar Control -->
+
+		<!-- Sidebar Control -->
 		<aside id="sideBar" style="display:none;"></aside>
-		<!--Sidebar Control -->
-		
-		<!--Fringe Control -->
+		<!-- Sidebar Control -->
+
+		<!-- Fringe Control -->
 		<div id="fringeWrap" style="display:none;"></div>
-		<!--Fringe Control -->
+		<!-- Fringe Control -->
+
+		<!-- Context Menu -->
+		<nav id="contextMenu" style="display:none;"></nav>
+		<!-- Context Menu -->
 	</main>
-	
+
 	<!--Pop-up Modals-->
 	<div id="popModals"></div>
-	
+
 	<!--FPS-->
 	<div id="FPS"></div>
-	
+
 	{% block content %}
 	<div style="height:0px; width:0px">
 		{{ svg }}
@@ -59,7 +87,8 @@
 	{% endblock %}
 
 	{% assets "js_all" %}
-		<script type="application/javascript" src="{{ ASSET_URL }}"></script>
+	<script type="application/javascript" src="{{ ASSET_URL }}"></script>
 	{% endassets %}
 </body>
+
 </html>

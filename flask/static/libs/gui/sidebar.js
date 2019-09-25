@@ -1,4 +1,4 @@
-class sideBarControl {
+class $sideBar {
 	constructor() {
 		this.wrapper = document.getElementById('sideBar');
 
@@ -317,4 +317,4 @@ class sideBarControl {
 	}
 }
 
-const sideBar = new sideBarControl();
+const sideBar = new $sideBar();

@@ -1,107 +1,6 @@
 class $guiModals {
-	constructor(){
+	constructor() {
 		this.container = document.getElementById('popModals');
-	}
-	initAbout () {
-		let wrapper = document.createElement('div'),
-			divWrap = document.createElement('div'),
-			div = document.createElement('div'),
-			a = document.createElement('a');
-
-		wrapper.id = 'modalAbout';
-		wrapper.classList.add('modalContent');
-		this.container.appendChild(wrapper);
-
-		//about
-		divWrap.id = 'modalAboutText';
-		wrapper.appendChild(divWrap);
-
-		div.innerHTML = 'H5View';
-		div.id = 'modalAboutTitle';
-		divWrap.appendChild(div);
-
-		div = document.createElement('div');
-		div.innerHTML = 'Web .h5 file viewer';
-		div.id = 'modalAboutSubTitle';
-		divWrap.appendChild(div);
-
-		div = document.createElement('div');
-		div.id = 'modalAboutVersion';
-		divWrap.appendChild(div);
-
-		div = document.createElement('div');
-		div.innerHTML = 'H5View is an online Patran .h5 file viewer. It allows you to view files on any computer with a web browser without having to bootup bulky Patran files.';
-		div.id = 'modalAboutDescription';
-		divWrap.appendChild(div);
-
-		//logo
-		div = document.createElement('div');
-		div.id = 'modalAboutLogo';
-		wrapper.appendChild(div);
-
-		//footer
-		div = document.createElement('div');
-		div.id = 'modelAboutFoooter';
-		div.innerHTML = 'Developed by ';
-		a.href = 'mailto:nikita.avdeev@gulfstream.com';
-		a.innerHTML = 'Nikita Avdeev';
-		div.appendChild(a);
-		wrapper.appendChild(div);
-
-		window.addEventListener('click', this.onCloseClick);
-		window.addEventListener('keydown', this.onKey);
-
-		guiModals.container.style.display = 'block';
-	}
-	initOpen () {
-		let wrapper = document.createElement('div'),
-			div = document.createElement('div'),
-			button = document.createElement('button'),
-			table = document.createElement('div'),
-			row, ul, btn;
-
-		wrapper.id = 'modalOpenFile';
-		wrapper.classList.add('modalContent');
-
-		//Close btn
-		button.classList.add('closeBtn');
-		button.addEventListener('click', this.onCloseClick);
-		wrapper.appendChild(button);
-
-		//Open
-		div.innerHTML = 'Open Database';
-		div.id = 'modalOpenTitle';
-		wrapper.appendChild(div);
-
-		div = document.createElement('div');
-		div.classList.add('modalSplitter');
-		wrapper.appendChild(div);
-
-		table.classList.add('divTable');
-		wrapper.appendChild(table);
-
-		row = this.addRow(table);
-		ul = this.addDropDown('1', 'Select Program:', 'openProgram', 'GVI', row);
-		this.appendDropDown(['GVI', 'AAP'], ul);
-
-		row = this.addRow(table);
-		ul = this.addDropDown('2', 'Select Category:', 'openCategory', 'Static', row);
-		this.appendDropDown(['Static', 'Fatigue', 'Test'], ul);
-
-		row = this.addRow(table);
-		ul = this.addDropDown('3', 'Select Model:', 'openModel', 'GVI_E1_F1', row);
-		this.appendDropDown(['GVI_E1_F1', 'GVI_E2_F2', 'GVI_E2_F2'], ul);
-
-		div = document.createElement('div');
-		div.classList.add('modalBtnContainer');
-		wrapper.appendChild(div);
-		btn = this.addBtn(div, 'Apply', this.openDB);
-		btn = this.addBtn(div, 'Close', this.onCloseClick);
-
-		window.addEventListener('keydown', this.onKey);
-
-		this.container.appendChild(wrapper);
-		guiModals.container.style.display = 'block';
 	}
 	addRow(table) {
 		let row = document.createElement('div');
@@ -157,7 +56,7 @@ class $guiModals {
 
 				this.childNodes[1].classList.toggle("show-hide");
 				this.classList.toggle("arrow-active");
-				window.addEventListener('click', guiModals.onClickDropDown);
+				window.addEventListener('click', guiModals.onDropDownClick);
 			} else {
 				guiModals.closeAllDropDown();
 			}
@@ -174,44 +73,158 @@ class $guiModals {
 		for (const item of items) {
 			li = document.createElement('li');
 			li.innerHTML = item;
-			li.onclick = function (e) {
-				e.stopPropagation();
-				guiModals.closeAllDropDown();
-				this.parentNode.previousSibling.innerHTML = this.innerHTML;
-			};
+			li.onclick = this.dropDownOptionClick;
 			ul.appendChild(li);
 		}
 	}
-	closeAllDropDown () {
+	onDropDownOptionClick(e) {
+		e.stopPropagation();
+		guiModals.closeAllDropDown();
+		this.parentNode.previousSibling.innerHTML = this.innerHTML;
+	}
+	onDropDownClick(e) {
+		e.stopPropagation();
+		guiModals.closeAllDropDown();
+	}
+	closeAllDropDown() {
 		for (const ddElm of document.getElementsByClassName("modalDrpdnCont")) {
 			if (ddElm.classList.length == 1) {
 				ddElm.classList.toggle("show-hide");
 				ddElm.parentNode.classList.toggle("arrow-active");
 			}
 		}
-		window.removeEventListener('click', this.onClickDropDown);
+		window.removeEventListener('click', this.onDropDownClick);
 	}
-	clearAll () {
+	clearAll() {
 		this.container.innerHTML = '';
 		guiModals.container.style.display = 'none';
 		window.removeEventListener('click', this.onCloseClick);
 		window.removeEventListener('keydown', this.onKey);
 	}
-	onClickDropDown (e) {
-		e.stopPropagation();
-		guiModals.closeAllDropDown();
-	}
-	onCloseClick (e) {
+	onCloseClick(e) {
 		e.stopPropagation();
 		guiModals.clearAll();
 	}
-	onKey (e) {
+	onKey(e) {
 		e.stopPropagation();
 		if (e.keyCode == 27) { //esc
 			guiModals.clearAll();
 		}
 	}
-	openDB (e) {
+}
+
+class $aboutModal extends $guiModals {
+	constructor() {
+		let wrapper = document.createElement('div'),
+			divWrap = document.createElement('div'),
+			div = document.createElement('div'),
+			a = document.createElement('a');
+
+		//Ininit super
+		super();
+
+		wrapper.id = 'modalAbout';
+		wrapper.classList.add('modalContent');
+		this.container.appendChild(wrapper);
+
+		//about
+		divWrap.id = 'modalAboutText';
+		wrapper.appendChild(divWrap);
+
+		div.innerHTML = 'H5View';
+		div.id = 'modalAboutTitle';
+		divWrap.appendChild(div);
+
+		div = document.createElement('div');
+		div.innerHTML = 'Web .h5 file viewer';
+		div.id = 'modalAboutSubTitle';
+		divWrap.appendChild(div);
+
+		div = document.createElement('div');
+		div.id = 'modalAboutVersion';
+		divWrap.appendChild(div);
+
+		div = document.createElement('div');
+		div.innerHTML = 'H5View is an online Patran .h5 file viewer. It allows you to view files on any computer with a web browser without having to bootup bulky Patran files.';
+		div.id = 'modalAboutDescription';
+		divWrap.appendChild(div);
+
+		//logo
+		div = document.createElement('div');
+		div.id = 'modalAboutLogo';
+		wrapper.appendChild(div);
+
+		//footer
+		div = document.createElement('div');
+		div.id = 'modelAboutFoooter';
+		div.innerHTML = 'Developed by ';
+		a.href = 'mailto:nikita.avdeev@gulfstream.com';
+		a.innerHTML = 'Nikita Avdeev';
+		div.appendChild(a);
+		wrapper.appendChild(div);
+
+		window.addEventListener('click', this.onCloseClick);
+		window.addEventListener('keydown', this.onKey);
+
+		this.container.style.display = 'block';
+	}
+}
+
+class $openModal extends $guiModals {
+	constructor() {
+		let wrapper = document.createElement('div'),
+			div = document.createElement('div'),
+			button = document.createElement('button'),
+			table = document.createElement('div'),
+			row, ul, btn;
+
+		//Ininit super this
+		super();
+
+		wrapper.id = 'modalOpenFile';
+		wrapper.classList.add('modalContent');
+
+		//Close btn
+		button.classList.add('closeBtn');
+		button.addEventListener('click', super.onCloseClick);
+		wrapper.appendChild(button);
+
+		//Open
+		div.innerHTML = 'Open Database';
+		div.id = 'modalOpenTitle';
+		wrapper.appendChild(div);
+
+		div = document.createElement('div');
+		div.classList.add('modalSplitter');
+		wrapper.appendChild(div);
+
+		table.classList.add('divTable');
+		wrapper.appendChild(table);
+
+		row = this.addRow(table);
+		ul = this.addDropDown('1', 'Select Program:', 'openProgram', 'GVI', row);
+		this.appendDropDown(['GVI', 'AAP'], ul);
+
+		row = this.addRow(table);
+		ul = this.addDropDown('2', 'Select Category:', 'openCategory', 'Static', row);
+		this.appendDropDown(['Static', 'Fatigue', 'Test'], ul);
+
+		row = this.addRow(table);
+		ul = this.addDropDown('3', 'Select Model:', 'openModel', 'GVI_E1_F1', row);
+		this.appendDropDown(['GVI_E1_F1', 'GVI_E2_F2', 'GVI_E2_F2'], ul);
+
+		div = document.createElement('div');
+		div.classList.add('modalBtnContainer');
+		wrapper.appendChild(div);
+		btn = this.addBtn(div, 'Apply', this.openDB);
+		btn = this.addBtn(div, 'Close', this.onCloseClick);
+
+		window.addEventListener('keydown', this.onKey);
+
+		this.container.appendChild(wrapper);
+		this.container.style.display = 'block';
+	}
+	openDB(e) {
 		let xhr = new XMLHttpRequest(); // new HttpRequest instance 
 		e.stopPropagation();
 

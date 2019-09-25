@@ -23,7 +23,7 @@ class $ribbonControl {
 		let aboutTab = new $ribbonTab('H5View', 'aboutTab');
 		aboutTab.tabBtn.onclick = function (e) {
 			e.stopPropagation();
-			guiModals.initAbout();
+			const aboutModal = new $aboutModal();
 		};
 
 	}
@@ -42,7 +42,7 @@ class $ribbonControl {
 		btn = mainTab.addBtn('Open', 'openFile', false);
 		btn.onclick = function (e) {
 			e.stopPropagation();
-			guiModals.initOpen();
+			const openModal = new $openModal();
 		};
 
 		// Import files
