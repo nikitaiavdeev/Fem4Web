@@ -7,8 +7,8 @@ import tables
 import h5py
 import numpy as np
 
-H5FILE = 'C:/Dev/Production/G650EL2R1_F2R4A_W2R5_E2R4.h5'
-DBFILE = 'C:/Dev/python/data.json'
+H5FILE = 'XXX.h5'
+DBFILE = 'XXX.json'
 
 #Create single js file
 js = Bundle(
