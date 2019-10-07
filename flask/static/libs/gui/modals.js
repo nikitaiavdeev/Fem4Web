@@ -2,22 +2,44 @@ class $guiModals {
 	constructor() {
 		this.container = document.getElementById('popModals');
 	}
+	addCloseBtn(wrap) {
+		const button = document.createElement('button');
+		button.classList.add('closeBtn');
+		button.addEventListener('click', this.onCloseClick);
+		wrap.appendChild(button);
+	}
+	addCaption(wrap, text) {
+		const div = document.createElement('div');
+		div.innerHTML = text;
+		div.classList.add('modalTitle');
+		wrap.appendChild(div);
+	}
+	addSplitter(wrap) {
+		const div = document.createElement('div');
+		div.classList.add('modalSplitter');
+		wrap.appendChild(div);
+	}
+	addTable(wrap) {
+		const table = document.createElement('div');
+		table.classList.add('divTable');
+		wrap.appendChild(table);
+		return table;
+	}
 	addRow(table) {
-		let row = document.createElement('div');
+		const row = document.createElement('div');
 		row.classList.add('divTableRow');
 		table.appendChild(row);
 		return row;
 	}
 	addCell(row) {
-		let cell = document.createElement('div');
+		const cell = document.createElement('div');
 		cell.classList.add('divTableCell');
 		row.appendChild(cell);
 		return cell;
 	}
 	addBtn(parent, caption, callback) {
-		let button;
+		const button = document.createElement('button');
 
-		button = document.createElement('button');
 		button.innerHTML = caption;
 		button.classList.add('modalButton');
 		button.addEventListener('click', callback);
@@ -77,6 +99,7 @@ class $guiModals {
 			ul.appendChild(li);
 		}
 	}
+	//Events
 	onDropDownOptionClick(e) {
 		e.stopPropagation();
 		guiModals.closeAllDropDown();
@@ -175,8 +198,7 @@ class $openModal extends $guiModals {
 		let wrapper = document.createElement('div'),
 			div = document.createElement('div'),
 			button = document.createElement('button'),
-			table = document.createElement('div'),
-			row, ul, btn;
+			table, row, ul, btn;
 
 		//Ininit super this
 		super();
@@ -185,22 +207,15 @@ class $openModal extends $guiModals {
 		wrapper.classList.add('modalContent');
 
 		//Close btn
-		button.classList.add('closeBtn');
-		button.addEventListener('click', super.onCloseClick);
-		wrapper.appendChild(button);
+		this.addCloseBtn(wrapper);
 
-		//Open
-		div.innerHTML = 'Open Database';
-		div.id = 'modalOpenTitle';
-		wrapper.appendChild(div);
+		//Caption
+		this.addCaption(wrapper, 'Open Database');
 
-		div = document.createElement('div');
-		div.classList.add('modalSplitter');
-		wrapper.appendChild(div);
+		//Splitter
+		this.addSplitter(wrapper);
 
-		table.classList.add('divTable');
-		wrapper.appendChild(table);
-
+		table = this.addTable(wrapper);
 		row = this.addRow(table);
 		ul = this.addDropDown('1', 'Select Program:', 'openProgram', 'GVI', row);
 		this.appendDropDown(['GVI', 'AAP'], ul);
@@ -216,7 +231,7 @@ class $openModal extends $guiModals {
 		div = document.createElement('div');
 		div.classList.add('modalBtnContainer');
 		wrapper.appendChild(div);
-		btn = this.addBtn(div, 'Apply', this.openDB);
+		btn = this.addBtn(div, 'Open', this.openDB);
 		btn = this.addBtn(div, 'Close', this.onCloseClick);
 
 		window.addEventListener('keydown', this.onKey);
@@ -247,6 +262,99 @@ class $openModal extends $guiModals {
 				loaderFade();
 			}
 		};
+	}
+}
+
+class $importBdf extends $guiModals {
+	constructor() {
+		let wrapper = document.createElement('div'),
+			div = document.createElement('div'),
+			input = document.createElement('input'),
+			btnCont = document.createElement('div'),
+			span = document.createElement('span'),
+			label = document.createElement('label');
+
+		//Init super
+		super();
+
+		this.files = null;
+
+		wrapper.id = 'modalImportBdf';
+		wrapper.classList.add('modalContent');
+
+		//Close btn
+		this.addCloseBtn(wrapper);
+
+		//Caption
+		this.addCaption(wrapper, 'Import Model');
+
+		//Splitter
+		this.addSplitter(wrapper);
+
+		//File Drop
+		div.classList.add('modalFileDrop');
+		input.type = 'file';
+		input.id = 'modalImportBdfFiles';
+		input.style.display = 'none';
+		input.setAttribute('multiple', '');
+		div.appendChild(input);
+
+		//Label for File Drop
+		span.innerHTML = 'Choose a files';
+		span.onclick = () => {
+			input.click();
+		};
+
+		label.appendChild(span);
+		span = document.createElement('span');
+		span.innerHTML = ' or drag it here';
+		label.appendChild(span);
+		div.appendChild(label);
+
+		wrapper.appendChild(div);
+
+		//Add Buttons
+		btnCont = document.createElement('div');
+		btnCont.classList.add('modalBtnContainer');
+		const applyBtn = this.addBtn(btnCont, 'Import', this.importBdfClick);
+		const closeBtn = this.addBtn(btnCont, 'Close', this.onCloseClick);
+		wrapper.appendChild(btnCont);
+
+		this.container.appendChild(wrapper);
+		this.container.style.display = 'block';
+
+		// Esc key down Listener
+		window.addEventListener('keydown', this.onKey);
+
+		//File drop events
+		['dragover', 'dragenter'].forEach((event) => {
+			div.addEventListener(event, (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				e.dataTransfer.dropEffect = "move";
+				e.dataTransfer.effectAllowed = 'move';
+				div.classList.add('is-dragover');
+			});
+		});
+		['dragleave', 'dragend', 'drop'].forEach((event) => {
+			div.addEventListener(event, function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				div.classList.remove('is-dragover');
+			});
+		});
+		div.ondrop = (e) => {
+			applyBtn.files = e.dataTransfer.files;
+			label.textContent = applyBtn.files.length > 1 ? applyBtn.files.length + ' files selected' : applyBtn.files[0].name;
+		};
+		input.onchange = (e) => {
+			applyBtn.files = e.target.files;
+			label.textContent = applyBtn.files.length > 1 ? applyBtn.files.length + ' files selected' : applyBtn.files[0].name;
+		};
+	}
+	importBdfClick(e) {
+		importFiles.importBdf(e.target.files);
+		guiModals.clearAll();
 	}
 }
 

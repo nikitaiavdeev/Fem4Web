@@ -1,6 +1,4 @@
-var fmNodes = [];
 var fmNodesDict = {};
-var fmElems = [];
 var fmElemsDict = {};
 var fmCIDDict = {};
 var fmPropDict = {};
@@ -20,13 +18,6 @@ class fmNode {
 	get coords() {
 		let off = this.glID * 3;
 		return new glVec3(glNodes.coords[off], glNodes.coords[off + 1], glNodes.coords[off + 2]);
-	}
-	get associatedElm() {
-		let conn = [this.conElm.length];
-		for (let i = 0; i < this.conElm.length; i++) {
-			conn[i] = fmElems[this.conElm[i]];
-		}
-		return conn;
 	}
 	setStage() {
 		let show;
@@ -59,21 +50,11 @@ class fmElm {
 	}
 	get centroid() {
 		let centr = new glVec3(),
-			off, inv = 1 / this.nodeCount;
+			inv = 1 / this.nodeCount;
 		for (let i = 0; i < this.nodeCount; i++) {
-			off = this.con[i] * 3;
-			centr.xyz[0] += glNodes.coords[off] * inv;
-			centr.xyz[1] += glNodes.coords[off + 1] * inv;
-			centr.xyz[2] += glNodes.coords[off + 2] * inv;
+			centr.scaleAndAdd(this.con[i].coords, inv);
 		}
 		return centr;
-	}
-	get connectivity() {
-		let conn = [this.nodeCount];
-		for (let i = 0; i < this.nodeCount; i++) {
-			conn[i] = fmNodes[this.con[i]];
-		}
-		return conn;
 	}
 	get eCid() {
 		let nc = this.connectivity,
@@ -99,20 +80,31 @@ class fmElm {
 	}
 	get normal() {
 		if (this.nodeCount == 3 || this.nodeCount == 4) {
-			let nc = this.connectivity;
-
-			if (this.nodeCount == 3) {
-				return glVec3.getNormal(nc[0].coords, nc[1].coords, nc[2].coords);
-			} else {
-				let norm = glVec3.getNormal(nc[0].coords, nc[1].coords, nc[2].coords),
-					norm1 = glVec3.getNormal(nc[0].coords, nc[2].coords, nc[3].coords),
-					avg = glVec3.add(norm, norm1).normalize();
-
-				return [norm, norm1, avg];
+			return this.eCid[2];
+		}
+	}
+	get glCoords() {
+		let coords, off;
+		if (this.nodeCount == 4) {
+			coords = new Array(18);
+			off = [this.con[0].glID * 3, this.con[1].glID * 3, this.con[2].glID * 3,
+				this.con[0].glID * 3, this.con[2].glID * 3, this.con[3].glID * 3
+			];
+			for (let i = 0; i < 6; i++) {
+				coords[i * 3] = glNodes.coords[off[i]];
+				coords[i * 3 + 1] = glNodes.coords[off[i] + 1];
+				coords[i * 3 + 2] = glNodes.coords[off[i] + 2];
 			}
 		} else {
-			return new glVec3();
+			coords = new Array(this.nodeCount * 3);
+			for (let i = 0; i < this.nodeCount; i++) {
+				off = this.con[i].glID * 3;
+				coords[i * 3] = glNodes.coords[off];
+				coords[i * 3 + 1] = glNodes.coords[off + 1];
+				coords[i * 3 + 2] = glNodes.coords[off + 2];
+			}
 		}
+		return coords;
 	}
 	setStage() {
 		let off, show;

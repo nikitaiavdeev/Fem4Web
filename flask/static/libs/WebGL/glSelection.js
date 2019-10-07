@@ -36,7 +36,7 @@ class $glSelection {
 
 		//Nodes
 		if (this.filter == selectFilter.NONE || this.filter == selectFilter.NODES) {
-			for (const node of fmNodes) {
+			for (const [key, node] of Object.entries(fmNodesDict)) {
 				if (node.groupShow && node.show) {
 					off = node.glID * 4;
 					if (this.screenCoords[off].between(rX1, rX2) && this.screenCoords[off + 1].between(rY1, rY2)) {
@@ -48,7 +48,7 @@ class $glSelection {
 
 		//Elements
 		if (this.filter == selectFilter.NONE || this.filter > selectFilter.NODES) {
-			for (const elm of fmElems) {
+			for (const [key, node] of Object.entries(fmElemsDict)) {
 				if (elm.groupShow && elm.show) {
 					if (!this.isPassFilter(elm.nodeCount)) {
 						continue;
@@ -165,11 +165,11 @@ class $glSelection {
 		model.updateStages();
 	}
 	clearSelection(update = true) {
-		for (const node of fmNodes) {
+		for (const [key, node] of Object.entries(fmNodesDict)) {
 			node.select = false;
 			node.setStage();
 		}
-		for (const elm of fmElems) {
+		for (const [key, node] of Object.entries(fmElemsDict)) {
 			elm.select = false;
 			elm.setStage();
 		}

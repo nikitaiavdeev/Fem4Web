@@ -42,6 +42,9 @@ window.onload = function () {
 			'/static/img/ribbon/frontView.svg',
 			'/static/img/ribbon/help.svg',
 			'/static/img/ribbon/import.svg',
+			'/static/img/ribbon/import_bdf.svg',
+			'/static/img/ribbon/import_csv.svg',
+			'/static/img/ribbon/import_ses.svg',
 			'/static/img/ribbon/isoView.svg',
 			'/static/img/ribbon/labelIds.svg',
 			'/static/img/ribbon/leftView.svg',
@@ -71,7 +74,7 @@ window.onload = function () {
 	for (const url of imgUrls) {
 		let img = new Image();
 		img.src = url;
-		img.onload = () => {			
+		img.onload = () => {
 			if (++imgCount == len) {
 				initH5View();
 			}
@@ -91,7 +94,7 @@ function initH5View() {
 		ctx = textCanvas.getContext('2d');
 		csel = selectCanvas.getContext('2d');
 	} catch (e) {
-		alert('Could not initialise WebGL, sorry :-(\n'+e);
+		alert('Could not initialise WebGL, sorry :-(\n' + e);
 		return;
 	}
 	if (!gl) {

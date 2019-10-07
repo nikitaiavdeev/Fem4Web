@@ -93,16 +93,37 @@
 #modalOpenFile.modalContent {
 	width: 500px;
 }
+/* </Modal Open File> */
 
-#modalOpenTitle {
+/* <Modal Import Bdf> */
+#modalImportBdf.modalContent {
+	width: 500px;
+}
+.modalFileDrop{
+	padding: 100px 20px;
+    outline: 2px dashed var(--orangeColor);
+	margin: 10px;
+	text-align: center;
+}
+.modalFileDrop label{
+	cursor: pointer;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	overflow: hidden;
+}
+.modalFileDrop span:first-child{
+	font-weight: 900;
+}
+/* </Modal Import Bdf> */
+
+.modalTitle {
 	display: inline-block;
 	padding: 5px 0 0 0;
 	color: var(--lightGrayColor);
 	font-size: 18px;
 	text-align: left;
 }
-
-/* </Modal Open File> */
 
 .modalTableRowLabel{
 	text-align: right;

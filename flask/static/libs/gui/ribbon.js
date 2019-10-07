@@ -8,18 +8,18 @@ class $ribbonControl {
 		this.tabsBar = document.createElement('div');
 		this.tabsBar.classList.add('ribbonTabHeader');
 		this.wrapper.appendChild(this.tabsBar);
-	
+
 		this.tabs = [];
 		this.height = null;
 	}
-	initTabs(){
+	initTabs() {
 		this.initAboutTab();
 		this.initMainTab();
 		this.initFemTab();
 		this.initResultsTab();
 		this.height = document.getElementById('ribbon').clientHeight;
 	}
-	initAboutTab(){
+	initAboutTab() {
 		let aboutTab = new $ribbonTab('H5View', 'aboutTab');
 		aboutTab.tabBtn.onclick = function (e) {
 			e.stopPropagation();
@@ -45,19 +45,20 @@ class $ribbonControl {
 			const openModal = new $openModal();
 		};
 
-		// Import files
-		btn = mainTab.addBtn('Import', 'import', false);
-		btn.onclick = function (e) {
-			let importFiles = document.getElementById('importFiles');
-			importFiles.click();
-		};
+		// Import
+		// ------------------------------------------------
+		btn = mainTab.addDropDown('Import', 'import', false, false);
+		mainTab.addDropDownItem(btn, 'Groups .ses', 'import_ses');
+		mainTab.addDropDownItem(btn, 'Model .bdf', 'import_bdf');
+		mainTab.addDropDownItem(btn, 'Results .csv', 'import_csv');
+
+		btn.addEventListener('onRibbonDropdownChange', function (e) {
+			importFiles.importClick(e.detail.text);
+		}, false);
 		let input = document.createElement('input');
 		input.style.display = 'none';
 		input.id = 'importFiles';
 		input.type = 'file';
-		input.onchange = function () {
-			importFiles(this.files);
-		};
 		btn.appendChild(input);
 
 		// View Group
@@ -131,7 +132,8 @@ class $ribbonControl {
 		mainTab.addSplitter();
 	}
 	initFemTab() {
-		let femTab = new $ribbonTab('FEM'), btn;
+		let femTab = new $ribbonTab('FEM'),
+			btn;
 
 		// Display Group
 		femTab.addGroup('Display');
@@ -169,7 +171,8 @@ class $ribbonControl {
 		femTab.addSplitter();
 	}
 	initResultsTab() {
-		let resultsTab = new $ribbonTab('Results'), btn;
+		let resultsTab = new $ribbonTab('Results'),
+			btn;
 
 		// Display Group
 		resultsTab.addGroup('Result Plots');
@@ -252,7 +255,7 @@ class $ribbonTab {
 
 		btn.classList.add('ribbonButton');
 		btn.innerHTML = text;
-		btn.setAttribute('icon', icon);
+		btn.style.backgroundImage = "url(static/img/ribbon/" + icon +  ".svg)";
 
 		// Set Icon to Large
 		if (isSmall == false)
@@ -268,7 +271,7 @@ class $ribbonTab {
 
 		btn.classList.add('ribbonDropdownBtn');
 		btn.innerHTML = text;
-		btn.setAttribute('icon', icon);
+		btn.style.backgroundImage = "url(static/img/ribbon/" + icon +  ".svg)";
 
 		if (!isSmall)
 			btn.setAttribute('size', 'large');
@@ -289,7 +292,8 @@ class $ribbonTab {
 	}
 	addDropDownItem(dropDown, text, icon) {
 		let btn = document.createElement('button');
-		btn.setAttribute('icon', icon);
+		btn.classList.add('ribbonButton');
+		btn.style.backgroundImage = "url(static/img/ribbon/" + icon +  ".svg)";
 		btn.innerHTML = text;
 		dropDown.nextSibling.appendChild(btn);
 		btn.addEventListener('click', this.onDropDownOptionClick, false);
@@ -340,8 +344,7 @@ class $ribbonTab {
 		//Change icon and text
 		if (this.parentElement.previousSibling.getAttribute('changeicon') !== 'no') {
 			this.parentElement.previousSibling.innerHTML = this.innerHTML;
-			let icn = this.getAttribute('icon');
-			this.parentElement.previousSibling.setAttribute('icon', icn);
+			this.parentElement.previousSibling.style.backgroundImage = this.style.backgroundImage;
 		}
 
 		//Run custom event

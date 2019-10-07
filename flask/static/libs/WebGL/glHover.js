@@ -88,34 +88,24 @@ class $glHover {
 				this.type = type;
 
 				if (type == 1) {
-					this.item = fmNodes[id];
+					this.item = fmNodesDict[id];
+					this.coords.append(this.item.coords.xyz, 0);
 				} else {
-					this.item = fmElems[id];
+					this.item = fmElemsDict[id];
+					this.coords.append(this.item.glCoords, 0);
 				}
 				
 				switch (type) {
 					case 1:
-						off = [id * 3];
-						this.coords.insertArr(glNodes.coords, 0, off);
 						this.barycentric = BARYCENTRIC.NODE;
 						break;
 					case 2:
-						off = [this.item.con[0] * 3, this.item.con[1] * 3];
-						this.coords.insertArr(glNodes.coords, 0, off);
 						this.barycentric = BARYCENTRIC.BAR;
 						break;
 					case 3:
-						off = [this.item.con[0] * 3, this.item.con[1] * 3, this.item.con[2] * 3];
-						this.coords.insertArr(glNodes.coords, 0, off);
 						this.barycentric = BARYCENTRIC.TRIA;
 						break;
 					case 4:
-						off = [this.item.con[0] * 3, this.item.con[1] * 3, this.item.con[2] * 3, this.item.con[3] * 3];
-						this.coords.insertArr(glNodes.coords, 0,
-							[off[0], off[1], off[2], // 1st triangle
-								off[0], off[2], off[3]
-							] // 2nd triangle
-						);
 						this.barycentric = BARYCENTRIC.QUAD;
 				}
 

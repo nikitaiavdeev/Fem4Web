@@ -106,7 +106,7 @@ class $glCamera {
 		this.viewCoord = new glMat4();
 	}
 	updateProjection() {
-		if (model	) {
+		if (model) {
 			let m = this.view.arr44,
 				c = model.center.xyz,
 				depthZ = -m[2] * c[0] - m[6] * c[1] - m[10] * c[2] - m[14];
@@ -275,7 +275,7 @@ class $glCamera {
 		let screenCoords = model.getScreenCoords(),
 			maxX, minX, maxY, minY, off;
 
-		for (const node of fmNodes) {
+		for (const [key, node] of Object.entries(fmNodesDict)) {
 			if (node.groupShow && node.show) {
 				off = node.glID * 4;
 				if (screenCoords[off] > maxX || !maxX) maxX = screenCoords[off];
