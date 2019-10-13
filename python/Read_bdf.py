@@ -238,7 +238,6 @@ class bdfData:
                         self.readBdf(os.path.join(self.path, fileName))
                             
 def dumpGrids(inpBdfData):
-    global gID
     coord = []
     for x in inpBdfData.values():
         nodeCoord = [x[1], x[2], x[3]]
@@ -247,8 +246,6 @@ def dumpGrids(inpBdfData):
             nodeCoord = bdfCoord.vecRMat(nodeCoord)
             
         coord.extend(nodeCoord)
-        
-    gID = {x: i for i, x in enumerate(inpBdfData.keys())}
     
     data['GRID'] = []
     data['GRID'].append({
@@ -258,8 +255,8 @@ def dumpGrids(inpBdfData):
             'acid': midListFromArr([(strInt(x[4]) if len(x) > 4 else 0) for x in inpBdfData.values()])
             })
 
-def dumpElm(inpBdfData, gID, nCount, elmType):
-    connect = [gID[x[i+1]] for x in inpBdfData.values() for i in range(0, nCount)]
+def dumpElm(inpBdfData, nCount, elmType):
+    connect = [x[i+1] for x in inpBdfData.values() for i in range(0, nCount)]
     eid = listFromArr([x for x in inpBdfData.keys()])
     pid = listFromArr([x[0] for x in inpBdfData.values()])
     data[elmType] = []
@@ -291,19 +288,18 @@ newBdf = bdfData(fileFolder)
 newBdf.readBdf(filePath)
 
 data = {}
-gID = {}
 
 dumpGrids(sortDict(newBdf.grid))
 
 dumpCoord(sortDict(newBdf.cCoordR), 'CORDR')
 dumpCoord(sortDict(newBdf.cCoordC), 'CORDC')
  
-dumpElm(sortDict(newBdf.cQuad4), gID, 4, "CQUAD4")
-dumpElm(sortDict(newBdf.cShear), gID, 4, "CSHEAR")
-dumpElm(sortDict(newBdf.cTria3), gID, 3, "CTRIA3")
-dumpElm(sortDict(newBdf.cRod), gID, 2, "CROD")
-dumpElm(sortDict(newBdf.cBar), gID, 2, "CBAR")
-dumpElm(sortDict(newBdf.cBeam), gID, 2, "CBEAM")
+dumpElm(sortDict(newBdf.cQuad4), 4, "CQUAD4")
+dumpElm(sortDict(newBdf.cShear), 4, "CSHEAR")
+dumpElm(sortDict(newBdf.cTria3), 3, "CTRIA3")
+dumpElm(sortDict(newBdf.cRod), 2, "CROD")
+dumpElm(sortDict(newBdf.cBar), 2, "CBAR")
+dumpElm(sortDict(newBdf.cBeam), 2, "CBEAM")
 
 data['PSHELL'] = []
 data['PSHELL'].append({
@@ -337,5 +333,5 @@ data['MAT1'].append({
         'nu': [x[2] for x in newBdf.mat1.values()]
         })
 
-with open('data.txt', 'w') as outfile:  
+with open('data.json', 'w') as outfile:  
     json.dump(data, outfile)
