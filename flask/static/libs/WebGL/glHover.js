@@ -94,7 +94,7 @@ class $glHover {
 					this.item = fmElemsDict[id];
 					this.coords.append(this.item.glCoords, 0);
 				}
-				
+
 				switch (type) {
 					case 1:
 						this.barycentric = BARYCENTRIC.NODE;

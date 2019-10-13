@@ -125,7 +125,7 @@ class $resultsFringe {
 		switch (self.resultType.value) {
 			case 'Shell Forces':
 				for (let i = 0; i < el.elmArr.length; i++)
-					if (el.elmArr[i].type != "CQUAD" && el.elmArr[i].type != "CTRIA") {
+					if (el.elmArr[i].type != "CQUAD4" && el.elmArr[i].type != "CTRIA3") {
 						el.elmArr.splice(i, 1);
 						i--;
 					}
@@ -197,10 +197,10 @@ class $resultsFringe {
 				for (const elm of el.elmArr) {
 					val = self.getColor(values[resOff], maxRes, minRes);
 					resOff++;
-					if (elm.type == 'CQUAD') {
+					if (elm.type == 'CQUAD4') {
 						off = elm.glID * 24;
 						glQuads.colors.appendNTimes(val, 6, off);
-					} else if (elm.type == 'CTRIA') {
+					} else if (elm.type == 'CTRIA3') {
 						off = elm.glID * 12;
 						glTrias.colors.appendNTimes(val, 3, off);
 					}

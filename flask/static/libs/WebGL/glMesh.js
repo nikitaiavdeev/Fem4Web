@@ -1,3 +1,25 @@
+const BARYCENTRIC = {
+	NODE: new Float32Array([1, 1, 1]),
+	BAR: new Float32Array([
+		1, 0, 1,
+		0, 1, 1,
+	]),
+	TRIA: new Float32Array([
+		1, 0, 0,
+		0, 1, 0,
+		0, 0, 1,
+	]),
+	QUAD: new Float32Array([
+		1, 0, 1,
+		0, 0, 1,
+		0, 1, 0,
+
+		0, 1, 0,
+		1, 0, 1,
+		0, 0, 1,
+	]),
+};
+
 //Arrays
 glNodes = {
 	count: null,
@@ -80,7 +102,7 @@ glQuads = {
 
 class $glMesh {
 	constructor() {
-		//Is model has moments
+		//Is model has GPF moments
 		this.hasMoments = false;
 
 		// The Max Point of this Mesh
@@ -90,7 +112,8 @@ class $glMesh {
 		//Center
 		this.center = null;
 		this.maxR = 0;
-
+	}
+	init() {
 		// Determine model boundaries
 		this.findMaxMin();
 
@@ -106,6 +129,9 @@ class $glMesh {
 		this.initSelectCentrBuffers(glBars);
 		this.initSelectBuffers(glTrias);
 		this.initSelectBuffers(glQuads);
+
+		camera.fitZoom();
+		render.drawSelectScene();
 	}
 	findMaxMin() {
 		// Find Max/Min coords

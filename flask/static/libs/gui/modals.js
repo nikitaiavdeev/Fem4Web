@@ -256,8 +256,6 @@ class $openModal extends $guiModals {
 		xhr.onreadystatechange = function () {
 			if (xhr.readyState === 4 && xhr.status === 200) {
 				loadModel.load(JSON.parse(xhr.responseText));
-				camera.fitZoom();
-				render.drawSelectScene();
 				guiModals.clearAll();
 				loaderFade();
 			}
@@ -265,7 +263,7 @@ class $openModal extends $guiModals {
 	}
 }
 
-class $importBdf extends $guiModals {
+class $modalImportBdf extends $guiModals {
 	constructor() {
 		let wrapper = document.createElement('div'),
 			div = document.createElement('div'),
@@ -353,7 +351,7 @@ class $importBdf extends $guiModals {
 		};
 	}
 	importBdfClick(e) {
-		importFiles.importBdf(e.target.files);
+		importBdf = new $importBdf(e.target.files);
 		guiModals.clearAll();
 	}
 }

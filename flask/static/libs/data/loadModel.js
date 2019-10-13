@@ -1,31 +1,11 @@
-const BARYCENTRIC = {
-	NODE: new Float32Array([1, 1, 1]),
-	BAR: new Float32Array([
-		1, 0, 1,
-		0, 1, 1,
-	]),
-	TRIA: new Float32Array([
-		1, 0, 0,
-		0, 1, 0,
-		0, 0, 1,
-	]),
-	QUAD: new Float32Array([
-		1, 0, 1,
-		0, 0, 1,
-		0, 1, 0,
-
-		0, 1, 0,
-		1, 0, 1,
-		0, 0, 1,
-	]),
-};
-
 class $loadModel {
 	constructor() {
 
 	}
 	load(bdfData) {
 		let count;
+
+		model = new $glMesh();
 
 		// Load nodes
 		this.loadNodes(bdfData.GRID[0]);
@@ -52,11 +32,11 @@ class $loadModel {
 			glBars.selColors = new Float32Array(count * 8);
 
 			if (bdfData.hasOwnProperty('CROD'))
-				this.loadBarElms(bdfData.CROD[0], "CROD");
+				this.loadElm(bdfData.CROD[0], "CROD", 2);
 			if (bdfData.hasOwnProperty('CBAR'))
-				this.loadBarElms(bdfData.CBAR[0], "CBAR");
+				this.loadElm(bdfData.CBAR[0], "CBAR", 2);
 			if (bdfData.hasOwnProperty('CBEAM'))
-				this.loadBarElms(bdfData.CBEAM[0], "CBEAM");
+				this.loadElm(bdfData.CBEAM[0], "CBEAM", 2);
 		}
 
 		// Load trias
@@ -75,7 +55,7 @@ class $loadModel {
 			glTrias.colors.appendNTimes([0.17, 0.45, 0.7, 1.0], count * 3, 0);
 			glTrias.selColors = new Float32Array(count * 12);
 
-			this.loadTriaElms(bdfData.CTRIA3[0], "CTRIA");
+			this.loadElm(bdfData.CTRIA3[0], "CTRIA3", 3);
 		}
 
 		// Load quads
@@ -97,9 +77,9 @@ class $loadModel {
 			glQuads.selColors = new Float32Array(count * 24);
 
 			if (bdfData.hasOwnProperty('CQUAD4'))
-				this.loadQuadElms(bdfData.CQUAD4[0], "CQUAD");
+				this.loadElm(bdfData.CQUAD4[0], "CQUAD4", 4);
 			if (bdfData.hasOwnProperty('CSHEAR'))
-				this.loadQuadElms(bdfData.CSHEAR[0], "CSHEAR");
+				this.loadElm(bdfData.CSHEAR[0], "CSHEAR", 4);
 		}
 
 		// Load CIDs
@@ -120,7 +100,8 @@ class $loadModel {
 		if (bdfData.hasOwnProperty('MAT1'))
 			this.loadMat(bdfData.MAT1[0], 'MAT1');
 
-		model = new $glMesh();
+		// init model
+		model.init();
 
 		// Check if results have moments
 		model.hasMoments = bdfData.dbMoments;
@@ -138,117 +119,36 @@ class $loadModel {
 
 		glNodes.selColors = new Float32Array(count * 4);
 		glNodes.colors = new Float32Array(count * 4);
+		glNodes.colors.appendNTimes([0.9, 0, 0, 1], count, 0);
 
 		glNodes.coords = new Float32Array(inpData.coords);
 
 		for (let i = 0; i < count; i++) {
 			tmpNode = new fmNode(ids[i], i, acid[i]);
-			fmNodesDict[ids[i]] = tmpNode;
 
 			sColor = hover.createColor(tmpNode.id * 10 + 1);
 
 			off = i * 4;
 			glNodes.selColors.append(sColor, off);
-			glNodes.colors.append([0.9, 0, 0, 1], off);
 		}
 
 	}
-	loadBarElms(inpData, inpType) {
+	loadElm(inpData, inpType, nCount) {
 		let count = inpData.count,
 			ids = this.listToArray(inpData.ids),
 			pids = inpData.pid == 'same' ? ids : this.listToArray(inpData.pid),
 			ni = inpData.connectivity, //nodes IDs
-			off, con,
-			tmpElm, sColor;
+			con = new Array(nCount),
+			tmpElm;
 
 		for (let i = 0; i < count; i++) {
 			// Connectivity
-			con = [fmNodesDict[ni[i * 2]], fmNodesDict[ni[i * 2 + 1]]];
+			for (let j = 0; j < nCount; j++) {
+				con[j] = fmNodesDict[ni[i * nCount + j]];
+			}
 			// Create Element
-			tmpElm = new fmElm(ids[i], glBars.count + i, inpType, con, pids[i]);
-			fmElemsDict[tmpElm.id] = tmpElm;
-
-			con[0].conElm.push(tmpElm);
-			con[1].conElm.push(tmpElm);
-
-			off = (glBars.count + i) * 3;
-			glBars.centroids.addBarCentroid(tmpElm, off);
-
-			off *= 2; //(glBars.count+i)*6
-			glBars.coords.addElmCords(tmpElm, off);
-			glBars.barycentric.append(BARYCENTRIC.BAR, off);
-
-			sColor = hover.createColor(tmpElm.id * 10 + 2);
-
-			// Select color for centroid
-			off = (glBars.count + i) * 4;
-			glBars.selCtrColors.append(sColor, off);
-
-			// Select color for line
-			off *= 2; //(glBars.count+i)*8
-			glBars.selColors.appendNTimes(sColor, 2, off);
+			tmpElm = new fmElm(ids[i], inpType, con, pids[i]);
 		}
-		glBars.count += count;
-	}
-	loadTriaElms(inpData, inpType) {
-		let count = inpData.count,
-			ids = this.listToArray(inpData.ids),
-			pids = inpData.pid == 'same' ? ids : this.listToArray(inpData.pid),
-			ni = inpData.connectivity, //nodes IDs
-			off, con,
-			tmpElm, sColor;
-
-		for (let i = 0; i < count; i++) {
-			// Connectivity
-			con = [fmNodesDict[ni[i * 3]], fmNodesDict[ni[i * 3 + 1]], fmNodesDict[ni[i * 3 + 2]]];
-
-			tmpElm = new fmElm(ids[i], glTrias.count + i, inpType, con, pids[i]);
-			fmElemsDict[tmpElm.id] = tmpElm;
-
-			con[0].conElm.push(tmpElm);
-			con[1].conElm.push(tmpElm);
-			con[2].conElm.push(tmpElm);
-
-			off = (glTrias.count + i) * 9;
-			glTrias.coords.addElmCords(tmpElm, off);
-			glTrias.barycentric.append(BARYCENTRIC.TRIA, off);
-			glTrias.normals.addElmNormals(tmpElm, off);
-
-			off = (glTrias.count + i) * 12;
-			sColor = hover.createColor(tmpElm.id * 10 + 3);
-			glTrias.selColors.appendNTimes(sColor, 3, off);
-		}
-		glTrias.count += count;
-	}
-	loadQuadElms(inpData, inpType) {
-		let count = inpData.count,
-			ids = this.listToArray(inpData.ids),
-			pids = inpData.pid == 'same' ? ids : this.listToArray(inpData.pid),
-			ni = inpData.connectivity,
-			off, con,
-			norm, tmpElm, sColor;
-
-		for (let i = 0; i < count; i++) {
-			// Connectivity
-			con = [fmNodesDict[ni[i * 4]], fmNodesDict[ni[i * 4 + 1]], fmNodesDict[ni[i * 4 + 2]], fmNodesDict[ni[i * 4 + 3]]];
-			tmpElm = new fmElm(ids[i], glQuads.count + i, inpType, con, pids[i]);
-			fmElemsDict[tmpElm.id] = tmpElm;
-
-			con[0].conElm.push(tmpElm);
-			con[1].conElm.push(tmpElm);
-			con[2].conElm.push(tmpElm);
-			con[3].conElm.push(tmpElm);
-
-			off = (glQuads.count + i) * 18;
-			glQuads.coords.addElmCords(tmpElm, off);
-			glQuads.barycentric.append(BARYCENTRIC.QUAD, off);
-			glQuads.normals.addElmNormals(tmpElm, off);
-
-			off = (glQuads.count + i) * 24;
-			sColor = hover.createColor(tmpElm.id * 10 + 4);
-			glQuads.selColors.appendNTimes(sColor, 6, off);
-		}
-		glQuads.count += count;
 	}
 	loadCID(inpData, inpType) {
 		let count = inpData.count,

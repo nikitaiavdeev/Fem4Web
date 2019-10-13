@@ -53,7 +53,19 @@ class $ribbonControl {
 		mainTab.addDropDownItem(btn, 'Results .csv', 'import_csv');
 
 		btn.addEventListener('onRibbonDropdownChange', function (e) {
-			importFiles.importClick(e.detail.text);
+			switch (e.detail.text) {
+				case 'Groups .ses':
+					const input = document.getElementById('importFiles');
+					input.setAttribute('accept', '.ses');
+					input.onchange = function () {
+						const importGroups = new $importGroups(this.files);
+					};
+					input.click();
+					break;
+				case 'Model .bdf':
+					const modalImportBdf = new $modalImportBdf();
+					break;
+			}
 		}, false);
 		let input = document.createElement('input');
 		input.style.display = 'none';

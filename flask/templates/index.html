@@ -80,12 +80,6 @@
 	<!--FPS-->
 	<div id="FPS"></div>
 
-	{% block content %}
-	<div style="height:0px; width:0px">
-		{{ svg }}
-	</div>
-	{% endblock %}
-
 	{% assets "js_all" %}
 	<script type="application/javascript" src="{{ ASSET_URL }}"></script>
 	{% endassets %}

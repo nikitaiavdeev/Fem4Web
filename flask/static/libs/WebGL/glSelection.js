@@ -48,7 +48,7 @@ class $glSelection {
 
 		//Elements
 		if (this.filter == selectFilter.NONE || this.filter > selectFilter.NODES) {
-			for (const [key, node] of Object.entries(fmElemsDict)) {
+			for (const [key, elm] of Object.entries(fmElemsDict)) {
 				if (elm.groupShow && elm.show) {
 					if (!this.isPassFilter(elm.nodeCount)) {
 						continue;
@@ -93,7 +93,7 @@ class $glSelection {
 
 		//Nodes inside rectangle
 		for (let i = 0; i < elm.nodeCount; i++) {
-			off = elm.con[i] * 4;
+			off = elm.con[i].glID * 4;
 			x.push(this.screenCoords[off]);
 			y.push(this.screenCoords[off + 1]);
 			if (x[i].between(rX1, rX2) && y[i].between(rY1, rY2)) {
@@ -103,7 +103,7 @@ class $glSelection {
 
 		//rectangle inside Triangle/Quad
 		if (elm.nodeCount > 2) {
-			off = elm.con[0] * 4;
+			off = elm.con[0].glID * 4;
 			x.push(this.screenCoords[off]);
 			y.push(this.screenCoords[off + 1]);
 
@@ -169,7 +169,7 @@ class $glSelection {
 			node.select = false;
 			node.setStage();
 		}
-		for (const [key, node] of Object.entries(fmElemsDict)) {
+		for (const [key, elm] of Object.entries(fmElemsDict)) {
 			elm.select = false;
 			elm.setStage();
 		}

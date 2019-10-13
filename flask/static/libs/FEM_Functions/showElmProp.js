@@ -38,7 +38,7 @@ class $showElmProp{
 			
 			if( elm.type == 'CROD' )
 				text = 'A=' + tmpProp.a;
-			else if( elm.type == 'CQUAD' || elm.type == 'CTRIA' || elm.type == 'CSHEAR' )
+			else if( elm.type == 'CQUAD4' || elm.type == 'CTRIA3' || elm.type == 'CSHEAR' )
 				text = 't=' + tmpProp.t;
 			text += '; E=' + tmpMat.e + '; nu=' + tmpMat.nu;
 			

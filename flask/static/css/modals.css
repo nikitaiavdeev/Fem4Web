@@ -105,6 +105,9 @@
 	margin: 10px;
 	text-align: center;
 }
+.modalFileDrop.is-dragover{
+	outline-offset: -20px;
+}
 .modalFileDrop label{
 	cursor: pointer;
 	text-overflow: ellipsis;

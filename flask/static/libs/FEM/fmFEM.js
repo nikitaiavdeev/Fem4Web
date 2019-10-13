@@ -14,6 +14,8 @@ class fmNode {
 		this.groupSelect = 0;
 		this.show = true;
 		this.select = 0;
+
+		fmNodesDict[id] = this;
 	}
 	get coords() {
 		let off = this.glID * 3;
@@ -35,11 +37,11 @@ class fmNode {
 }
 
 class fmElm {
-	constructor(id, glID, t, c, p) {
+	constructor(id, t, c, p, load2GL = true) {
 		this.id = id; // Patran ID
-		this.glID = glID; // Internal ID
+		this.glID = null;
 		this.type = t;
-		this.con = c;
+		this.con = [...c];
 		this.nodeCount = c.length;
 		this.pid = p;
 
@@ -47,6 +49,12 @@ class fmElm {
 		this.groupSelect = 0;
 		this.show = true;
 		this.select = 0;
+
+		fmElemsDict[id] = this;
+		for (const node of c) {
+			node.conElm.push(this);
+		}
+		if (load2GL) this.load2GL();
 	}
 	get centroid() {
 		let centr = new glVec3(),
@@ -139,7 +147,58 @@ class fmElm {
 			glQuads.stage[off + 5] = show;
 		}
 	}
+	load2GL() {
+		if (this.nodeCount == 2) {
+			this.glID = glBars.count++;
+			this.loadBar2GL();
+		} else if (this.nodeCount == 3) {
+			this.glID = glTrias.count++;
+			this.loadTria2GL();
+		} else if (this.nodeCount == 4) {
+			this.glID = glQuads.count++;
+			this.loadQuad2GL();
+		}
+	}
+	loadBar2GL() {
+		const sColor = hover.createColor(this.id * 10 + 2);
+		let off = this.glID * 3;
 
+		glBars.centroids.addBarCentroid(this, off);
+
+		off *= 2; //(glBars.count+i)*6
+		glBars.coords.addElmCords(this, off);
+		glBars.barycentric.append(BARYCENTRIC.BAR, off);
+
+		// Select color for centroid
+		off = this.glID * 4;
+		glBars.selCtrColors.append(sColor, off);
+
+		// Select color for line
+		off *= 2; //(glBars.count+i)*8
+		glBars.selColors.appendNTimes(sColor, 2, off);
+	}
+	loadTria2GL() {
+		const sColor = hover.createColor(this.id * 10 + 3);
+		let off = this.glID * 9;
+
+		glTrias.coords.addElmCords(this, off);
+		glTrias.barycentric.append(BARYCENTRIC.TRIA, off);
+		glTrias.normals.addElmNormals(this, off);
+
+		off = this.glID * 12;
+		glTrias.selColors.appendNTimes(sColor, 3, off);
+	}
+	loadQuad2GL() {
+		const sColor = hover.createColor(this.id * 10 + 4);
+		let off = this.glID * 18;
+
+		glQuads.coords.addElmCords(this, off);
+		glQuads.barycentric.append(BARYCENTRIC.QUAD, off);
+		glQuads.normals.addElmNormals(this, off);
+
+		off = this.glID * 24;
+		glQuads.selColors.appendNTimes(sColor, 6, off);
+	}
 }
 
 class fmCID {
