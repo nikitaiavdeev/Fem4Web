@@ -1,62 +1,39 @@
 class $showHideFem {
-	constructor() {
-		sideBar.currentObject = this;
-
+	constructor(oldMe = this) {
 		this.selectFem = sideBar.addSelect(
-			/*object*/
-			this.selectFem,
-			/*caption*/
-			'Select FEM:',
-			/*inpVal*/
-			'',
-			/*selec type*/
-			selectFilter.NONE,
-			/*focus*/
-			true
+			oldMe.selectFem, /*object*/
+			'Select FEM:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NONE, /*selec type*/
+			true /*focus*/
 		);
 
 		let row = sideBar.addBtnRow();
 		this.showBtn = sideBar.addButton(
-			/*object*/
-			this.showBtn,
-			/*caption*/
-			'Show',
-			/*parent*/
-			row,
-			/*callback*/
-			this.show
+			oldMe.showBtn, /*object*/
+			'Show', /*caption*/
+			row, /*parent*/
+			this.show /*callback*/
 		);
 		this.hideBtn = sideBar.addButton(
-			/*object*/
-			this.hideBtn,
-			/*caption*/
-			'Hide',
-			/*parent*/
-			row,
-			/*callback*/
-			this.hide
+			oldMe.hideBtn, /*object*/
+			'Hide', /*caption*/
+			row, /*parent*/
+			this.hide /*callback*/
 		);
 
 		row = sideBar.addBtnRow();
 		this.showAllBtn = sideBar.addButton(
-			/*object*/
-			this.showAllBtn,
-			/*caption*/
-			'Show All',
-			/*parent*/
-			row,
-			/*callback*/
-			this.showAll
+			oldMe.showAllBtn, /*object*/
+			'Show All', /*caption*/
+			row, /*parent*/
+			this.showAll /*callback*/
 		);
 		this.hideAllBtn = sideBar.addButton(
-			/*object*/
-			this.hideAllBtn,
-			/*caption*/
-			'Hide All',
-			/*parent*/
-			row,
-			/*callback*/
-			this.hideAll
+			oldMe.hideAllBtn, /*object*/
+			'Hide All', /*caption*/
+			row, /*parent*/
+			this.hideAll /*callback*/
 		);
 	}
 	showHide(nodeArr, elmArr, isShow = true) {
@@ -110,4 +87,4 @@ class $showHideFem {
 	}
 }
 
-const showHideFem = new $showHideFem();
+var showHideFem = new $showHideFem();

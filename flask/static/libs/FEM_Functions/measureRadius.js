@@ -1,44 +1,42 @@
 class $measureRadius {
-	constructor() {
-		sideBar.currentObject = this;
-		
+	constructor(oldMe = this) {
 		this.selectNode1 = sideBar.addSelect(
-			/*object*/		this.selectNode1,
-			/*caption*/ 	'Select 1st Node:',
-			/*inpVal*/		'',
-			/*selec type*/ 	selectFilter.NODES,
-			/*focus*/ 		true
+			oldMe.selectNode1, /*object*/
+			'Select 1st Node:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			true /*focus*/
 		);
-	
+
 		this.selectNode2 = sideBar.addSelect(
-				/*object*/		this.selectNode2,
-				/*caption*/ 	'Select 2nd Node:', 
-				/*inpVal*/		'',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		false
-			);
-		
+			oldMe.selectNode2, /*object*/
+			'Select 2nd Node:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			false /*focus*/
+		);
+
 		this.selectNode3 = sideBar.addSelect(
-				/*object*/		this.selectNode3,
-				/*caption*/ 	'Select 3rd Node:',
-				/*inpVal*/		'',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		false
-			);
-		
+			oldMe.selectNode3, /*object*/
+			'Select 3rd Node:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			false /*focus*/
+		);
+
 		let row = sideBar.addBtnRow();
 		this.applyBtn = sideBar.addButton(
-				/*object*/		this.applyBtn,
-				/*caption*/ 	'Apply',
-				/*parent*/ 		row, 
-				/*callback*/ 	this.apply
-			);
+			oldMe.applyBtn, /*object*/
+			'Apply', /*caption*/
+			row, /*parent*/
+			this.apply /*callback*/
+		);
 		this.clearBtn = sideBar.addButton(
-				/*object*/		this.clearBtn,
-				/*caption*/ 	'Clear All',
-				/*parent*/ 		row, 
-				/*callback*/	this.clearAll
-			);
+			oldMe.clearBtn, /*object*/
+			'Clear All', /*caption*/
+			row, /*parent*/
+			this.clearAll /*callback*/
+		);
 	}
 	//CallBacks
 	apply(e) {
@@ -124,4 +122,4 @@ class $measureRadius {
 	}
 }
 
-const measureRadius = new $measureRadius();
+var measureRadius = new $measureRadius();

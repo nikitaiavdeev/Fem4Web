@@ -58,12 +58,12 @@ class $ribbonControl {
 					const input = document.getElementById('importFiles');
 					input.setAttribute('accept', '.ses');
 					input.onchange = function () {
-						const importGroups = new $importGroups(this.files);
+						let importGroups = new $importGroups(this.files);
 					};
 					input.click();
 					break;
 				case 'Model .bdf':
-					const modalImportBdf = new $modalImportBdf();
+					let modalImportBdf = new $modalImportBdf();
 					break;
 			}
 		}, false);

@@ -111,9 +111,20 @@ class $glMesh {
 
 		//Center
 		this.center = null;
-		this.maxR = 0;
+		this.maxR = null;
+
+		// Clear Global Vars
+		fmNodesDict = {};
+		fmElemsDict = {};
+		fmCIDDict = {};
+		fmPropDict = {};
+		fmMatDict = {};
+		glNodes.count = 0;
+		glBars.count = 0;
+		glTrias.count = 0;
+		glQuads.count = 0;
 	}
-	init() {
+	init(){
 		// Determine model boundaries
 		this.findMaxMin();
 

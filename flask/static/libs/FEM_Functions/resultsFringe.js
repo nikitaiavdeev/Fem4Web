@@ -1,44 +1,42 @@
 class $resultsFringe {
-	constructor(){
-		sideBar.currentObject = this;
-		
+	constructor(oldMe = this) {
 		this.selectLC = sideBar.addTextBox(
-			/*object*/		this.selectLC,
-			/*caption*/		'Enter LC ID:',
-			/*inpVal*/		'',
-			/*inpType*/		'int',
-			/*focus*/		true
+			oldMe.selectLC, /*object*/
+			'Enter LC ID:', /*caption*/
+			'', /*inpVal*/
+			'int', /*inpType*/
+			true /*focus*/
 		);
 
 		this.selectElements = sideBar.addSelect(
-			/*object*/		this.selectElements,
-			/*caption*/		'Select Elements:',
-			/*inpVal*/		'',
-			/*selec type*/	selectFilter.ELEMENTS,
-			/*focus*/		false
+			oldMe.selectElements, /*object*/
+			'Select Elements:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.ELEMENTS, /*selec type*/
+			false /*focus*/
 		);
 
 		let row = sideBar.addRow();
 		this.discreate = sideBar.addRadio(
-			/*object*/		this.discreate,
-			/*caption*/		'Discreate',
-			/*groupName*/	'group1',
-			/*isChecked*/	true,
-			/*parent*/		row
+			oldMe.discreate, /*object*/
+			'Discreate', /*caption*/
+			'group1', /*groupName*/
+			true, /*isChecked*/
+			row /*parent*/
 		);
 		this.conrinuos = sideBar.addRadio(
-			/*object*/		this.conrinuos,
-			/*caption*/		'Conrinuos',
-			/*groupName*/	'group1',
-			/*isChecked*/	false,
-			/*parent*/		row
+			oldMe.conrinuos, /*object*/
+			'Conrinuos', /*caption*/
+			'group1', /*groupName*/
+			false, /*isChecked*/
+			row /*parent*/
 		);
 
 		this.resultType = sideBar.addMultiOption(
-			/*object*/		this.resultType,
-			/*caption*/		'Select Fringe:',
-			/*focus*/		false,
-			/*callback*/	this.typeChanged
+			oldMe.resultType, /*object*/
+			'Select Fringe:', /*caption*/
+			false, /*focus*/
+			this.typeChanged /*callback*/
 		);
 		sideBar.addMultiOptionAdd('Shell Forces', this.resultType);
 		sideBar.addMultiOptionAdd('Shear Panel Forces', this.resultType);
@@ -47,10 +45,10 @@ class $resultsFringe {
 
 
 		this.resultQuantity = sideBar.addMultiOption(
-			/*object*/		this.resultQuantity,
-			/*caption*/		'Quantity:',
-			/*focus*/		false,
-			/*callback*/	''
+			oldMe.resultQuantity, /*object*/
+			'Quantity:', /*caption*/
+			false, /*focus*/
+			'' /*callback*/
 		);
 		sideBar.addMultiOptionAdd('X Component', this.resultQuantity);
 		sideBar.addMultiOptionAdd('Y Component', this.resultQuantity);
@@ -61,16 +59,16 @@ class $resultsFringe {
 
 		row = sideBar.addBtnRow();
 		this.applyBtn = sideBar.addButton(
-			/*object*/		this.applyBtn,
-			/*caption*/		'Apply',
-			/*parent*/		row,
-			/*callback*/	this.apply
+			oldMe.applyBtn, /*object*/
+			'Apply', /*caption*/
+			row, /*parent*/
+			this.apply /*callback*/
 		);
 		this.clearBtn = sideBar.addButton(
-			/*object*/		this.clearBtn,
-			/*caption*/		'Clear All',
-			/*parent*/		row,
-			/*callback*/	this.clearAll
+			oldMe.clearBtn, /*object*/
+			'Clear All' /*caption*/ ,
+			row, /*parent*/
+			this.clearAll /*callback*/
 		);
 	}
 	getColor(val, maxRes, minRes) {
@@ -131,19 +129,25 @@ class $resultsFringe {
 					}
 				break;
 			case 'Shear Panel Forces':
-				for (const elm of el.elmArr)
-					if (elm.type != "CSHEAR")
-						delete elm;
+				for (let i = 0; i < el.elmArr.length; i++)
+					if (el.elmArr[i].type != "CSHEAR") {
+						el.elmArr.splice(i, 1);
+						i--;
+					}
 				break;
 			case 'Bar Elms Forces':
-				for (const elm of el.elmArr)
-					if (elm.type != "CROD" || elm.type != "CBAR" || elm.type != "CBEAM")
-						delete elm;
+				for (let i = 0; i < el.elmArr.length; i++)
+					if (el.elmArr[i].type != "CROD" && el.elmArr[i].type != "CBAR" && el.elmArr[i].type != "CBEAM") {
+						el.elmArr.splice(i, 1);
+						i--;
+					}
 				break;
 			case 'Bar Elms Moments':
-				for (const elm of el.elmArr)
-					if (elm.type != "CBAR" || elm.type != "CBEAM")
-						delete elm;
+				for (let i = 0; i < el.elmArr.length; i++)
+					if (el.elmArr[i].type != "CBAR" && el.elmArr[i].type != "CBEAM") {
+						el.elmArr.splice(i, 1);
+						i--;
+					}
 				break;
 		}
 
@@ -210,7 +214,7 @@ class $resultsFringe {
 			}
 		};
 	}
-	clearAll (e) {
+	clearAll(e) {
 		fringeBar.clear();
 		glBars.colors.appendNTimes([1, 1, 0, 1], glBars.count * 2, 0);
 		glTrias.colors.appendNTimes([0.17, 0.45, 0.7, 1.0], glTrias.count * 3, 0);
@@ -219,4 +223,4 @@ class $resultsFringe {
 	}
 }
 
-const resultsFringe = new $resultsFringe();
+var resultsFringe = new $resultsFringe();

@@ -1,58 +1,56 @@
-class $showElmProp{
-	constructor(){
-		sideBar.currentObject = this;
-
+class $showElmProp {
+	constructor(oldMe = this) {
 		this.selectElements = sideBar.addSelect(
-				/*object*/		this.selectElements,
-				/*caption*/ 	'Select Elements:', 
-				/*inpVal*/		'',
-				/*selec type*/ 	selectFilter.ELEMENTS,
-				/*focus*/ 		true
-			);
-		
+			oldMe.selectElements, /*object*/
+			'Select Elements:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.ELEMENTS, /*selec type*/
+			true /*focus*/
+		);
+
 		let row = sideBar.addBtnRow();
 		this.applyBtn = sideBar.addButton(
-				/*object*/		this.applyBtn,
-				/*caption*/ 'Apply',
-				/*parent*/ row, 
-				/*callback*/ this.apply
-			);
+			oldMe.applyBtn, /*object*/
+			'Apply', /*caption*/
+			row, /*parent*/
+			this.apply /*callback*/
+		);
 		this.clearBtn = sideBar.addButton(
-				/*object*/		this.clearBtn,
-				/*caption*/ 'Clear All',
-				/*parent*/ row, 
-				/*callback*/this.clearAll
-			);
+			oldMe.clearBtn, /*object*/
+			'Clear All', /*caption*/
+			row, /*parent*/
+			this.clearAll /*callback*/
+		);
 	}
 	//CallBacks
-	apply(e){
+	apply(e) {
 		let self = showElmProp,
 			elmList = new fmList(),
 			tmpProp, tmpMat, text;
-		
+
 		elmList.readList(self.selectElements.value);
-		
-		for(const elm of elmList.elmArr){
+
+		for (const elm of elmList.elmArr) {
 			tmpProp = fmPropDict[elm.pid];
 			tmpMat = fmMatDict[tmpProp.mid];
-			
-			if( elm.type == 'CROD' )
+
+			if (elm.type == 'CROD')
 				text = 'A=' + tmpProp.a;
-			else if( elm.type == 'CQUAD4' || elm.type == 'CTRIA3' || elm.type == 'CSHEAR' )
+			else if (elm.type == 'CQUAD4' || elm.type == 'CTRIA3' || elm.type == 'CSHEAR')
 				text = 't=' + tmpProp.t;
 			text += '; E=' + tmpMat.e + '; nu=' + tmpMat.nu;
-			
+
 			glText.elmPropCoords.push(...elm.centroid.xyz);
 			glText.elmPropText.push(text);
 		}
-		
+
 		glText.updateLocations();
 	}
-	clearAll(e){
+	clearAll(e) {
 		glText.elmPropCoords = [];
 		glText.elmPropText = [];
 		glText.updateLocations();
 	}
 }
 
-const showElmProp = new $showElmProp();
+var showElmProp = new $showElmProp();

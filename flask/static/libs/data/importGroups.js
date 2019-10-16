@@ -3,6 +3,9 @@ class $importGroups {
 		let inpFile = inpFiles[0];
 		let reader = new FileReader();
 
+		if(!model)
+			return;
+
 		loaderShow();
 		reader.onloadend = function (e) {
 			const fr = e.target;
@@ -10,7 +13,7 @@ class $importGroups {
 				let groupName, lineData, curGroup,
 					fileData = fr.result.replace(/" [\/][\/] @(\r\n|\n)"/g, '');
 				// Clear Group show and select			
-				for (const [key, node] of Object.entries(fmElemsDict)) {
+				for (const [key, elm] of Object.entries(fmElemsDict)) {
 					elm.groupShow = 0;
 					elm.groupSelect = 0;
 				}

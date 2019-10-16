@@ -162,7 +162,8 @@ class $glSelection {
 			elm.select = true;
 			elm.setStage();
 		}
-		model.updateStages();
+		if (model)
+			model.updateStages();
 	}
 	clearSelection(update = true) {
 		for (const [key, node] of Object.entries(fmNodesDict)) {
@@ -173,7 +174,7 @@ class $glSelection {
 			elm.select = false;
 			elm.setStage();
 		}
-		if (update)
+		if (update && model)
 			model.updateStages();
 	}
 	isPassFilter(inpType) {

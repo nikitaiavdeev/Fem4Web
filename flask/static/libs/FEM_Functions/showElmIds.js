@@ -1,74 +1,72 @@
-class $showElmIds{
-	constructor(){
-		sideBar.currentObject = this;
-		
+class $showElmIds {
+	constructor(oldMe = this) {
 		this.selectNodes = sideBar.addSelect(
-				/*object*/		this.selectNodes,
-				/*caption*/ 	'Select Nodes:', 
-				/*inpVal*/		'',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		true
-			);
-		
+			oldMe.selectNodes, /*object*/
+			'Select Nodes:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			true /*focus*/
+		);
+
 		this.selectElements = sideBar.addSelect(
-				/*object*/		this.selectElements,
-				/*caption*/ 	'Select Elements:', 
-				/*inpVal*/		'',
-				/*selec type*/ 	selectFilter.ELEMENTS,
-				/*focus*/ 		false
-			);
-			
+			oldMe.selectElements, /*object*/
+			'Select Elements:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.ELEMENTS, /*selec type*/
+			false /*focus*/
+		);
+
 		let row = sideBar.addRow();
 		this.addElementNodes = sideBar.addCheckBox(
-				/*object*/		this.addElementNodes,
-				/*caption*/		"Include Elm's Nodes:", 
-				/*isChecked*/	true,
-				/*parent*/		row 
-			);	
-		
+			oldMe.addElementNodes, /*object*/
+			"Include Elm's Nodes:", /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
+
 		row = sideBar.addBtnRow();
 		this.applyBtn = sideBar.addButton(
-				/*object*/		this.applyBtn,
-				/*caption*/ 	'Apply',
-				/*parent*/ 		row, 
-				/*callback*/ 	this.apply
-			);
+			oldMe.applyBtn, /*object*/
+			'Apply', /*caption*/
+			row, /*parent*/
+			this.apply /*callback*/
+		);
 		this.clearBtn = sideBar.addButton(
-				/*object*/		this.clearBtn,
-				/*caption*/ 	'Clear All',
-				/*parent*/ 		row, 
-				/*callback*/	this.clearAll
-			);
+			oldMe.clearBtn, /*object*/
+			'Clear All', /*caption*/
+			row, /*parent*/
+			this.clearAll /*callback*/
+		);
 	}
 	//CallBacks
-	apply(e){
-		let	self = showElmIds,
+	apply(e) {
+		let self = showElmIds,
 			nodeList = new fmList(),
 			elmList = new fmList();
-		
+
 		nodeList.readList(self.selectNodes.value);
 		elmList.readList(self.selectElements.value);
-		
-		for(const node of nodeList.nodeArr){
+
+		for (const node of nodeList.nodeArr) {
 			glText.nodeCoords.push(...node.coords.xyz);
 			glText.nodeText.push(node.id);
 		}
-		
-		for(const elm of elmList.elmArr){
+
+		for (const elm of elmList.elmArr) {
 			glText.elmCoords.push(...elm.centroid.xyz);
 			glText.elmText.push(elm.id);
 		}
-		
+
 		glText.updateLocations();
 	}
-	clearAll(e){
+	clearAll(e) {
 		glText.nodeCoords = [];
 		glText.nodeText = [];
-		
+
 		glText.elmCoords = [];
 		glText.elmText = [];
 		glText.updateLocations();
 	}
 }
 
-const showElmIds = new $showElmIds();
+var showElmIds = new $showElmIds();

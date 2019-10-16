@@ -5,6 +5,7 @@ class $loadModel {
 	load(bdfData) {
 		let count;
 
+		// Clear Model
 		model = new $glMesh();
 
 		// Load nodes

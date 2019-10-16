@@ -1,243 +1,253 @@
-class $resultsCrossSection{
-	constructor(){
-		sideBar.currentObject = this;
-		
-		let row;
-		
+class $resultsCrossSection {
+	constructor(oldMe = this) {
+		let row, hasGPM = false;
+
+		if (model)
+			hasGPM = model.hasMoments;
+
 		this.selectLC = sideBar.addTextBox(
-				/*object*/		this.selectLC,
-				/*caption*/		'Enter LC ID:', 
-				/*inpVal*/		'10002',
-				/*inpType*/		'int',
-				/*focus*/		true
-			);
-			
+			oldMe.selectLC, /*object*/
+			'Enter LC ID:', /*caption*/
+			'', /*inpVal*/
+			'int', /*inpType*/
+			true /*focus*/
+		);
+
 		this.selectElements = sideBar.addSelect(
-				/*object*/		this.selectElements,
-				/*caption*/ 	'Select Elements:', 
-				/*inpVal*/		'Element 1720105 1890701 1890707',
-				/*selec type*/ 	selectFilter.ELEMENTS,
-				/*focus*/ 		false
-			);
-			
+			oldMe.selectElements, /*object*/
+			'Select Elements:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.ELEMENTS, /*selec type*/
+			false /*focus*/
+		);
+
 		this.selectNodes = sideBar.addSelect(
-				/*object*/		this.selectNodes,
-				/*caption*/ 	'Select Nodes:',
-				/*inpVal*/		'Node 900201 900222',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		false
-			);
-		
+			oldMe.selectNodes, /*object*/
+			'Select Nodes:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			false /*focus*/
+		);
+
 		row = sideBar.addRow();
 		this.GPM = sideBar.addCheckBox(
-				/*object*/		this.GPM,
-				/*caption*/		'Include Grid Point Moments', 
-				/*isChecked*/	model.hasMoments,
-				/*parent*/		row );
-		
-		if (!model.hasMoments){
+			oldMe.GPM, /*object*/
+			'Include Grid Point Moments', /*caption*/
+			hasGPM, /*isChecked*/
+			row); /*parent*/
+
+		if (!hasGPM) {
 			this.GPM.parentElement.setAttribute('disabled', '');
 			this.GPM.setAttribute('disabled', '');
 		}
-		
+
 		this.selectOrigin = sideBar.addSelect(
-				/*object*/		this.selectOrigin,
-				/*caption*/ 	'Select Origin:', 
-				/*inpVal*/		'Node 900201',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		false
-			);
-		
+			oldMe.selectOrigin, /*object*/
+			'Select Origin:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			false /*focus*/
+		);
+
 		this.selectIVector = sideBar.addSelect(
-				/*object*/		this.selectIVector,
-				/*caption*/ 	'Select i Axis:', 
-				/*inpVal*/		'Node 900200',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		false
-			);
-			
+			oldMe.selectIVector, /*object*/
+			'Select i Axis:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			false /*focus*/
+		);
+
 		this.selectJVector = sideBar.addSelect(
-				/*object*/		this.selectJVector,
-				/*caption*/ 	'Select i-j Plane:',
-				/*inpVal*/		'Node 900222',
-				/*selec type*/ 	selectFilter.NODES,
-				/*focus*/ 		false
-			);
-		
+			oldMe.selectJVector, /*object*/
+			'Select i-j Plane:', /*caption*/
+			'', /*inpVal*/
+			selectFilter.NODES, /*selec type*/
+			false /*focus*/
+		);
+
 		this.offset = sideBar.addTextBox(
-				/*object*/		this.offset,
-				/*caption*/		'Y c.g. Offset:', 
-				/*inpVal*/		'0.0',
-				/*inpType*/		'float',
-				/*focus*/		false
-			);
-		
+			oldMe.offset, /*object*/
+			'Y c.g. Offset:', /*caption*/
+			'0.0', /*inpVal*/
+			'float', /*inpType*/
+			false /*focus*/
+		);
+
 		row = sideBar.addRow();
 		this.components = sideBar.addRadio(
-				/*object*/		this.components,
-				/*caption*/		'Components', 
-				/*groupName*/	'group1',
-				/*isChecked*/	true,
-				/*parent*/		row );
+			oldMe.components, /*object*/
+			'Components', /*caption*/
+			'group1', /*groupName*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
 		this.resultant = sideBar.addRadio(
-				/*object*/		this.resultant,
-				/*caption*/		'Resultant', 
-				/*groupName*/	'group1',
-				/*isChecked*/	false,
-				/*parent*/		row );
-		
+			oldMe.resultant, /*object*/
+			'Resultant', /*caption*/
+			'group1', /*groupName*/
+			false, /*isChecked*/
+			row /*parent*/
+		);
+
 		row = sideBar.addRow();
 		this.fx = sideBar.addCheckBox(
-				/*object*/		this.fx,
-				/*caption*/		'Fx', 
-				/*isChecked*/	true,
-				/*parent*/		row );
+			oldMe.fx, /*object*/
+			'Fx', /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
 		this.fy = sideBar.addCheckBox(
-				/*object*/		this.fy,
-				/*caption*/		'Fy', 
-				/*isChecked*/	true,
-				/*parent*/		row );
+			oldMe.fy, /*object*/
+			'Fy', /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
 		this.fz = sideBar.addCheckBox(
-				/*object*/		this.fz,
-				/*caption*/		'Fz', 
-				/*isChecked*/	true,
-				/*parent*/		row );
-		
+			oldMe.fz, /*object*/
+			'Fz', /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
+
 		row = sideBar.addRow();
 		this.mx = sideBar.addCheckBox(
-				/*object*/		this.mx,
-				/*caption*/		'Mx', 
-				/*isChecked*/	true,
-				/*parent*/		row );
+			oldMe.mx, /*object*/
+			'Mx', /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
 		this.my = sideBar.addCheckBox(
-				/*object*/		this.my,
-				/*caption*/		'My', 
-				/*isChecked*/	true,
-				/*parent*/		row );
+			oldMe.my, /*object*/
+			'My', /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
 		this.mz = sideBar.addCheckBox(
-				/*object*/		this.mz,
-				/*caption*/		'Mz', 
-				/*isChecked*/	true,
-				/*parent*/		row );
-		
+			oldMe.mz, /*object*/
+			'Mz', /*caption*/
+			true, /*isChecked*/
+			row /*parent*/
+		);
+
 		row = sideBar.addBtnRow();
 		this.applyBtn = sideBar.addButton(
-				/*object*/		this.applyBtn,
-				/*caption*/ 'Apply',
-				/*parent*/ row, 
-				/*callback*/ this.apply
-			);
+			oldMe.applyBtn, /*object*/
+			'Apply', /*caption*/
+			row, /*parent*/
+			this.apply /*callback*/
+		);
 		this.clearBtn = sideBar.addButton(
-				/*object*/		this.clearBtn,
-				/*caption*/ 'Clear All',
-				/*parent*/ row, 
-				/*callback*/this.clearAll
-			);
+			oldMe.clearBtn, /*object*/
+			'Clear All', /*caption*/
+			row, /*parent*/
+			this.clearAll /*callback*/
+		);
 	}
 	//CallBacks
-	apply(e){
+	apply(e) {
 		let self = resultsCrossSection,
 			nl = new fmList(),
 			el = new fmList(),
 			mom = self.GPM.checked ? 6 : 3;
-			xhr = new XMLHttpRequest();   // new HttpRequest instance 
-		
+		xhr = new XMLHttpRequest(); // new HttpRequest instance 
+
 		fmVectors.arrows = [];
 		nl.readList(self.selectNodes.value);
 		el.readList(self.selectElements.value);
-				
+
 		xhr.open('POST', '/crossSection', true);
 		xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-		xhr.send(JSON.stringify({ 
+		xhr.send(JSON.stringify({
 			'LC': self.selectLC.value,
 			'elms': el.elmList,
 			'nodes': nl.nodeList,
 			'addMoments': self.GPM.checked
-			}));
-			
+		}));
+
 		loaderShow();
 
 		xhr.onreadystatechange = function () {
 			loaderFade();
-			
-			if(xhr.readyState === 4 && xhr.status === 200) {
-				let	nc,	fSum = [0, 0, 0], mSum = [0, 0, 0],
+
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				let nc, fSum = [0, 0, 0],
+					mSum = [0, 0, 0],
 					originNodeList = new fmList(),
 					iVectorNodeList = new fmList(),
 					jVectorNodeList = new fmList(),
 					rf = JSON.parse(xhr.responseText).GPFB;
-				
+
 				originNodeList.readList(self.selectOrigin.value);
 				iVectorNodeList.readList(self.selectIVector.value);
-				jVectorNodeList.readList(self.selectJVector.value);	
-				
+				jVectorNodeList.readList(self.selectJVector.value);
+
 				let o = originNodeList.nodeArr[0].coords(),
 					iN = iVectorNodeList.nodeArr[0].coords(),
 					jN = jVectorNodeList.nodeArr[0].coords(),
 					cid = new fmCID();
-				
+
 				cid.createFrom3Points(o, iN, jN);
 				let arm = new Array(nl.nodeArr.length);
-				
-				for( let i = 0; i < arm.length; i++ ) {
+
+				for (let i = 0; i < arm.length; i++) {
 					nc = nl.nodeArr[i].coords();
 					arm[i] = [nc[0] - o[0], nc[1] - o[1], nc[2] - o[2]];
 				}
-				
-				for( let i = 0; i < arm.length; i++  ){
-					fSum[0] -= rf[i*mom + 0];
-					fSum[1] -= rf[i*mom + 1];
-					fSum[2] -= rf[i*mom + 2];
-					
-					if(self.GPM.checked){
-						mSum[0] -= rf[i*mom + 3];
-						mSum[1] -= rf[i*mom + 4];
-						mSum[2] -= rf[i*mom + 5];
+
+				for (let i = 0; i < arm.length; i++) {
+					fSum[0] -= rf[i * mom + 0];
+					fSum[1] -= rf[i * mom + 1];
+					fSum[2] -= rf[i * mom + 2];
+
+					if (self.GPM.checked) {
+						mSum[0] -= rf[i * mom + 3];
+						mSum[1] -= rf[i * mom + 4];
+						mSum[2] -= rf[i * mom + 5];
 					}
-					
-					mSum[0] += arm[i][2] * rf[i*mom+1] - arm[i][1] * rf[i*mom+2];
-					mSum[1] += arm[i][0] * rf[i*mom+2] - arm[i][2] * rf[i*mom+0];
-					mSum[2] += arm[i][1] * rf[i*mom+0] - arm[i][0] * rf[i*mom+1];
+
+					mSum[0] += arm[i][2] * rf[i * mom + 1] - arm[i][1] * rf[i * mom + 2];
+					mSum[1] += arm[i][0] * rf[i * mom + 2] - arm[i][2] * rf[i * mom + 0];
+					mSum[2] += arm[i][1] * rf[i * mom + 0] - arm[i][0] * rf[i * mom + 1];
 				}
-				
+
 				fSum = cid.multVector(fSum);
 				mSum = cid.multVector(mSum);
-				
+
 				let arrow, sgn, vec;
-				
-				if(self.fx.checked){
+
+				if (self.fx.checked) {
 					fmVectors.addVector(o, cid.getXAxis(), fSum[0], [1, 0, 0]);
 				}
-				
-				if(self.fy.checked){
+
+				if (self.fy.checked) {
 					fmVectors.addVector(o, cid.getYAxis(), fSum[1], [0, 1, 0]);
 				}
-				
-				if(self.fz.checked){
+
+				if (self.fz.checked) {
 					fmVectors.addVector(o, cid.getZAxis(), fSum[2], [0, 0, 1]);
 				}
-				
-				if(self.mx.checked){
+
+				if (self.mx.checked) {
 					fmVectors.addVector(o, cid.getXAxis(), mSum[0], [1, 0, 1], true);
 				}
-				
-				if(self.my.checked){
+
+				if (self.my.checked) {
 					fmVectors.addVector(o, cid.getYAxis(), mSum[1], [1, 1, 0], true);
 				}
-				
-				if(self.mz.checked){
+
+				if (self.mz.checked) {
 					fmVectors.addVector(o, cid.getZAxis(), mSum[2], [0, 1, 1], true);
 				}
-				
+
 				glText.updateLocations();
 			}
-		};	
+		};
 	}
-	clearAll(e){
+	clearAll(e) {
 		fmVectors.arrows = [];
 		glText.vectorText = [];
 		glText.updateLocations();
 	}
 }
 
-const resultsCrossSection = new $resultsCrossSection();
+var resultsCrossSection = new $resultsCrossSection();

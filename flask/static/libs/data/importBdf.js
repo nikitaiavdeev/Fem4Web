@@ -3,13 +3,19 @@ class $importBdf {
         let reader = new FileReader();
         loaderShow();
 
-        model = new $glMesh();
+        // Clear Model
+		model = new $glMesh();
 
         reader.onloadend = this.readBdf;
 
         this.filesCount = inpFiles.length;
         this.filesReaded = 0;
-        this.clearGlobals();
+
+        // Create arrays for nodes
+        glNodes.coords = [];
+        glNodes.colors = [];
+        glNodes.selColors = [];
+        glNodes.stage = [];
 
         for (const inpFile of inpFiles) {
             reader.readAsBinaryString(inpFile);
@@ -89,17 +95,6 @@ class $importBdf {
             return new fmNode(id, null, null);
         }
     }
-    clearGlobals() {
-        glNodes.count = 0;
-        glNodes.coords = [];
-        glNodes.colors = [];
-        glNodes.selColors = [];
-        glNodes.stage = [];
-
-        glBars.count = 0;
-        glTrias.count = 0;
-        glQuads.count = 0;
-    }
     finishImport() {
         glNodes.coords = new Float32Array(glNodes.coords);
         glNodes.selColors = new Float32Array(glNodes.selColors);
@@ -146,6 +141,7 @@ class $importBdf {
         }
 
         model.init();
+        
         loaderFade();
     }
     parseBdfStr(str) {

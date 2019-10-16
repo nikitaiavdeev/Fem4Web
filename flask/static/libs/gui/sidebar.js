@@ -25,7 +25,6 @@ class $sideBar {
 
 		this.inputCount = 0;
 		this.currentFunction = null;
-		this.currentObject = null;
 		this.focusElement = null;
 		this.timeout = null;
 	}
@@ -62,7 +61,7 @@ class $sideBar {
 			script.src = source;
 			document.getElementsByTagName('head')[0].appendChild(script);
 		} else {
-			this.currentObject = new window[inpObject]();
+			window[inpObject] = new window[inpObject].constructor(window[inpObject]);
 		}
 
 		this.currentFunction = source;
