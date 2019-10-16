@@ -1,5 +1,4 @@
 # ![image_import](flask/static/img/Logo.svg 'Intro') H5View
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fnikitaiavdeev%2FH5View.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fnikitaiavdeev%2FH5View?ref=badge_shield)
 ![image_version](https://img.shields.io/badge/build-beta%20%5Bv.%200.0.1%5D-blue.svg 'Version') 
 
 H5View is an open source MSC Patran/Nastran .bdf/.dat files online viewer. It runs off JavaScript and WebGL2. 
