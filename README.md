@@ -5,7 +5,7 @@ Fem4Web is an open source Nastran FEM .bdf/.dat files online viewer and do basic
 Patran .ses group file could be imported as well.
 
 
-For now it's only supports elements such as:
+For now it only supports elements such as:
   CElas, CBush, CRod, CBar, CBeam, CTria3, CQuad4, CShear.
   
   ![image_import](wiki/image1.png 'Example')
