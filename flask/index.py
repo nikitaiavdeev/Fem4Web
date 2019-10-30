@@ -3,15 +3,18 @@ from flask import Flask, render_template, jsonify, request, Markup
 from flask_compress import Compress
 from flask_assets import Environment, Bundle
 import glob
-import tables
+#import tables
 import h5py
 import numpy as np
 
 H5FILE = 'XXX.h5'
-DBFILE = 'XXX.json'
+DBFILE = "C:\\Dev\\flask\\data.json"
 
 #Create single js file
 js = Bundle(
+            # Images
+            './img/allSvg.js',
+
             # Global Functions
             './libs/loader.js',
             './libs/globalFunctions.js',
@@ -55,8 +58,9 @@ js = Bundle(
 
 			# Import
 			'./libs/data/loadModel.js',
-			'./libs/data/importGroups.js', 
-            filters='jsmin', output='min/h5view.min.js')
+			'./libs/data/importBdf.js',
+            './libs/data/importGroups.js',
+            filters='jsmin', output='min/fem4web.min.js')
 
 #Create single css file
 css = Bundle(
@@ -67,7 +71,7 @@ css = Bundle(
             './css/modals.css',
             './css/fringe.css',
             './css/contextmenu.css',
-             filters='cssmin', output='min/h5view.min.css')
+             filters='cssmin', output='min/fem4web.min.css')
 
 #f = tables.open_file(H5FILE, 'r')
 #f.close
@@ -199,8 +203,6 @@ def listToArray(list):
     return ans
 
 if __name__ == "__main__":
-    #http_server = WSGIServer(('', 5000), app)
-    #http_server.serve_forever()
     compress.init_app(app)
     assets.init_app(app)
-    app.run(host="0.0.0.0", port=5000, debug = False, use_reloader=False)#, ssl_context=('cert.pem', 'key.pem'))
+    app.run(host="127.0.0.1", port=5000, debug = False, use_reloader=False)#, ssl_context=('cert.pem', 'key.pem'))

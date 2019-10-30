@@ -105,7 +105,11 @@ class treeControl {
 
 		this.showBtn.id = 'showTree';
 		this.showBtn.style.display = 'none';
+		this.showBtn.addSvgImage('toggleTree');
+
 		this.hideBtn.classList.add('hideBtn');
+		this.hideBtn.setAttribute('aria-label', 'Hide');
+		this.hideBtn.addSvgImage('hide');
 
 		this.hideBtn.onclick = this.showBtn.onclick = function () {
 			tree.container.style.display = tree.container.style.display === 'none' ? '' : 'none';
@@ -122,17 +126,21 @@ class treeControl {
 		this.container.id = 'treeContent';
 		this.module.appendChild(this.container);
 
+		let div = document.createElement('div');
+		div.id = 'treeFilter';
 		this.filter = document.createElement('input');
 		this.filter.type = 'text';
-		this.filter.id = 'treeFilter';
+		this.filter.setAttribute('aria-label', 'Filter');
 		this.filter.placeholder = 'Groups filter..';
-		this.container.appendChild(this.filter);
+		this.container.appendChild(div);
+		div.appendChild(this.filter);
+		div.addSvgImage('search');
 
 		this.head = document.createElement('div');
 		this.head.classList.add('treeTableHead');
 		this.container.appendChild(this.head);
 
-		let div = document.createElement('div');
+		div = document.createElement('div');
 		div.classList.add('treeTableCell', 'col1');
 		div.innerHTML = 'Name';
 		this.head.appendChild(div);
@@ -140,6 +148,7 @@ class treeControl {
 		div = document.createElement('div');
 		div.classList.add('treeTableCell', 'col2');
 		div.id = 'treeH2';
+		div.addSvgImage('eye');
 		this.head.appendChild(div);
 
 		// Hide/Show all event
@@ -263,7 +272,7 @@ class treeControl {
 		model.updateStages();
 		model.updateSelectStages();
 	}
-};
+}
 
 const tree = new treeControl();
 
@@ -275,4 +284,4 @@ document.onkeydown = function (e) {
 		tree.documentClickAdded = false;
 		tree.removeAllSelect();
 	}
-}
+};

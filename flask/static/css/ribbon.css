@@ -7,13 +7,17 @@
 #aboutTab {
 	background-color: var(--lightOrangeColor);
 	color: var(--bkgrndColor);
-	height: 22px;
-	background-size: 20px 20px;
-	background-image: url('../img/Logo.svg');
-	background-repeat: no-repeat;
-	background-position: 3px center;
-	padding: 3px 6px 3px 26px;
+	line-height: 22px;
+	padding: 1px 6px;
+	display: inline-flex;
 }
+
+#aboutTab svg{
+	width: 20px;
+	height: 20px;
+	padding-right: 3px;
+}
+
 
 #aboutTab:hover {
 	background-color: var(--orangeColor);
@@ -54,7 +58,7 @@
 /* Style the tab content */
 .ribbonTabContent {
 	background-color: var(--grayColor);
-	padding: 3px;
+	padding: 2px;
 	color: var(--bkgrndColor);
 }
 
@@ -79,24 +83,33 @@
 	color: var(--bkgrndColor);
 	background-color: var(--grayColor);
 	border: 1px solid var(--grayColor);
-	background-repeat: no-repeat;
-	background-position: 2px center;
-	background-size: 20px;
-	outline: none;
+	display: flex;
+    align-items: center;
 	cursor: pointer;
-	padding: 4px 5px 4px 28px;
+	padding: 1px;
 	transition: 0.2s;
 	white-space: nowrap;
 }
 
+.ribbonButton svg,
+.ribbonDropdownBtn svg,
+.ribbonDrpdnCont button svg{
+	width: 20px;
+	height: 20px;
+	padding: 2px;
+}
+
 .ribbonButton[size="large"],
-.ribbonDropdownBtn[size="large"] {
-	background-position: center 2px;
-	background-size: 32px;
+.ribbonDropdownBtn[size="large"]{
+	flex-flow: column;
+}
+
+.ribbonButton[size="large"] svg,
+.ribbonDropdownBtn[size="large"] svg{
+	width: 35px;
+	height: 35px;
 	min-width: 60px;
-	padding: 34px 5px 4px 5px;
-	margin: auto;
-	text-align: center;
+	padding: 2px;
 }
 
 .ribbonButton:hover,

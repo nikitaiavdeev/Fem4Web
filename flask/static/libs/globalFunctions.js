@@ -110,3 +110,11 @@ Float32Array.prototype.addElmNormals = function (elm, start) {
 		this[start + 8] = norm[2];
 	}
 };
+
+Object.prototype.addSvgImage = function (svgID) {
+	let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	this.appendChild(svg);
+	let use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+	use.setAttribute('href', '#' + svgID);
+	svg.appendChild(use);
+};

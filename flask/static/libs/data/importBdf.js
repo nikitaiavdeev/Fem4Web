@@ -4,7 +4,7 @@ class $importBdf {
         loaderShow();
 
         // Clear Model
-		model = new $glMesh();
+        model = new $glMesh();
 
         reader.onloadend = this.readBdf;
 
@@ -141,10 +141,15 @@ class $importBdf {
         }
 
         model.init();
-        
+
         loaderFade();
     }
     parseBdfStr(str) {
+        // Parse exponential numbers
+        if (str.search(/[\d\.][+\-]/) > -1) {
+            str = str[0] + str.substr(1).replace('+', 'e+');
+            str = str[0] + str.substr(1).replace('-', 'e-');
+        }
         const f = parseFloat(str);
         if (isNaN(f))
             return str.trim();
@@ -157,9 +162,6 @@ class $importBdf {
 
         if (!line || line.includes('$'))
             return line_list;
-
-        //if (line.toUpperCase().includes('INCLUDE'))
-        //    return !line.split();
 
         const s = line.includes('*') ? 16 : 8;
 

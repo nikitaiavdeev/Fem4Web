@@ -20,7 +20,7 @@ class $ribbonControl {
 		this.height = document.getElementById('ribbon').clientHeight;
 	}
 	initAboutTab() {
-		let aboutTab = new $ribbonTab('H5View', 'aboutTab');
+		let aboutTab = new $ribbonTab('Fem4Web', 'aboutTab');
 		aboutTab.tabBtn.onclick = function (e) {
 			e.stopPropagation();
 			const aboutModal = new $aboutModal();
@@ -221,11 +221,13 @@ class $ribbonTab {
 	constructor(name, id = false) {
 		this.tabBtn = document.createElement('button');
 		this.tabBtn.classList.add('ribbonTab');
-		this.tabBtn.innerHTML = name;
 
 		if (id) { // aboutTabException
+			this.tabBtn.addSvgImage('logo');
+			this.tabBtn.insertAdjacentHTML('beforeend', name);
 			this.tabBtn.id = id;
 		} else {
+			this.tabBtn.innerHTML = name;
 			this.tabBtn.addEventListener('click', this.onTabChange, false);
 			this.table = document.createElement('table');
 			this.table.classList.add('ribbonTabContent');
@@ -266,8 +268,8 @@ class $ribbonTab {
 		let btn = document.createElement('button');
 
 		btn.classList.add('ribbonButton');
-		btn.innerHTML = text;
-		btn.style.backgroundImage = "url(static/img/ribbon/" + icon +  ".svg)";
+		btn.addSvgImage(icon);
+		btn.insertAdjacentHTML('beforeend', text);
 
 		// Set Icon to Large
 		if (isSmall == false)
@@ -282,8 +284,8 @@ class $ribbonTab {
 			dropDown = document.createElement('div');
 
 		btn.classList.add('ribbonDropdownBtn');
-		btn.innerHTML = text;
-		btn.style.backgroundImage = "url(static/img/ribbon/" + icon +  ".svg)";
+		btn.addSvgImage(icon);
+		btn.insertAdjacentHTML('beforeend', text);
 
 		if (!isSmall)
 			btn.setAttribute('size', 'large');
@@ -305,8 +307,8 @@ class $ribbonTab {
 	addDropDownItem(dropDown, text, icon) {
 		let btn = document.createElement('button');
 		btn.classList.add('ribbonButton');
-		btn.style.backgroundImage = "url(static/img/ribbon/" + icon +  ".svg)";
-		btn.innerHTML = text;
+		btn.addSvgImage(icon);
+		btn.insertAdjacentHTML('beforeend', text);
 		dropDown.nextSibling.appendChild(btn);
 		btn.addEventListener('click', this.onDropDownOptionClick, false);
 	}
@@ -356,7 +358,6 @@ class $ribbonTab {
 		//Change icon and text
 		if (this.parentElement.previousSibling.getAttribute('changeicon') !== 'no') {
 			this.parentElement.previousSibling.innerHTML = this.innerHTML;
-			this.parentElement.previousSibling.style.backgroundImage = this.style.backgroundImage;
 		}
 
 		//Run custom event

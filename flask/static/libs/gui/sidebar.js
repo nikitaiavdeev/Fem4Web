@@ -4,6 +4,7 @@ class $sideBar {
 
 		this.closeBtn = document.createElement('button');
 		this.closeBtn.classList.add('closeBtn');
+		this.closeBtn.addSvgImage('close');
 		this.wrapper.appendChild(this.closeBtn);
 
 		this.closeBtn.onclick = this.closeBtnClick;

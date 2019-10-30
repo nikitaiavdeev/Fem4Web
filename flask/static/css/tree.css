@@ -3,7 +3,6 @@
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	padding: 25px 10px 10px 10px;
 
 	background-color: var(--treeBkgrndColor);
 
@@ -20,6 +19,7 @@
 }
 
 #treeView.resizable {
+	padding: 25px 10px 10px 10px;
 	max-height: 69px;
 	min-height: 69px;
 	min-width: 200px;
@@ -111,19 +111,15 @@
 
 #treeH2 {
 	width: 20px;
-	background-image: url('../img/gui/eye.svg');
-	background-position: center;
-	background-size: 15px;
-	background-repeat: no-repeat;
 	cursor: pointer;
 }
+#treeH2 svg{
+	height: 15px;
+	width: 15px;
+}
 
-#treeFilter {
+#treeFilter input {
 	background-color: transparent;
-	background-image: url('../img/gui/search.svg');
-	background-position: 3px 3px;
-	background-size: 15px;
-	background-repeat: no-repeat;
 
 	width: 100%;
 	box-sizing: border-box;
@@ -134,13 +130,25 @@
 	color: var(--grayColor);
 }
 
+#treeFilter {
+	position: relative;
+}
+
+#treeFilter svg{
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 15px;
+	height: 15px;
+}
+
 #treeFilter::placeholder {
 	color: var(--darkGrayColor);
 	opacity: 1;
 	/* Firefox */
 }
 
-#treeFilter:focus {
+#treeFilter input:focus {
 	outline: none;
 	background-color: var(--grayColor);
 	color: var(--modalBkgrndColor);
@@ -158,16 +166,15 @@
 }
 
 #showTree {
-	width: 30px;
-	height: 30px;
 	background-color: transparent;
 	border: 0px solid transparent;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: 20px;
 	outline: none;
 	cursor: pointer;
-	padding: 4px;
 	transition: 0.2s;
-	background-image: url('../img/gui/toggleTree.svg');
+}
+
+#showTree svg{
+	width: 20px;
+	height: 20px;
+	padding: 10px;
 }

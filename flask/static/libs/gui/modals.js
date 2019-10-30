@@ -5,6 +5,7 @@ class $guiModals {
 	addCloseBtn(wrap) {
 		const button = document.createElement('button');
 		button.classList.add('closeBtn');
+		button.addSvgImage('close');
 		button.addEventListener('click', this.onCloseClick);
 		wrap.appendChild(button);
 	}
@@ -154,7 +155,7 @@ class $aboutModal extends $guiModals {
 		divWrap.id = 'modalAboutText';
 		wrapper.appendChild(divWrap);
 
-		div.innerHTML = 'H5View';
+		div.innerHTML = 'Fem4Web';
 		div.id = 'modalAboutTitle';
 		divWrap.appendChild(div);
 
@@ -165,16 +166,18 @@ class $aboutModal extends $guiModals {
 
 		div = document.createElement('div');
 		div.id = 'modalAboutVersion';
+		div.addSvgImage('build_status');
 		divWrap.appendChild(div);
 
 		div = document.createElement('div');
-		div.innerHTML = 'H5View is an online Patran .h5 file viewer. It allows you to view files on any computer with a web browser without having to bootup bulky Patran files.';
+		div.innerHTML = 'Fem4Web is an open source Nastran FEM .bdf/.dat files online viewer. It allows to do basic measurements, display model information such as node/element IDs and properties. You could do it on any computer with modern web browser.';
 		div.id = 'modalAboutDescription';
 		divWrap.appendChild(div);
 
 		//logo
 		div = document.createElement('div');
 		div.id = 'modalAboutLogo';
+		div.addSvgImage('logo');
 		wrapper.appendChild(div);
 
 		//footer
