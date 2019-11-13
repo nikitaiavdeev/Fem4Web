@@ -52,9 +52,25 @@ js = Bundle(
 
 			# FEM
 			'./libs/FEM/fmList.js',
-			'./libs/FEM/fmFEM.js',
 			'./libs/FEM/fmGroups.js',
 			'./libs/FEM/fmVectors.js',
+
+            # CIDs
+            './libs/FEM/coords/fmCoords.js',
+
+            # Nodes
+            './libs/FEM/nodes/fmNodes.js',
+
+            # Elements
+            './libs/FEM/elements/fmElms.js',
+            './libs/FEM/elements/fm1DElms.js',
+            './libs/FEM/elements/fm2DElms.js',
+
+            # Properties
+            './libs/FEM/properties/fmProps.js',
+
+            # Materials
+            './libs/FEM/materials/fmMats.js',
 
 			# Import
 			'./libs/data/loadModel.js',
@@ -97,6 +113,11 @@ def mainPage():
     assets.register('css_all', css)
     
     return render_template('index.html')
+
+@app.route('/static/libs/service-worker.js', methods=['GET'])
+def sendSW():
+    print('get sw')
+    return app.send_static_file('./static/libs/service-worker.js')
 
 @app.route('/openDB', methods=['POST'])
 def openDB():

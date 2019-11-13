@@ -224,7 +224,7 @@ class $ribbonTab {
 
 		if (id) { // aboutTabException
 			this.tabBtn.addSvgImage('logo');
-			this.tabBtn.insertAdjacentHTML('beforeend', name);
+			this.tabBtn.addSpan(name);
 			this.tabBtn.id = id;
 		} else {
 			this.tabBtn.innerHTML = name;
@@ -269,7 +269,7 @@ class $ribbonTab {
 
 		btn.classList.add('ribbonButton');
 		btn.addSvgImage(icon);
-		btn.insertAdjacentHTML('beforeend', text);
+		btn.addSpan(text);
 
 		// Set Icon to Large
 		if (isSmall == false)
@@ -285,7 +285,7 @@ class $ribbonTab {
 
 		btn.classList.add('ribbonDropdownBtn');
 		btn.addSvgImage(icon);
-		btn.insertAdjacentHTML('beforeend', text);
+		btn.addSpan(text);
 
 		if (!isSmall)
 			btn.setAttribute('size', 'large');
@@ -308,7 +308,7 @@ class $ribbonTab {
 		let btn = document.createElement('button');
 		btn.classList.add('ribbonButton');
 		btn.addSvgImage(icon);
-		btn.insertAdjacentHTML('beforeend', text);
+		btn.addSpan(text);
 		dropDown.nextSibling.appendChild(btn);
 		btn.addEventListener('click', this.onDropDownOptionClick, false);
 	}
@@ -363,7 +363,7 @@ class $ribbonTab {
 		//Run custom event
 		let event = new CustomEvent('onRibbonDropdownChange', {
 			detail: {
-				text: this.innerHTML,
+				text: this.getElementsByTagName('span')[0].innerHTML,
 			},
 			bubbles: true,
 			cancelable: true

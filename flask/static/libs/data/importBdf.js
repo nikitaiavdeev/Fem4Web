@@ -1,3 +1,12 @@
+const fmAllowableElms = {
+    'CROD': fmCROD,
+    'CBEAM': fmCBEAM,
+    'CBAR': fmCBAR,
+
+    'CTRIA3': fmCTRIA3,
+    'CQUAD4': fmCQUAD4
+};
+
 class $importBdf {
     constructor(inpFiles) {
         let reader = new FileReader();
@@ -11,12 +20,6 @@ class $importBdf {
         this.filesCount = inpFiles.length;
         this.filesReaded = 0;
 
-        // Create arrays for nodes
-        glNodes.coords = [];
-        glNodes.colors = [];
-        glNodes.selColors = [];
-        glNodes.stage = [];
-
         for (const inpFile of inpFiles) {
             reader.readAsBinaryString(inpFile);
         }
@@ -25,7 +28,7 @@ class $importBdf {
         let fr = e.target,
             self = importBdf,
             i = 0,
-            sColor, tmpNode, tmpElm, con, card, nextline;
+            card, nextline;
 
         if (fr.readyState == FileReader.DONE) {
             let fileData = fr.result.split(/\r\n|\n/);
@@ -44,39 +47,10 @@ class $importBdf {
                 if (card.length == 0) continue;
 
                 if (!card[0].includes('$')) {
-                    switch (card[0]) {
-                        case 'GRID':
-                            tmpNode = fmNodesDict[card[1]];
-                            if (!tmpNode) {
-                                tmpNode = new fmNode(card[1], glNodes.count++, card[2]);
-                            } else {
-                                tmpNode.glID = glNodes.count++;
-                                tmpNode.acid = card[2];
-                            }
-
-                            sColor = hover.createColor(tmpNode.id * 10 + 1);
-
-                            glNodes.coords.push(card[3], card[4], card[5]);
-                            glNodes.selColors.push(...sColor);
-                            break;
-                        case 'CROD':
-                        case 'CBEAM':
-                        case 'CBAR':
-                            glBars.count++;
-                            con = [self.checkNode(card[3]), self.checkNode(card[4])];
-                            tmpElm = new fmElm(card[1], card[0], con, card[2], false);
-                            break;
-                        case 'CTRIA3':
-                            glTrias.count++;
-                            con = [self.checkNode(card[3]), self.checkNode(card[4]), self.checkNode(card[5])];
-                            tmpElm = new fmElm(card[1], card[0], con, card[2], false);
-                            break;
-                        case 'CQUAD4':
-                        case 'CSHEAR':
-                            glQuads.count++;
-                            con = [self.checkNode(card[3]), self.checkNode(card[4]), self.checkNode(card[5]), self.checkNode(card[6])];
-                            tmpElm = new fmElm(card[1], card[0], con, card[2], false);
-                            break;
+                    if (card[0] in fmAllowableElms) {
+                        new fmAllowableElms[card[0]](card);
+                    } else if (card[0] == 'GRID') {
+                        new fmNodes(card);
                     }
                 }
             }
@@ -85,14 +59,6 @@ class $importBdf {
         self.filesReaded++;
         if (self.filesReaded == self.filesCount) {
             self.finishImport();
-        }
-    }
-    checkNode(id) {
-        let node = fmNodesDict[id];
-        if (node) {
-            return node;
-        } else {
-            return new fmNode(id, null, null);
         }
     }
     finishImport() {
@@ -125,7 +91,7 @@ class $importBdf {
         glTrias.colors.appendNTimes([0.17, 0.45, 0.7, 1.0], glTrias.count * 3, 0);
 
         glQuads.stage = new Float32Array(glQuads.count * 6);
-        glQuads.selColors = new Float32Array(glQuads.count * 24);
+        glQuads.selColors = new Float32Array(glQuads.count* 24);
         glQuads.coords = new Float32Array(glQuads.count * 18);
         glQuads.barycentric = new Float32Array(glQuads.count * 18);
         glQuads.normals = new Float32Array(glQuads.count * 18);
@@ -133,15 +99,11 @@ class $importBdf {
         glQuads.stage.fill(1);
         glQuads.colors.appendNTimes([0.17, 0.45, 0.7, 1.0], glQuads.count * 6, 0);
 
-        glBars.count = 0;
-        glTrias.count = 0;
-        glQuads.count = 0;
         for (const [key, elm] of Object.entries(fmElemsDict)) {
             elm.load2GL();
         }
 
         model.init();
-
         loaderFade();
     }
     parseBdfStr(str) {

@@ -118,3 +118,9 @@ Object.prototype.addSvgImage = function (svgID) {
 	use.setAttribute('href', '#' + svgID);
 	svg.appendChild(use);
 };
+
+Object.prototype.addSpan = function (text) {
+	let span = document.createElement('span');
+	span.innerHTML = text;
+	this.appendChild(span);
+};

@@ -119,12 +119,16 @@ class $glMesh {
 		fmCIDDict = {};
 		fmPropDict = {};
 		fmMatDict = {};
+
 		glNodes.count = 0;
 		glBars.count = 0;
 		glTrias.count = 0;
 		glQuads.count = 0;
+
+		glNodes.coords = [];
+		glNodes.selColors = [];
 	}
-	init(){
+	init() {
 		// Determine model boundaries
 		this.findMaxMin();
 

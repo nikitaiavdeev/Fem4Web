@@ -27,6 +27,15 @@ var loader = null;
 //animationID
 var animationID = null;
 
+if ('serviceWorker' in navigator) {
+	window.addEventListener('load', () => {
+		navigator.serviceWorker.register('./static/libs/service-worker.js')
+			.then((reg) => {
+				console.log('Service worker registered.', reg);
+			});
+	});
+}
+
 // Cache all imagese
 window.onload = function () {
 	//Init Canvases
